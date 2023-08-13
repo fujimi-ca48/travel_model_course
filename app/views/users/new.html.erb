@@ -6,6 +6,7 @@
     <h1 class="text-center text-4xl font-shin text-default text-gray-700">新規ユーザー登録</h1>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <%= form_with model: @user, local: true, class: "mb-4" do |f| %>
+      <%= render 'shared/error_messages', model: f.object %>
       <div class="mb-4">
         <div class="flex justify-start">
           <%= f.label :name, class: "input-label pr-4 text-default text-gray-700" %>

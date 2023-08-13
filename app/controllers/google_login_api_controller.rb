@@ -9,7 +9,7 @@ class GoogleLoginApiController < ApplicationController
       
       if user = User.find_by(email: payload['email'])
         session[:user_id] = user.id
-        redirect_to root_path, notice: 'ログインしました'
+        redirect_to root_path, success: 'success'
       else
         user = User.new(email: payload['email'], name: 'name', password: 'password', password_confirmation: 'password')
         if user.save
