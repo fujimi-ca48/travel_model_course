@@ -1,0 +1,43 @@
+<div class="min-h-screen flex flex-col justify-center items-center">
+  <div class="sticky top-0 bg-slate-800 text-white py-2">
+  </div>
+  <div class="mx-auto w-full max-w-md text-center space-y-8">
+    <h1 class="text-center text-4xl font-shin text-default text-gray-700">ログイン</h1>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <%= form_with url: login_path, local: true, class: "mb-4" do |f| %>
+      <div class="mb-4">
+        <div class="flex justify-start">
+          <%= f.label :email, class: "input-label pr-4 text-default text-gray-700" %>
+        </div>
+        <%= f.email_field :email, class: "input input-bordered input-accent w-full max-w-full bg-custom" %>
+      </div>
+      <div class="mb-4">
+        <div class="flex justify-start">
+          <%= f.label :password, class: "input-label pr-4 text-default text-gray-700" %>
+        </div>
+        <%= f.password_field :password, class: "input input-bordered input-accent w-full max-w-full bg-custom" %>
+      </div>
+      <div class="mb-4">
+        <%= f.submit "ログイン", class: "btn btn-accent w-full text-white" %>
+      </div>
+      <% end %>
+      <%= link_to "パスワードを忘れた場合はこちら", "#", class: "text-xl link link-primary"%>
+      <div class="flex justify-center mt-4">
+      <div id="g_id_onload"
+        data-client_id="253764374707-qb38dbcujbto05dl95k9fkk7jmpa86ng.apps.googleusercontent.com"
+        data-login_uri="http://localhost:3000/google_login_api/callback"
+        data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left">
+      </div>
+    </div>
+  </div>
+  <div class="sticky bottom-0 bg-slate-800 text-white py-2">
+  </div>
+</div>
