@@ -9,13 +9,13 @@
         <div class="flex justify-start">
           <%= f.label :email, class: "input-label pr-4 text-default text-gray-700" %>
         </div>
-        <%= f.email_field :email, class: "input input-bordered input-accent w-full max-w-full bg-custom" %>
+        <%= f.email_field :email, class: "input input-bordered input-accent w-full max-w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
       </div>
       <div class="mb-4">
         <div class="flex justify-start">
           <%= f.label :password, class: "input-label pr-4 text-default text-gray-700" %>
         </div>
-        <%= f.password_field :password, class: "input input-bordered input-accent w-full max-w-full bg-custom" %>
+        <%= f.password_field :password, class: "input input-bordered input-accent w-full max-w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
       </div>
       <div class="mb-4">
         <%= f.submit "ログイン", class: "btn btn-accent w-full text-white" %>
