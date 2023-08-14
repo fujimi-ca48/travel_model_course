@@ -2,7 +2,7 @@
   <div class="sticky top-0 bg-slate-800 text-white py-2">
   </div>
   <div class="mx-auto w-full max-w-md text-center space-y-8">
-    <h1 class="text-center text-4xl font-shin text-default text-gray-700">新規ユーザー登録</h1>
+    <h1 class="text-center text-4xl font-shin text-default text-gray-700"><%= t('.title') %></h1>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <%= form_with model: @user, local: true, class: "mb-4" do |f| %>
       <%= render 'shared/error_messages', model: f.object %>
@@ -31,10 +31,10 @@
         <%= f.password_field :password_confirmation, class: "input input-bordered input-accent w-full max-w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
       </div>
       <div class="mb-4">
-        <%= f.submit "新規登録", class: "btn btn-accent w-full text-white" %>
+        <%= f.submit (t '.register'), class: "btn btn-accent w-full text-white" %>
       </div>
     <% end %>
-    <%= link_to "アカウントを既にお持ちの方", "#", class: "text-xl link link-primary"%>
+    <%= link_to (t '.to_login_page'), "#", class: "text-xl link link-primary"%>
     <div class="flex justify-center mt-4">
       <div id="g_id_onload"
         data-client_id="253764374707-qb38dbcujbto05dl95k9fkk7jmpa86ng.apps.googleusercontent.com"

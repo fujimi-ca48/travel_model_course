@@ -1,0 +1,28 @@
+ja:
+  users:
+    new:
+      title: 'ユーザー登録'
+      register: '登録'
+      to_login_page: 'アカウントをお持ちの方'
+    create:
+      success: 'ユーザー登録が完了しました'
+      fail: 'ユーザー登録に失敗しました'
+  user_sessions:
+    new:
+      to_register_page: 'ユーザー登録ページへ'
+      forgot_your_password: 'パスワードを忘れた方はこちら'
+      title: 'ログイン'
+    create:
+      success: 'ログインしました'
+      fail: 'ログインに失敗しました'
+    destroy:
+      success: 'ログアウトしました'
+  defaults:
+    login: 'ログイン'
+    logout: 'ログアウト'
+  google_login_api:
+    callback:
+      success: "ログインしました"
+      reqire_change: "ユーザー名とパスワードを変更してください"
+      fail: "ログインに失敗しました"
+      unauthorized_access: "不正なアクセスです"
