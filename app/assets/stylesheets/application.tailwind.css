@@ -8,6 +8,16 @@ body {
     background-repeat: no-repeat;
 }
 
+.footer {
+    background-image: url('back.png');
+    background-size: cover;
+}
+
+.header {
+    background-image: url('back.png');
+    background-size: cover;
+}
+
 .bg-custom {
     background-color:#F3EEE8; 
 }
