@@ -1,0 +1,34 @@
+<% if logged_in? %>
+  <header class="navbar header bg-custom-1">
+    <div class="container mx-auto flex flex-wrap flex-row items-center py-2">
+      <div class="flex-none">
+        <div class="navbar-start">
+          <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost btn-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              <li><%= link_to '観光地一覧', admin_tourist_spots_path %></li>
+              <li><%= link_to '登録フォーム', new_admin_tourist_spot_path %></li>
+              <li><a>タグ</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="flex-1">
+        <%= link_to image_tag('logo.png'), root_path, class: "py-2" %>
+      </div>
+      <div class="flex-none">
+        <%= link_to 'ログアウト', admin_logout_path, data: { turbo_method: :delete }, class: "btn btn-outline btn-accent mx-1" %>
+      </div>
+    </div>
+  </header>
+<% else %>
+  <div class="navbar header bg-custom-1">
+     <div class="container mx-auto flex flex-wrap flex-row items-center py-2">
+       <div class="flex-1">
+         <%= link_to image_tag('logo.png'), root_path, class: "py-2" %>
+       </div>
+     </div>
+  </div>
+<% end %>

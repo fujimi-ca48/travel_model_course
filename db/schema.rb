@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_13_033805) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_14_104724) do
+  create_table "tourist_spots", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address", null: false
+    t.text "text"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "spot_image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -18,6 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_13_033805) do
     t.string "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
