@@ -2,9 +2,19 @@ ja:
   activerecord:
     models:
       user: 'ユーザー'
+      tourist_spot: '観光地'
     attributes:
       user:
         name: 'ユーザー名'
         email: 'メールアドレス'
         password: 'パスワード'
         password_confirmation: 'パスワード確認'
+      tourist_spot:
+        name: 'スポット名'
+        text: '見どころ'
+        address: '住所'
+    enums:
+      user:
+        role: 
+          general: '一般'
+          admin: '管理者'

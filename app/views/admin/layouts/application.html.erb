@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html>
   <head>
-    <title>TestTravelModelCourse</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-
-  <body class="font-body bg-custom">
-    <%= render 'shared/header' %>
+  <body>
+    <%= render 'admin/shared/header' %>
     <%= render 'shared/flash_message' %>
     <%= yield %>
-    <%= render 'shared/footer' %>
+    <%= render 'admin/shared/footer' %>
   </body>
 </html>
