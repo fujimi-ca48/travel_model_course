@@ -145,6 +145,7 @@ GEM
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
     formatador (1.1.0)
+    geocoder (1.8.2)
     globalid (1.1.0)
       activesupport (>= 5.0)
     googleauth (1.7.0)
@@ -345,6 +346,7 @@ DEPENDENCIES
   debug
   dotenv-rails
   fog-aws
+  geocoder
   googleauth
   jbuilder
   jquery-rails

@@ -43,7 +43,7 @@ class Admin::TouristSpotsController < Admin::BaseController
   private
   
   def tourist_spot_params
-    params.require(:tourist_spot).permit(:name, :text, :address, :spot_image)
+    params.require(:tourist_spot).permit(:name, :text, :address, :spot_image, :latitude, :longitude)
   end
 
   def set_spot
