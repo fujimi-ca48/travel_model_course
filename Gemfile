@@ -13,6 +13,13 @@ gem "jbuilder"
 gem 'sorcery'
 gem 'googleauth'
 gem 'rails-i18n'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog-aws'
+gem 'dotenv-rails'
+gem "aws-sdk-s3", require: false
+gem 'carrierwave-aws'
+gem 'jquery-rails'
 gem 'pry-byebug', group: :development
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false

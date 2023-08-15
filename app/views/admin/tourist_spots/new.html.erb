@@ -1,4 +1,6 @@
-<div class="bg-white h-screen py-6 sm:py-8 lg:py-12">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<%= javascript_include_tag "preview", "data-turbo-track": "reload", defer: true %>
+<div class="bg-white full-screen py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl"><%= t('.title') %></h2>
 
@@ -19,6 +21,19 @@
           <%= f.text_field :address, class: "w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" %>
         </div>
 
+        <div>
+          <%= f.label :spot_image, class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
+          <%= f.file_field :spot_image, id: 'spot_image' %>
+        </div>
+
+        <div>
+          <% if @tourist_spot.spot_image.present? %>
+            <%= image_tag @tourist_spot.spot_image.url, id: :img_prev %>
+          <% else %>
+            <%= image_tag "sample.jpg", id: :img_prev %>
+          <% end %>
+        </div>
+      
         <%= f.submit t('defaults.create'), class: "block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base" %>
       </div>
     <% end %>
