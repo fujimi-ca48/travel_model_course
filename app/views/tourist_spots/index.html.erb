@@ -5,6 +5,7 @@
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
     </div>
 
+    <%= link_to "選んだ観光地を確認する", selected_tourist_spots_path, class: "btn btn-secondary mt-4" %>
     <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
       <% @tourist_spots.each do |tourist_spot| %>
         <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
@@ -37,8 +38,7 @@
                 </div>
               </div>
 
-              <div class="border-t border-gray-300"></div> 
-              <%= check_box_tag 'selected_items[]', tourist_spot.id %>
+              <%= button_to "追加", selected_tourist_spots_path(tourist_spot_id: tourist_spot.id), method: :post, class: "btn btn-primary" %>
 
               <span class="rounded border px-2 py-1 text-sm text-gray-500">詳細</span>
             </div>

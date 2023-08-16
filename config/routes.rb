@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   post '/google_login_api/callback', to: 'google_login_api#callback'
 
   resources :tourist_spots, only: %i[index show]
+  resources :selected_tourist_spots, only: %i[create index destroy]
 end

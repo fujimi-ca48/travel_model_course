@@ -1,0 +1,2 @@
+module SelectedTouristSpotsHelper
+end
