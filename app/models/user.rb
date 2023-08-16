@@ -9,4 +9,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 10 }
 
   enum role: {general: 0, admin: 1}
+
+  has_many :selected_tourist_spots
+  has_many :tourist_spots, through: :selected_tourist_spots
 end
