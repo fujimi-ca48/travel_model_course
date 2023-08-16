@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
   post '/google_login_api/callback', to: 'google_login_api#callback'
+
+  resources :tourist_spots, only: %i[index show]
 end

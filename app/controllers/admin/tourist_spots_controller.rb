@@ -4,7 +4,8 @@ class Admin::TouristSpotsController < Admin::BaseController
   before_action :check_admin
   
   def index
-    @tourist_spots = TouristSpot.all
+    @q = TouristSpot.ransack(params[:q])
+    @tourist_spots = @q.result(distinct: true).page(params[:page]).per(5)
   end
   
   def new
