@@ -21,6 +21,8 @@ gem "aws-sdk-s3", require: false
 gem 'carrierwave-aws'
 gem 'jquery-rails'
 gem 'geocoder'
+gem 'kaminari'
+gem 'ransack'
 gem 'pry-byebug', group: :development
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false

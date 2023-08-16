@@ -1,0 +1,56 @@
+<div class="bg-white py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+
+    <div class="mb-10 md:mb-16">
+      <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
+      <% @tourist_spots.each do |tourist_spot| %>
+        <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+          <a href="#" class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64">
+            <% if tourist_spot.spot_image.present? %>
+              <%= image_tag tourist_spot.spot_image.url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" %>
+            <% else %>
+              <%= image_tag "sample.jpg", class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" %>
+            <% end %>
+          </a>
+
+          <div class="flex flex-1 flex-col p-4 sm:p-6">
+            <h2 class="mb-2 text-lg font-semibold text-gray-800">
+              <a href="#" class="transition duration-100 hover:text-indigo-500 active:text-indigo-600"><%= tourist_spot.name %></a>
+            </h2>
+
+            <% if tourist_spot.text.length > 20 %>
+              <p class="mb-4 text-gray-500"><%= tourist_spot.text[0..30] + "…" %></p>
+            <% else %>
+              <p class="mb-4 text-gray-500"><%= tourist_spot.text %></p>
+            <% end %>
+
+            <div class="mt-auto flex items-end justify-between">
+              <div class="flex items-center gap-2">
+                <div class="h-10 ">
+                <% prefecture = tourist_spot.address.match(/([北東名][都道府県]|.{2,3}[都道府県])/)&.captures&.first %>
+                <% if prefecture %>
+                  <p class="mb-8 text-indigo-500 mt-3"><%= prefecture %></p>
+                <% end %>
+                </div>
+              </div>
+
+              <div class="border-t border-gray-300"></div> 
+              <%= check_box_tag 'selected_items[]', tourist_spot.id %>
+
+              <span class="rounded border px-2 py-1 text-sm text-gray-500">詳細</span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+     <div class="flex justify-center mt-4">
+       <%= paginate @tourist_spots %>
+     </div>
+  </div>
+</div>
+
+
+

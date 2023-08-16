@@ -25,3 +25,14 @@ body {
 .bg-custom-1 {
     background-color:#333944
 }
+
+.pagination a {
+    color: #333944;
+    font-size: 25px;
+}
+
+  .pagination .current {
+    background-color: #1fb2a6;
+    color: #FFFFFF;
+    font-size: 25px;
+}
