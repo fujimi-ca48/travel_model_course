@@ -7,9 +7,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       auto_login(@user)
-      redirect_to tourist_spots_path, success: '管理者ユーザーを作成できませんでした'
+      redirect_to tourist_spots_path, success: t('.success')
     else
-      flash.now[:danger] = '管理者ユーザーを作成できませんでした'
+      flash.now[:danger] = t('.fail')
       render :new, status: :unprocessable_entity
     end
   end

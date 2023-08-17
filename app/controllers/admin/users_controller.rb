@@ -9,9 +9,9 @@ class Admin::UsersController < Admin::BaseController
     @user = User.new(user_params)
     if @user.save
       auto_login(@user)
-      redirect_to admin_root_path, success: 'ユーザー登録に成功しました'
+      redirect_to admin_root_path, success: t('.success')
     else
-      flash.now[:danger] = 'ユーザー登録できませんでした'
+      flash.now[:danger] = t('.fail')
       render :new, status: :unprocessable_entity
     end
   end

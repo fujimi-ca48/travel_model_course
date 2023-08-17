@@ -1,11 +1,10 @@
-<div class="bg-white py-6 sm:py-8 lg:py-12">
-  <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+<div class="mx-auto max-w-screen-2xl px-4 md:px-8">
 
     <div class="mb-10 md:mb-16">
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
     </div>
 
-    <%= link_to "モデルコースを作成する", new_model_course_path, class: "btn btn-accent mt-4" %>
+    <%= link_to t('.to_model_course'), new_model_course_path, class: "btn btn-accent mt-4" %>
     <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
       <% @recommended_spots.each do |recommended_spot| %>
         <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
@@ -38,10 +37,8 @@
                 </div>
               </div>
 
-              <%= button_to "モデルコースに追加", add_to_model_course_recommended_spots_path(recommended_spot_id: recommended_spot.id), method: :post, class: "btn btn-sm btn-accent" %>
+              <%= button_to t('.add_to_model_course', recommended_spot_name: recommended_spot.name), add_to_model_course_recommended_spots_path(recommended_spot_id: recommended_spot.id), method: :post, class: "btn btn-sm btn-accent" %>
           </div>
         </div>
       <% end %>
     </div>
-  </div>
-</div>

@@ -1,15 +1,15 @@
 <%= javascript_include_tag 'model_courses' %>
 <div class="bg-white min-h-screen py-6 sm:py-8 lg:py-12">
-  <h1>モデルコース新規作成</h1>
+  <h1><%= t('.title') %></h1>
   <%= form_with(model: @model_course, url: model_courses_path, method: :post) do |form| %>
     <!-- モデルコース名と所要時間の入力フォーム -->
     <div class="mb-4">
-      <%= form.label :name, "モデルコース名" %>
+      <%= form.label :name %>
       <%= form.text_field :name, class: "form-control" %>
     </div>
     <div class="mb-4">
-      <%= form.label :estimated_time, "所要時間" %>
-      <%= form.number_field :estimated_time, class: "form-control" %>
+      <%= form.label :all_time %>
+      <%= form.number_field :all_time, class: "form-control" %>
     </div>
 
     <div class="selected-spots">
@@ -45,7 +45,7 @@
       <% end %>
     </ul>
   </div>
-    <%= form.submit "保存" %>
+    <%= form.submit t('defaults.create') %>
   <% end %>
 </div>
 

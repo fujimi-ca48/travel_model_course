@@ -5,7 +5,7 @@
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
     </div>
 
-    <%= link_to "MYリストを確認する", selected_tourist_spots_path, class: "btn btn-accent mt-4" %>
+    <%= link_to t('.see_my_list'), selected_tourist_spots_path, class: "btn btn-accent mt-4" %>
     <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
       <% @tourist_spots.each do |tourist_spot| %>
         <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
@@ -38,7 +38,7 @@
                 </div>
               </div>
 
-              <%= button_to "Myリストに追加", selected_tourist_spots_path(tourist_spot_id: tourist_spot.id), method: :post, class: "btn btn-sm btn-accent" %>
+              <%= button_to t('.add_to_list'), selected_tourist_spots_path(tourist_spot_id: tourist_spot.id), method: :post, class: "btn btn-sm btn-accent" %>
             </div>
           </div>
         </div>

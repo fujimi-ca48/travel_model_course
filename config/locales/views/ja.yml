@@ -22,12 +22,14 @@ ja:
     logout: 'ログアウト'
     create: '登録する'
     update: '更新する'
+    user_new: '新規登録'
     show: '詳細'
     edit: '編集'
     delete: '削除'
   message:
     require_login: "ログインしてください"
     delete_confirm: '削除してもよろしいですか？'
+    no_authority: '権限がありません'
   errors:
     unavailable_session: "セッションが利用できません"
   google_login_api:
@@ -36,6 +38,46 @@ ja:
       reqire_change: "ユーザー名とパスワードを変更してください"
       fail: "ログインに失敗しました"
       unauthorized_access: "不正なアクセスです"
+  model_courses:
+    new:
+      title: 'モデルコース新規作成'
+    create:
+      success: 'モデルコースを作成しました'
+      fail: 'モデルコースを作成できませんでした'
+  recommended_spots:
+    index:
+      title: 'My穴場スポット'
+      to_model_course: 'モデルコースを作成する'
+      add_to_model_course: 'モデルコースに追加する'
+    create:
+      success: '穴場スポットを作成しました'
+      fail: '穴場スポットを作成できませんでした'
+    new:
+      title: '穴場スポット作成'
+      to_index: '穴場スポット一覧へ'
+    update:
+      success_update_spot: '更新しました'
+      fail_update_spot: '更新できませんでした'
+    destroy:
+      success_delete_spot: '削除しました'
+    add_to_model_course:
+      success: '%{recommended_spot_name} をおすすめスポットに追加しました'
+      fail: '%{recommended_spot_name} はすでに選ばれています'
+  selected_tourist_spots:
+    index:
+      title: '選んだ観光スポット一覧'
+      to_index: '観光地一覧へ戻る'
+      make_model_course: 'モデルコースを作成する'
+    destroy:
+      success: '%{tourist_spot_name} を選んだ観光地から削除しました'
+    create:
+      success_add: '%{tourist_spot_name} を選んだ観光地に追加しました'
+      already_selected: '%{tourist_spot_name} はすでに選ばれています'
+  tourist_spots:
+    index:
+      title: '観光地一覧'
+      add_to_list: 'Myリストに追加'
+      see_my_list: 'Myリストを見る'
   admin:
     user_sessions:
       new:
@@ -57,3 +99,9 @@ ja:
         fail_update_spot: '観光スポットを更新できませんでした'
       destroy:
         success_delete_spot: '観光スポットを削除しました'
+    users:
+      create:
+        success: 'ユーザーを登録しました'
+        fail: 'ユーザー登録できませんでした'
+      new:
+        to_login: '管理者用ログイン画面へ'

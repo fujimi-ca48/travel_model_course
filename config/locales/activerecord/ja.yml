@@ -16,8 +16,17 @@ ja:
         name: 'スポット名'
         text: '見どころ'
         address: '住所'
+        spot_image: '写真'
       recommended_spot:
         name: 'スポット名'
         text: '見どころ'
         address: '住所'
         img: '写真'
+      model_course:
+        name: 'モデルコース名'
+        all_time: '所要時間'
+  enums:
+    user:
+      role:
+        general: '一般'
+        admin: '管理者'

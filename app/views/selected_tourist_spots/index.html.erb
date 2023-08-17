@@ -1,7 +1,26 @@
-<div class="bg-white py-6 sm:py-8 lg:py-12">
-  <div class="flex justify-center mt-4 space-x-4">
-    <%= link_to '観光地一覧に戻る', tourist_spots_path, class: 'btn btn-accent' %>
-    <%= link_to 'モデルコースを作成する', new_recommended_spot_path, class: 'btn btn-accent' %>
+<div class="bg-white min-h-screen py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-md">
+    <h1 class="font-bold text-gray-800 text-lg"><%= t('.title') %></h1>
+    <% session[:selected_tourist_spots]&.each do |tourist_spot_id| %>
+      <% tourist_spot = TouristSpot.find(tourist_spot_id) %>
+      <div class="border-t border-gray-300"></div>
+      <div class="flex items-center space-x-4 py-4">
+        <% if tourist_spot.spot_image.present? %>
+          <%= image_tag tourist_spot.spot_image.url, class: "h-16 w-16 object-cover rounded" %>
+        <% else %>
+          <%= image_tag "sample.jpg", class: "h-16 w-16 object-cover rounded" %>
+        <% end %>
+        <div class="flex-grow">
+          <h3 class="font-bold text-gray-800 text-lg"><%= tourist_spot.name %></h3>
+          <p class="text-gray-600 overflow-hidden whitespace-nowrap overflow-ellipsis"><%= truncate(tourist_spot.text, length: 30) %></p>
+        </div>
+        <div class="ml-auto space-x-2">
+          <%= link_to t('defaults.show'), tourist_spot_path(tourist_spot), class: 'btn btn-accent' %>
+          <%= link_to t('defaults.delete'), selected_tourist_spot_path(tourist_spot_id), class: 'btn btn-accent', data: { turbo_method: :delete, confirm: t('message.delete_confirm', tourist_spot_name: tourist_spot.name) } %>
+        </div>
+      </div>
+    <% end %>
+    <%= link_to t('.to_index'), tourist_spots_path, class: 'btn btn-accent' %>
+    <%= link_to t('.make_model_course'), new_recommended_spot_path, class: 'btn btn-accent' %>
   </div>
-  <%= render 'list' %>
 </div>
