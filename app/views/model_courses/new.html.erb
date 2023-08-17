@@ -1,4 +1,3 @@
-<%= javascript_include_tag 'model_courses' %>
 <div class="bg-white min-h-screen py-6 sm:py-8 lg:py-12">
   <h1><%= t('.title') %></h1>
   <%= form_with(model: @model_course, url: model_courses_path, method: :post) do |form| %>
@@ -77,5 +76,4 @@ document.addEventListener("turbo:load", function() {
     }
   });
 });
-
 </script>
