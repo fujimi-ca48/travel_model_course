@@ -1,0 +1,47 @@
+body {
+    background-image: url('body.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.footer {
+    background-image: url('back.png');
+    background-size: cover;
+}
+
+.header {
+    background-image: url('back.png');
+    background-size: cover;
+}
+
+.bg-custom {
+    background-color:#F3EEE8; 
+}
+
+.bg-custom-1 {
+    background-color:#333944
+}
+
+.pagination a {
+    color: #333944;
+    font-size: 25px;
+}
+
+  .pagination .current {
+    background-color: #1fb2a6;
+    color: #FFFFFF;
+    font-size: 25px;
+}
+
+.table-sortable {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.table-sortable li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    cursor: grab; /* カーソルを掴むアイコンに変更 */
+}
