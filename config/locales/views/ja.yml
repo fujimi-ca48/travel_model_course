@@ -57,9 +57,3 @@ ja:
         fail_update_spot: '観光スポットを更新できませんでした'
       destroy:
         success_delete_spot: '観光スポットを削除しました'
-    user:
-      new:
-        to_login_page: 'ログインページへ'
-      create:
-        success: 'ユーザー登録が完了しました'
-        fail: 'ユーザー登録に失敗しました'

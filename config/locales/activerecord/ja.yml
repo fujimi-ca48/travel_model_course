@@ -21,8 +21,3 @@ ja:
         text: '見どころ'
         address: '住所'
         img: '写真'
-  enum:
-    user:
-      role:
-        general: '一般'
-        admin: '管理者'
