@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     post 'login', to: 'user_sessions#create'
     delete 'logout', to: 'user_sessions#destroy'
     resources :tourist_spots
+    resources :users, only: %i[new create]
   end
 
   get 'google_login_api/callback'
