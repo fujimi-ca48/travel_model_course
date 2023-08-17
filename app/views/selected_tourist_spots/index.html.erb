@@ -1,10 +1,7 @@
-<div class="bg-white min-h-screen py-6 sm:py-8 lg:py-12">
-  <h1>選んだ観光地一覧</h1>
-  <% session[:selected_tourist_spots]&.each do |tourist_spot_id| %>
-    <% tourist_spot = TouristSpot.find(tourist_spot_id) %>
-    <div class="border-t border-gray-300"></div>
-    <%= tourist_spot.name %>
-    <%= link_to '削除', selected_tourist_spot_path(tourist_spot_id), data: { turbo_method: :delete, confirm: '本当に削除しますか？' } %>
-  <% end %>
-  <%= link_to '観光地一覧に戻る', tourist_spots_path %>
+<div class="bg-white py-6 sm:py-8 lg:py-12">
+  <div class="flex justify-center mt-4 space-x-4">
+    <%= link_to '観光地一覧に戻る', tourist_spots_path, class: 'btn btn-accent' %>
+    <%= link_to 'モデルコースを作成する', new_recommended_spot_path, class: 'btn btn-accent' %>
+  </div>
+  <%= render 'list' %>
 </div>

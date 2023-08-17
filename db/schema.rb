@@ -10,14 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_16_044512) do
-  create_table "selected_tourist_spots", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "tourist_spot_id", null: false
+ActiveRecord::Schema[7.0].define(version: 2023_08_16_125933) do
+  create_table "model_courses", force: :cascade do |t|
+    t.string "name"
+    t.integer "all_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tourist_spot_id"], name: "index_selected_tourist_spots_on_tourist_spot_id"
-    t.index ["user_id"], name: "index_selected_tourist_spots_on_user_id"
+    t.integer "row_order"
+  end
+
+  create_table "recommended_spots", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name", null: false
+    t.string "address", null: false
+    t.string "text"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "img"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_recommended_spots_on_user_id"
   end
 
   create_table "tourist_spots", force: :cascade do |t|
@@ -42,6 +54,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_044512) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "selected_tourist_spots", "tourist_spots"
-  add_foreign_key "selected_tourist_spots", "users"
+  add_foreign_key "recommended_spots", "users"
 end

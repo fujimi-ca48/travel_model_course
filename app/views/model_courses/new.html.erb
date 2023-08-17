@@ -1,0 +1,81 @@
+<%= javascript_include_tag 'model_courses' %>
+<div class="bg-white min-h-screen py-6 sm:py-8 lg:py-12">
+  <h1>モデルコース新規作成</h1>
+  <%= form_with(model: @model_course, url: model_courses_path, method: :post) do |form| %>
+    <!-- モデルコース名と所要時間の入力フォーム -->
+    <div class="mb-4">
+      <%= form.label :name, "モデルコース名" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+    <div class="mb-4">
+      <%= form.label :estimated_time, "所要時間" %>
+      <%= form.number_field :estimated_time, class: "form-control" %>
+    </div>
+
+    <div class="selected-spots">
+    <ul id="sortable-list" class="table-sortable" >
+      <%= form.hidden_field :spot_ids, multiple: true %>
+      <% session[:selected_tourist_spots]&.each do |tourist_spot_id| %>
+        <% tourist_spot = TouristSpot.find(tourist_spot_id) %>
+        <li data-spot-id="<%= tourist_spot.id %>">
+        
+        <!-- 観光時間と移動手段の入力フォームを追加予定 -->
+  
+        <% if tourist_spot.spot_image.present? %>
+          <%= image_tag tourist_spot.spot_image.url, class: "h-16 w-16 object-cover rounded" %>
+        <% else %>
+          <%= image_tag "sample.jpg", class: "h-16 w-16 object-cover rounded" %>
+        <% end %>
+          <%= "#{tourist_spot.name} - #{tourist_spot.address}" %>
+        </li>
+      <% end %>
+      <% session[:selected_recommended_spots]&.each do |recommended_spot_id| %>
+        <% recommended_spot = RecommendedSpot.find(recommended_spot_id) %>
+        <li data-spot-id="<%= recommended_spot.id %>">
+
+        <!-- 観光時間と移動手段の入力フォームを追加予定 -->
+  
+          <% if recommended_spot.img.present? %>
+            <%= image_tag recommended_spot.img.url, class: "h-16 w-16 object-cover rounded" %>
+          <% else %>
+            <%= image_tag "sample.jpg", class: "h-16 w-16 object-cover rounded" %>
+          <% end %>
+          <%= "#{recommended_spot.name} - #{recommended_spot.address}" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+    <%= form.submit "保存" %>
+  <% end %>
+</div>
+
+<style>
+.table-sortable {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.table-sortable li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    cursor: grab; /* カーソルを掴むアイコンに変更 */
+}
+</style>
+
+<script type="module">
+document.addEventListener("turbo:load", function() {
+  $('#sortable-list').sortable({
+    axis: 'y',
+    items: 'li',
+    update: function(e, ui) {
+      // 並び替えた順番を取得して保存する処理を追加
+      var sortedIds = $(this).sortable('toArray');
+      // ここに並び順を保存するためのAjaxリクエストなどを記述
+      // 例：$.post('/save_sort_order', { ids: sortedIds });
+    }
+  });
+});
+
+</script>

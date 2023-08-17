@@ -5,13 +5,13 @@
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
     </div>
 
-    <%= link_to "MYリストを確認する", selected_tourist_spots_path, class: "btn btn-accent mt-4" %>
+    <%= link_to "モデルコースを作成する", new_model_course_path, class: "btn btn-accent mt-4" %>
     <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
-      <% @tourist_spots.each do |tourist_spot| %>
+      <% @recommended_spots.each do |recommended_spot| %>
         <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
           <a href="#" class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64">
-            <% if tourist_spot.spot_image.present? %>
-              <%= image_tag tourist_spot.spot_image.url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" %>
+            <% if recommended_spot.img.present? %>
+              <%= image_tag recommended_spot.imge.url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" %>
             <% else %>
               <%= image_tag "sample.jpg", class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" %>
             <% end %>
@@ -19,33 +19,29 @@
 
           <div class="flex flex-1 flex-col p-4 sm:p-6">
             <h2 class="mb-2 text-lg font-semibold text-gray-800">
-              <a href="#" class="transition duration-100 hover:text-indigo-500 active:text-indigo-600"><%= tourist_spot.name %></a>
+              <a href="#" class="transition duration-100 hover:text-indigo-500 active:text-indigo-600"><%= recommended_spot.name %></a>
             </h2>
 
-            <% if tourist_spot.text.length > 20 %>
-              <p class="mb-4 text-gray-500"><%= tourist_spot.text[0..30] + "…" %></p>
+            <% if recommended_spot.text.length > 20 %>
+              <p class="mb-4 text-gray-500"><%= recommended_spot.text[0..30] + "…" %></p>
             <% else %>
-              <p class="mb-4 text-gray-500"><%= tourist_spot.text %></p>
+              <p class="mb-4 text-gray-500"><%= recommended_spot.text %></p>
             <% end %>
 
             <div class="mt-auto flex items-end justify-between">
               <div class="flex items-center gap-2">
                 <div class="h-10 ">
-                <% prefecture = tourist_spot.address.match(/([北東名][都道府県]|.{2,3}[都道府県])/)&.captures&.first %>
+                <% prefecture = recommended_spot.address.match(/([北東名][都道府県]|.{2,3}[都道府県])/)&.captures&.first %>
                 <% if prefecture %>
                   <p class="mb-8 text-indigo-500 mt-3"><%= prefecture %></p>
                 <% end %>
                 </div>
               </div>
 
-              <%= button_to "Myリストに追加", selected_tourist_spots_path(tourist_spot_id: tourist_spot.id), method: :post, class: "btn btn-sm btn-accent" %>
-            </div>
+              <%= button_to "モデルコースに追加", add_to_model_course_recommended_spots_path(recommended_spot_id: recommended_spot.id), method: :post, class: "btn btn-sm btn-accent" %>
           </div>
         </div>
       <% end %>
     </div>
-     <div class="flex justify-center mt-4">
-       <%= paginate @tourist_spots %>
-     </div>
   </div>
 </div>
