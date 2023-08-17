@@ -1,6 +1,6 @@
 class SelectedTouristSpotsController < ApplicationController
    def index
-    @selected_tourist_spots = current_user.selected_tourist_spots.includes(:tourist_spot)
+    @selected_tourist_spots = session[:selected_tourist_spots_data] || []
    end
     
   def create

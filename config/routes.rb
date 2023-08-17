@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'model_courses/new'
+  get 'model_courses/create'
   namespace :admin do
     root to: 'dashboards#index'
     get 'login', to: 'user_sessions#new'
@@ -17,4 +19,13 @@ Rails.application.routes.draw do
 
   resources :tourist_spots, only: %i[index show]
   resources :selected_tourist_spots, only: %i[create index destroy]
+  resources :model_courses do
+    patch :sort, on: :member
+  end
+  
+  resources :recommended_spots, only: %i[index new create destroy] do
+    collection do
+      post :add_to_model_course
+    end
+  end
 end

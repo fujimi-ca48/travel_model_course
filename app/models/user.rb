@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
+  has_many :recommended_spots, dependent: :destroy
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
@@ -9,7 +10,4 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 10 }
 
   enum role: {general: 0, admin: 1}
-
-  has_many :selected_tourist_spots
-  has_many :tourist_spots, through: :selected_tourist_spots
 end
