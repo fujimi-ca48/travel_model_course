@@ -3,18 +3,26 @@ ja:
     models:
       user: 'ユーザー'
       tourist_spot: '観光地'
+      model_course: 'モデルコース'
+      recommended_spot: '穴場スポット'
     attributes:
       user:
         name: 'ユーザー名'
         email: 'メールアドレス'
         password: 'パスワード'
         password_confirmation: 'パスワード確認'
+        role: '権限'
       tourist_spot:
         name: 'スポット名'
         text: '見どころ'
         address: '住所'
-    enums:
-      user:
-        role: 
-          general: '一般'
-          admin: '管理者'
+      recommended_spot:
+        name: 'スポット名'
+        text: '見どころ'
+        address: '住所'
+        img: '写真'
+  enum:
+    user:
+      role:
+        general: '一般'
+        admin: '管理者'
