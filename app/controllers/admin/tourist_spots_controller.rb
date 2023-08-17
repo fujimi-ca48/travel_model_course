@@ -29,7 +29,7 @@ class Admin::TouristSpotsController < Admin::BaseController
   
   def update
     if @tourist_spot.update(tourist_spot_params)
-      redirect_to admin_tourist_spots_path, notice: t('.success_update_spot')
+      redirect_to admin_tourist_spots_path, success: t('.success_update_spot')
     else
       flash.now[:danger] = t('.fail_update_spot')
       render :edit, status: :unprocessable_entity

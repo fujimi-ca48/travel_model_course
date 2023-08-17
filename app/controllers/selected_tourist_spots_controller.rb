@@ -9,9 +9,9 @@ class SelectedTouristSpotsController < ApplicationController
 
     unless session[:selected_tourist_spots].include?(tourist_spot.id)
       session[:selected_tourist_spots] << tourist_spot.id
-      flash[:success] = "#{tourist_spot.name} を選んだ観光地に追加しました。"
+      flash[:success] = t('.success_add', tourist_spot_name: tourist_spot.name)
     else
-      flash[:danger] = "#{tourist_spot.name} はすでに選ばれています。"
+      flash[:danger] = t('.already_selected', tourist_spot_name: tourist_spot.name)
     end
 
     redirect_to tourist_spots_path
@@ -21,6 +21,6 @@ class SelectedTouristSpotsController < ApplicationController
     tourist_spot_id = params[:id].to_i
     tourist_spot = TouristSpot.find(tourist_spot_id)
     session[:selected_tourist_spots].delete(tourist_spot_id)
-    redirect_to selected_tourist_spots_path, success: "#{tourist_spot.name} を選んだ観光地から削除しました。"
+    redirect_to selected_tourist_spots_path, success: t('.destroy.success', tourist_spot_name: tourist_spot.name)
   end
 end

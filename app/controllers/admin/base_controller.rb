@@ -5,7 +5,7 @@ class Admin::BaseController < ApplicationController
   private
   
   def not_authenticated
-    flash[:warning] = t('message.require_login')
+    flash[:danger] = t('message.require_login')
     redirect_to admin_login_path
   end
   

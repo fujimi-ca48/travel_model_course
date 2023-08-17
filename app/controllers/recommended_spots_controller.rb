@@ -11,9 +11,9 @@ class RecommendedSpotsController < ApplicationController
     def create
       @recommended_spot = current_user.recommended_spots.build(recommended_spot_params)
       if @recommended_spot.save
-        redirect_to new_recommended_spot_path, success: '登録しました'
+        redirect_to new_recommended_spot_path, success: t('success')
       else
-        flash.now[:danger] = '登録できませんでした'
+        flash.now[:danger] = t('fail')
         render :new, status: :unprocessable_entity
       end
     end
@@ -25,30 +25,31 @@ class RecommendedSpotsController < ApplicationController
     def update
       if @recommended_spot.update(recommended_spot_params)
         @recommended_spot.user = current_user
-        redirect_to recommended_spots_path
+        redirect_to recommended_spots_path, t('success_update_spot')
       else
+        flash.now[:danger] = t('fail_update_spot')
         render :edit, status: :unprocessable_entity
       end
     end
     
     def destroy
       @recommended_spot.destroy!
-      redirect_to recommended_spots_path, success: '削除しました'
+      redirect_to recommended_spots_path, success: t('success_delete_spot')
     end
       
-        def add_to_model_course
-          recommended_spot = RecommendedSpot.find(params[:recommended_spot_id])
-          session[:selected_recommended_spots] ||= []
+    def add_to_model_course
+      recommended_spot = RecommendedSpot.find(params[:recommended_spot_id])
+      session[:selected_recommended_spots] ||= []
       
-          unless session[:selected_recommended_spots].include?(recommended_spot.id)
-            session[:selected_recommended_spots] << recommended_spot.id
-            flash[:success] = "#{recommended_spot.name} をおすすめスポットに追加しました。"
-          else
-            flash[:danger] = "#{recommended_spot.name} はすでに選ばれています。"
-          end
+      unless session[:selected_recommended_spots].include?(recommended_spot.id)
+        session[:selected_recommended_spots] << recommended_spot.id
+        flash[:success] = t('.success',recommended_spot_name: recommended_spot.name)
+      else
+        flash[:danger] = t('.fail', recommended_spot_name: recommended_spot.name)
+      end
       
-          redirect_to recommended_spots_path
-        end
+      redirect_to recommended_spots_path
+    end
     
 
     private
