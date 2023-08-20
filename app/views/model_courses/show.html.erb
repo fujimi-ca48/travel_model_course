@@ -1,0 +1,11 @@
+<% @spot_items.each do |spot_item| %>
+    <% if spot_item["recommended_spot_id"] %>
+      <% recommended_spot = RecommendedSpot.find(spot_item["recommended_spot_id"]) %>
+      <p>Recommended Spot Name: <%= recommended_spot.name %></p>
+    <% elsif spot_item["tourist_spot_id"] %>
+      <% tourist_spot = TouristSpot.find(spot_item["tourist_spot_id"]) %>
+      <p>Tourist Spot Name: <%= tourist_spot.name %></p>
+    <% end %>
+    <p>Duration: <%= spot_item["duration"] %></p>
+    <p>Transportation: <%= spot_item["transportation"] %></p>
+  <% end %>

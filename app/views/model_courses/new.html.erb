@@ -1,3 +1,7 @@
+
+<%= form_with model: @model_course, url: model_courses_path, data: { turbo: false } do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
 <div class="bg-white min-h-screen py-6 sm:py-8 lg:py-12">
   <h1><%= t('.title') %></h1>
   <%= form_with(model: @model_course, url: model_courses_path, method: :post) do |form| %>
@@ -11,26 +15,12 @@
       <%= form.number_field :all_time, class: "form-control" %>
     </div>
 
-    <div class="selected-spots">
-    <ul id="sortable-list" class="table-sortable" >
-      <%= form.hidden_field :spot_ids, multiple: true %>
-      <% session[:selected_tourist_spots]&.each do |tourist_spot_id| %>
-        <% tourist_spot = TouristSpot.find(tourist_spot_id) %>
-        <li data-spot-id="<%= tourist_spot.id %>">
-        
-        <!-- 観光時間と移動手段の入力フォームを追加予定 -->
-  
-        <% if tourist_spot.spot_image.present? %>
-          <%= image_tag tourist_spot.spot_image.url, class: "h-16 w-16 object-cover rounded" %>
-        <% else %>
-          <%= image_tag "sample.jpg", class: "h-16 w-16 object-cover rounded" %>
-        <% end %>
-          <%= "#{tourist_spot.name} - #{tourist_spot.address}" %>
-        </li>
-      <% end %>
-      <% session[:selected_recommended_spots]&.each do |recommended_spot_id| %>
-        <% recommended_spot = RecommendedSpot.find(recommended_spot_id) %>
-        <li data-spot-id="<%= recommended_spot.id %>">
+  <%= f.label :all_time %>
+  <%= f.select :all_time, options_for_select([['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5', 5]]) %>
+
+
+  <%= f.submit "Create Model Course" %>
+<% end %>
 
         <!-- 観光時間と移動手段の入力フォームを追加予定 -->
   

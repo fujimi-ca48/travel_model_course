@@ -1,0 +1,2 @@
+module TotalSpotItemsHelper
+end

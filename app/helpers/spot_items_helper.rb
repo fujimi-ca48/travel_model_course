@@ -1,0 +1,2 @@
+module SpotItemsHelper
+end
