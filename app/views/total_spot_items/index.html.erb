@@ -1,0 +1,69 @@
+<div class="grid gap-4 sm:grid-cols-1 md:gap-6 lg:grid-cols-2 xl:grid-cols-3 xl:gap-8">
+  <ul class="table-sortable" id="sortable-list">
+    <% @total_spot_items.each do |total_spot_item| %>
+        <li class="flex flex-col overflow-hidden rounded-lg border bg-white table-sortable-item ui-sortable-handle" id="total_spot_item_<%= total_spot_item.id %>" data-id="<%= total_spot_item.id %>">
+        <div class="flex flex-1 flex-col p-4 sm:p-6">
+          <h2 class="mb-2 text-lg font-semibold text-gray-800">
+            <%= total_spot_item.recommended_spot&.name || total_spot_item.tourist_spot&.name %>
+          </h2>
+          <p class="mb-4 text-gray-500">
+            <%= total_spot_item.recommended_spot&.text || total_spot_item.tourist_spot&.text %>
+          </p>
+          <%= form_with model: total_spot_item, url: total_spot_item_path(total_spot_item), method: :patch, data: { turbo: false } do |f| %>
+            <%= f.select :duration, (1..10).to_a, prompt: "Select Duration" %>
+            <%= f.number_field :transportation %>
+            <%= f.submit "Update" %>
+          <% end %>
+          <!-- 削除ボタン -->
+          <%= link_to "Delete", total_spot_item_path(total_spot_item), data: { turbo_method: :delete, confirm: t('defaults.message.delete_confirm')}, class: "mt-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow" %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="mt-4 text-center">
+  <%= link_to "次へ", new_model_course_path, class: "next-button", remote: true %>
+</div>
+
+<style>
+.table-sortable {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.table-sortable li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    cursor: grab; /* カーソルを掴むアイコンに変更 */
+}
+</style>
+
+<script type="module">
+  document.addEventListener("turbo:load", function() {
+    $('#sortable-list').sortable({
+      axis: 'y',
+      items: 'li',
+      update: function(e, ui) {
+        var sortedIds = $(this).sortable('toArray');
+        
+        // ドラッグアンドドロップされた要素のIDを取得
+        var totalSpotItemId = ui.item.data('id');
+        
+        // Ajaxリクエストを送信
+        $.ajax({
+          url: '/total_spot_items/' + totalSpotItemId + '/sort',
+          type: 'PATCH',
+          data: { sorted_ids: sortedIds },
+          dataType: 'script',
+          headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+          },
+        });
+      }
+    });
+  });
+</script>
+

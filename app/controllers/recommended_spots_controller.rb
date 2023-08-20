@@ -4,6 +4,7 @@ class RecommendedSpotsController < ApplicationController
     def index
       @q = RecommendedSpot.ransack(params[:q])
       @recommended_spots = @q.result(distinct: true).page(params[:page]).per(5)
+      @total_spot_item = TotalSpotItem.new 
     end
     
     def new;end
@@ -36,21 +37,6 @@ class RecommendedSpotsController < ApplicationController
       @recommended_spot.destroy!
       redirect_to recommended_spots_path, success: t('success_delete_spot')
     end
-      
-    def add_to_model_course
-      recommended_spot = RecommendedSpot.find(params[:recommended_spot_id])
-      session[:selected_recommended_spots] ||= []
-      
-      unless session[:selected_recommended_spots].include?(recommended_spot.id)
-        session[:selected_recommended_spots] << recommended_spot.id
-        flash[:success] = t('.success',recommended_spot_name: recommended_spot.name)
-      else
-        flash[:danger] = t('.fail', recommended_spot_name: recommended_spot.name)
-      end
-      
-      redirect_to recommended_spots_path
-    end
-    
 
     private
     

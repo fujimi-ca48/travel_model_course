@@ -1,30 +1,43 @@
 class ModelCoursesController < ApplicationController
+  require "json"
+  before_action :require_login
+
   def new
     @model_course = ModelCourse.new
-    @selected_spots = session[:selected_tourist_spots]&.map { |spot_id| TouristSpot.find(spot_id) } || []
-    @selected_recommended_spots = session[:selected_recommended_spots]&.map { |id| RecommendedSpot.find(id) } || []
   end
 
   def create
-    @model_course = ModelCourse.new(model_course_params)
+    selected_total_spot_items = current_user.total_spot_items.to_a
+    spot_item_data = selected_total_spot_items.map do |item|
+      {
+        recommended_spot_id: item.recommended_spot_id,
+        tourist_spot_id: item.tourist_spot_id,
+        duration: item.duration,
+        transportation: item.transportation,
+        position: item.position
+      }
+    end
+  
+    @model_course = current_user.model_courses.build(model_course_params)
+    @model_course.spot_item_data = spot_item_data.to_json  # JSON形式に変換して保存
+  
     if @model_course.save
-      flash[:success] = t('.success')
-      redirect_to model_course_path(@model_course)
+      selected_total_spot_items.each(&:destroy)
+  
+      redirect_to model_courses_path, notice: 'モデルコースが作成されました'
     else
-      flash.now[:danger] = t('.fail')
       render :new
     end
   end
 
-  def sort
-    model_course = ModelCourse.find(params[:model_course_id])
-    model_course.update(model_course_params)
-    render body: nil
+  def show
+    @model_course = ModelCourse.find(params[:id])
+    @spot_items = JSON.parse(@model_course.spot_item_data)
   end
 
   private
 
   def model_course_params
-    params.require(:model_course).permit(:name, :all_time, :row_order_position, recommended_spots_attributes: [:id, :name, :address, :text, :latitude, :longitude, :img, :_destroy])
+    params.require(:model_course).permit(:name, :all_time)
   end
 end

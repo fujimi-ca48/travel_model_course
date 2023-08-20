@@ -66,6 +66,8 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    acts_as_list (1.1.0)
+      activerecord (>= 4.2)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     aws-eventstream (1.2.0)
@@ -286,8 +288,6 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
-    ranked-model (0.4.8)
-      activerecord (>= 4.2)
     ransack (4.0.0)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
@@ -359,6 +359,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  acts_as_list
   aws-sdk-s3
   bootsnap
   capybara
@@ -382,7 +383,6 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.7)
   rails-i18n
-  ranked-model
   ransack
   selenium-webdriver
   sorcery

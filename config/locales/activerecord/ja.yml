@@ -30,3 +30,9 @@ ja:
       role:
         general: '一般'
         admin: '管理者'
+    model_course:
+      transportation:
+        walking: '徒歩'
+        car: '車'
+        train: '徒歩'
+        airplane: '飛行機'

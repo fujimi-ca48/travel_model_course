@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  recommended_spot: one
+  tourist_spot: one
+
+two:
+  user: two
+  recommended_spot: two
+  tourist_spot: two
