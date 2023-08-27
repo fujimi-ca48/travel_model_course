@@ -31,7 +31,7 @@ body {
     font-size: 25px;
 }
 
-  .pagination .current {
+.pagination .current {
     background-color: #1fb2a6;
     color: #FFFFFF;
     font-size: 25px;

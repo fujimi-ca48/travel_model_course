@@ -1,8 +1,6 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
   has_many :recommended_spots, dependent: :destroy
-  has_many :spot_items, dependent: :destroy
-  has_many :myspot_items, dependent: :destroy
   has_many :model_courses, dependent: :destroy
   has_many :total_spot_items, dependent: :destroy
 

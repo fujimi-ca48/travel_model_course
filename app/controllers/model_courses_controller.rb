@@ -2,6 +2,11 @@ class ModelCoursesController < ApplicationController
   require "json"
   before_action :require_login
 
+  def index
+    @q = ModelCourse.ransack(params[:q])
+    @model_courses = @q.result(distinct: true).page(params[:page]).per(12)
+  end
+
   def new
     @model_course = ModelCourse.new
   end
@@ -23,10 +28,10 @@ class ModelCoursesController < ApplicationController
   
     if @model_course.save
       selected_total_spot_items.each(&:destroy)
-  
-      redirect_to model_courses_path, notice: 'モデルコースが作成されました'
+      redirect_to model_courses_path, success: t('.success')
     else
-      render :new
+      flash.now[:danger] = t('.fail')
+      render :new, status: :unprocessable_entity
     end
   end
 

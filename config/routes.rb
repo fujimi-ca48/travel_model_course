@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   post '/google_login_api/callback', to: 'google_login_api#callback'
 
   resources :tourist_spots, only: %i[index show]
-  resources :model_courses, only: %i[new create show]
+  resources :model_courses, only: %i[new create show index]
   resources :recommended_spots, only: %i[index new create destroy]
   resources :total_spot_items, only: %i[index new create update destroy] do
     member do

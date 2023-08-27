@@ -2,9 +2,13 @@
     <% if spot_item["recommended_spot_id"] %>
       <% recommended_spot = RecommendedSpot.find(spot_item["recommended_spot_id"]) %>
       <p>Recommended Spot Name: <%= recommended_spot.name %></p>
+      <%= recommended_spot.text %>
+     <!-- <%= image_tag(recommended_spot.img.url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") if recommended_spot.img.present? %> -->
+     <!-- <%= image_tag("sample.jpg", class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") unless recommended_spot.img.present? %> -->
     <% elsif spot_item["tourist_spot_id"] %>
       <% tourist_spot = TouristSpot.find(spot_item["tourist_spot_id"]) %>
       <p>Tourist Spot Name: <%= tourist_spot.name %></p>
+      <p>Tourist Spot Name: <%= tourist_spot.text %></p>
     <% end %>
     <p>Duration: <%= spot_item["duration"] %></p>
     <p>Transportation: <%= spot_item["transportation"] %></p>

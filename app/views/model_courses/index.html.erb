@@ -1,0 +1,47 @@
+<div class="py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+    <div class="mb-10 md:mb-16" style="margin-top: 20px;">
+      <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
+      <% @model_courses.each do |model_course| %>
+        <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+          <% spot_items = JSON.parse(model_course.spot_item_data) %>
+          <% unless spot_items.empty? %>
+            <% recommended_spot_id = spot_items.first['recommended_spot_id'] %>
+            <% recommended_spot = RecommendedSpot.find_by(id: recommended_spot_id) %>
+            <% if recommended_spot && recommended_spot.img.present? %>
+              <% image_url = recommended_spot.img.url %>
+            <% else %>
+              <% image_url = asset_path("sample.jpg") %>
+            <% end %>
+            <a href="#" class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64">
+              <%= image_tag(image_url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") %>
+            </a>
+          <% end %>
+  
+          <div class="flex flex-1 flex-col p-4 sm:p-6">
+            <h2 class="mb-2 text-lg font-semibold text-gray-800">
+              <a class="link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer"><%= model_course.name %></a>
+            </h2>
+            <div class="mt-auto flex items-end justify-between">
+              <div class="flex items-center gap-2">
+              <!-- 都道府県情報を表示 -->
+              <% if recommended_spot && recommended_spot.address.present? %>
+                <span class="text-indigo-500"><%= recommended_spot.address %></span>
+              <% end %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-8"></div>
+    <div class="flex justify-center mt-4">
+    <%= paginate @model_courses %>
+  </div>
+  </div>
+</div>

@@ -1,8 +1,9 @@
 class RecommendedSpot < ApplicationRecord
+  mount_uploader :img, SpotImageUploader
   belongs_to :user
-  has_many :myspot_items, dependent: :destroy
   has_many :total_spot_items, dependent: :destroy
 
+  validates :user, presence: true
   validates :name, presence: true
   validates :address, presence: true
   validate :address_includes_prefecture
