@@ -41,6 +41,8 @@ ja:
   model_courses:
     new:
       title: 'モデルコース新規作成'
+      create_model_course: 'モデルコースを作成する'
+      back_my_list: 'リストに戻る'
     create:
       success: 'モデルコースを作成しました'
       fail: 'モデルコースを作成できませんでした'
@@ -78,6 +80,12 @@ ja:
       title: '観光地一覧'
       add_to_list: 'Myリストに追加'
       see_my_list: 'Myリストを見る'
+      see_my_recommended: '穴場スポットから選ぶ'
+  total_spot_items:
+    index:
+     title: 'Myリスト一覧'
+     back_tourist_spot: '観光地一覧へ戻る'
+     back_recommended_spot: 'My穴場スポット一覧へ戻る' 
   admin:
     user_sessions:
       new:

@@ -1,16 +1,17 @@
-<div class="bg-white py-6 sm:py-8 lg:py-12">
+<div class="py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     <div class="mb-10 md:mb-16">
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
     </div>
 
     <%= link_to t('.see_my_list'), total_spot_items_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
+    <%= link_to t('.see_toursit_spot'), tourist_spots_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
 
     <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
       <% @recommended_spots.each do |recommended_spot| %>
         <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
           <a href="#" class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64">
-            <%= image_tag(recommended.img.url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") if recommended_spot.img.present? %>
+            <%= image_tag(recommended_spot.img.url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") if recommended_spot.img.present? %>
             <%= image_tag("sample.jpg", class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") unless recommended_spot.img.present? %>
           </a>
 
@@ -27,10 +28,7 @@
             <% end %>
 
             <div class="mt-auto flex items-end justify-between">
-              <div class="flex items-center gap-2">
-                <!-- 他の要素を追加できる場合はここに追加してください -->
-
-              </div>
+              <div class="flex items-center gap-2"></div>
 
               <%= form_with model: TotalSpotItem.new, url: total_spot_items_path, data: { turbo: false } do |f| %>
                 <%= f.hidden_field :recommended_spot_id, value: recommended_spot.id %>
@@ -41,5 +39,8 @@
         </div>
       <% end %>
     </div>
+    <div class="flex justify-center mt-4">
+    <%= paginate @recommended_spots %>
+  </div>
   </div>
 </div>

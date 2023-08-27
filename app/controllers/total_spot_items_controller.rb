@@ -13,6 +13,7 @@ class TotalSpotItemsController < ApplicationController
     )
         
     if existing_item
+
       if total_spot_item_params[:tourist_spot_id]
         flash[:danger] = t('.duplicate_tourist_spot')
         redirect_to tourist_spots_path
@@ -20,9 +21,10 @@ class TotalSpotItemsController < ApplicationController
         flash[:danger] = t('.duplicate_recommended_spot')
         redirect_to recommended_spots_path
       end
+
     else
       @total_spot_item = current_user.total_spot_items.build(total_spot_item_params)
-      @total_spot_item.insert_at(current_user.total_spot_items.count + 1) # カウントに+1することで末尾に挿入
+      @total_spot_item.insert_at(current_user.total_spot_items.count + 1)
           
       if @total_spot_item.save
         flash[:success] = t('.success')
@@ -36,7 +38,8 @@ class TotalSpotItemsController < ApplicationController
   end
 
   def update
-    @total_spot_item = current_user.total_spot_items.find(params[:id])
+    @total_spot_item = current_user.total_spot_items.find(params[:id].to_i)
+    params[:total_spot_item][:transportation] = TotalSpotItem.transportations[params[:total_spot_item][:transportation]]
 
     if @total_spot_item.update(total_spot_item_params)
       flash[:success] = t('.update.success')

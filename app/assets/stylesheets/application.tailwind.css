@@ -1,4 +1,38 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-@import './custom.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-image: url('body.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.footer {
+    background-image: url('back.png');
+    background-size: cover;
+}
+
+.header {
+    background-image: url('back.png');
+    background-size: cover;
+}
+
+.bg-custom {
+    background-color:#F3EEE8; 
+}
+
+.bg-custom-1 {
+    background-color:#333944
+}
+
+.pagination a {
+    color: #333944;
+    font-size: 25px;
+}
+
+  .pagination .current {
+    background-color: #1fb2a6;
+    color: #FFFFFF;
+    font-size: 25px;
+}

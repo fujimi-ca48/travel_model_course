@@ -1,29 +1,57 @@
-<div class="grid gap-4 sm:grid-cols-1 md:gap-6 lg:grid-cols-2 xl:grid-cols-3 xl:gap-8">
-  <ul class="table-sortable" id="sortable-list">
-    <% @total_spot_items.each do |total_spot_item| %>
-        <li class="flex flex-col overflow-hidden rounded-lg border bg-white table-sortable-item ui-sortable-handle" id="total_spot_item_<%= total_spot_item.id %>" data-id="<%= total_spot_item.id %>">
-        <div class="flex flex-1 flex-col p-4 sm:p-6">
-          <h2 class="mb-2 text-lg font-semibold text-gray-800">
-            <%= total_spot_item.recommended_spot&.name || total_spot_item.tourist_spot&.name %>
-          </h2>
-          <p class="mb-4 text-gray-500">
-            <%= total_spot_item.recommended_spot&.text || total_spot_item.tourist_spot&.text %>
-          </p>
-          <%= form_with model: total_spot_item, url: total_spot_item_path(total_spot_item), method: :patch, data: { turbo: false } do |f| %>
-            <%= f.select :duration, (1..10).to_a, prompt: "Select Duration" %>
-            <%= f.number_field :transportation %>
-            <%= f.submit "Update" %>
+<div class="py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+    <div class="mb-10 md:mb-16" style="margin-top: 20px;">
+      <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
+    </div>
+    <ul class="table-sortable" id="sortable-list">
+      <% @total_spot_items.each do |total_spot_item| %>
+        <li class="flex bg-white" id="total_spot_item_<%= total_spot_item.id %>" data-id="<%= total_spot_item.id %>">
+          <% if total_spot_item.recommended_spot&.img.present? %>
+            <%= image_tag total_spot_item.recommended_spot.img.url, class: "image-thumbnail" %>
+          <% elsif total_spot_item.tourist_spot&.spot_image.present? %>
+            <%= image_tag total_spot_item.tourist_spot.spot_image.url, class: "image-thumbnail" %>
+          <% else %>
+            <%= image_tag "sample.jpg", class: "image-thumbnail" %>
           <% end %>
-          <!-- 削除ボタン -->
-          <%= link_to "Delete", total_spot_item_path(total_spot_item), data: { turbo_method: :delete, confirm: t('defaults.message.delete_confirm')}, class: "mt-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow" %>
-        </div>
-      </li>
-    <% end %>
-  </ul>
-</div>
+          <div class="flex flex-1 flex-col p-4 sm:p-6">
+            <h2 class="mb-2 text-lg font-semibold text-gray-800"></h2>
+            <div class="mb-4 text-gray-500">
+              <%= total_spot_item.recommended_spot&.name || total_spot_item.tourist_spot&.name %>
+            </div>
+            <div class="mb-4 text-gray-500">
+              <%= truncate(total_spot_item.recommended_spot&.text || total_spot_item.tourist_spot&.text, length: 30, omission: '...') %>
+            </div>
+          </div>
 
-<div class="mt-4 text-center">
-  <%= link_to "次へ", new_model_course_path, class: "next-button", remote: true %>
+          <%= form_with model: total_spot_item, url: total_spot_item_path(total_spot_item), method: :patch, data: { turbo: false } do |f| %>
+            <div class="flex items-center mb-4">
+              <div class="mr-8">
+                <%= f.label :transportation, class: "mb-1 inline-block text-sm text-gray-500 sm:text-base" %>
+                <%= f.select :transportation, options_for_select(TotalSpotItem.transportations.map { |k, v| [t("enums.total_spot_item.transportation.#{k}"), k] }) %>
+              </div>
+              <div class="mr-8">
+                <%= f.label :duration, class: "mb-1 inline-block text-sm text-gray-500 sm:text-base" %>
+                <%= f.select :duration, (1..10).to_a %>
+              </div>
+              <div class="mr-8">
+                <%= f.submit "Update", class: "btn btn-sm btn btn-accent" %>
+              </div>
+            </div>
+          <% end %>
+
+          <%= link_to "Delete", total_spot_item_path(total_spot_item), data: { turbo_method: :delete, confirm: t('defaults.message.delete_confirm')}, class: "mt-2 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow inline-block text-center ml-auto", style: "max-width: fit-content; padding: 0.25em 1em" %>
+        </li>
+      <% end %>
+    </ul>
+
+    <div class="mt-4 text-center">
+      <%= link_to t('.to_model_course'), new_model_course_path, class: "btn btn-accent mt-4", remote: true %>
+    </div>
+    <div class="mt-4 text-center">
+      <%= link_to t('.back_tourist_spot'), tourist_spots_path, data: { turbo: false }, class: "link" %>
+      <%= link_to t('.back_recommended_spot'), recommended_spots_path, data: { turbo: false }, class: "link" %>
+    </div>
+  </div>
 </div>
 
 <style>
@@ -37,7 +65,19 @@
     border: 1px solid #ccc;
     padding: 10px;
     margin: 5px;
-    cursor: grab; /* カーソルを掴むアイコンに変更 */
+    cursor: grab;
+}
+
+.mr-8 {
+  margin-right: 0.5rem;
+}
+
+.image-thumbnail {
+  width: 200px;
+  height: 300x;
+  object-fit: cover;
+  object-position: center;
+  margin-right: 10px;
 }
 </style>
 
