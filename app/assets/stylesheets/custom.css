@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 body {
     background-image: url('body.png');
     background-size: cover;
@@ -35,4 +31,17 @@ body {
     background-color: #1fb2a6;
     color: #FFFFFF;
     font-size: 25px;
+}
+
+.table-sortable {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.table-sortable li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    cursor: grab; /* カーソルを掴むアイコンに変更 */
 }
