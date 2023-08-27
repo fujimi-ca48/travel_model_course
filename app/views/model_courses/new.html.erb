@@ -1,4 +1,3 @@
-
 <div class="min-h-screen flex flex-col justify-center items-center">
   <div class="py-6 sm:py-8 lg:py-12 flex justify-center items-center">
     <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
@@ -14,24 +13,6 @@
           <%= f.text_field :name, class: "input input-bordered input-accent w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
         </div>
 
-
-<%= form_with model: @model_course, url: model_courses_path, data: { turbo: false } do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-<div class="bg-white min-h-screen py-6 sm:py-8 lg:py-12">
-  <h1><%= t('.title') %></h1>
-  <%= form_with(model: @model_course, url: model_courses_path, method: :post) do |form| %>
-    <!-- モデルコース名と所要時間の入力フォーム -->
-    <div class="mb-4">
-      <%= form.label :name %>
-      <%= form.text_field :name, class: "form-control" %>
-    </div>
-    <div class="mb-4">
-      <%= form.label :all_time %>
-      <%= form.number_field :all_time, class: "form-control" %>
-    </div>
-
-
         <div class="mb-4">
           <%= f.label :all_time, class: "input-label pr-4 text-default text-gray-700" %>
           <%= f.text_field :all_time, class: "input input-bordered input-accent w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
@@ -42,60 +23,9 @@
         </div>
       <% end %>
 
-
       <div class="mb-4 text-center">
         <%= link_to t('.back_my_list'), total_spot_items_path, data: { turbo: false }, class: "link link-accent" %>
       </div>
     </div>
   </div>
 </div>
-
-
-  <%= f.submit "Create Model Course" %>
-<% end %>
-
-        <!-- 観光時間と移動手段の入力フォームを追加予定 -->
-  
-          <% if recommended_spot.img.present? %>
-            <%= image_tag recommended_spot.img.url, class: "h-16 w-16 object-cover rounded" %>
-          <% else %>
-            <%= image_tag "sample.jpg", class: "h-16 w-16 object-cover rounded" %>
-          <% end %>
-          <%= "#{recommended_spot.name} - #{recommended_spot.address}" %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-    <%= form.submit t('defaults.create') %>
-  <% end %>
-</div>
-
-<style>
-.table-sortable {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.table-sortable li {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 5px;
-    cursor: grab; /* カーソルを掴むアイコンに変更 */
-}
-</style>
-
-<script type="module">
-document.addEventListener("turbo:load", function() {
-  $('#sortable-list').sortable({
-    axis: 'y',
-    items: 'li',
-    update: function(e, ui) {
-      // 並び替えた順番を取得して保存する処理を追加
-      var sortedIds = $(this).sortable('toArray');
-      // ここに並び順を保存するためのAjaxリクエストなどを記述
-      // 例：$.post('/save_sort_order', { ids: sortedIds });
-    }
-  });
-});
-</script>
