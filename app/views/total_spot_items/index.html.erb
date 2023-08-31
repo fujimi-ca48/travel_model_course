@@ -1,3 +1,6 @@
+<%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+ <%= javascript_include_tag 'total_spot_items' %>
+
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     <div class="mb-10 md:mb-16" style="margin-top: 20px;">
@@ -15,31 +18,33 @@
           <% end %>
           <div class="flex flex-1 flex-col p-4 sm:p-6">
             <h2 class="mb-2 text-lg font-semibold text-gray-800"></h2>
-            <div class="mb-4 text-gray-500">
+            <div class="mb-4 text-gray-800 font-semibold text-lg">
               <%= total_spot_item.recommended_spot&.name || total_spot_item.tourist_spot&.name %>
             </div>
-            <div class="mb-4 text-gray-500">
-              <%= truncate(total_spot_item.recommended_spot&.text || total_spot_item.tourist_spot&.text, length: 30, omission: '...') %>
+            <div class="mb-4 text-gray-800">
+              <%= truncate(total_spot_item.recommended_spot&.text || total_spot_item.tourist_spot&.text, length: 70, omission: '...') %>
             </div>
           </div>
-
-          <%= form_with model: total_spot_item, url: total_spot_item_path(total_spot_item), method: :patch, data: { turbo: false } do |f| %>
+         
+          <div class="mr-8" style="margin-top: 10px;">
+          <%= form_with model: total_spot_item, url: total_spot_item_path(total_spot_item), method: :patch, local: true, class: "white-background" do |f| %>
             <div class="flex items-center mb-4">
               <div class="mr-8">
-                <%= f.label :transportation, class: "mb-1 inline-block text-sm text-gray-500 sm:text-base" %>
-                <%= f.select :transportation, options_for_select(TotalSpotItem.transportations.map { |k, v| [t("enums.total_spot_item.transportation.#{k}"), k] }) %>
+                <%= f.label :transportation, class: "mb-1 inline-block text-sm text-gray-800 sm:text-base" %>
+                <%= f.select :transportation, options_for_select(TotalSpotItem.transportations.map { |k, v| [t("enums.total_spot_item.transportation.#{k}"), k] }, f.object.transportation.to_s) %>
               </div>
               <div class="mr-8">
-                <%= f.label :duration, class: "mb-1 inline-block text-sm text-gray-500 sm:text-base" %>
+                <%= f.label :duration, class: "mb-1 inline-block text-sm text-gray-800 sm:text-base" %>
                 <%= f.select :duration, (1..10).to_a %>
               </div>
               <div class="mr-8">
-                <%= f.submit "Update", class: "btn btn-sm btn btn-accent" %>
+                <%= f.submit t('defaults.update'), class: "btn btn-sm btn btn-accent" %>
               </div>
             </div>
           <% end %>
+        </div>
 
-          <%= link_to "Delete", total_spot_item_path(total_spot_item), data: { turbo_method: :delete, confirm: t('defaults.message.delete_confirm')}, class: "mt-2 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow inline-block text-center ml-auto", style: "max-width: fit-content; padding: 0.25em 1em" %>
+          <%= link_to t('defaults.delete'), total_spot_item_path(total_spot_item), data: { turbo_method: :delete, confirm: t('defaults.message.delete_confirm')}, class: "mt-2 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow inline-block text-center ml-auto", style: "max-width: fit-content; padding: 0.25em 1em" %>
         </li>
       <% end %>
     </ul>
@@ -48,62 +53,8 @@
       <%= link_to t('.to_model_course'), new_model_course_path, class: "btn btn-accent mt-4", remote: true %>
     </div>
     <div class="mt-4 text-center">
-      <%= link_to t('.back_tourist_spot'), tourist_spots_path, data: { turbo: false }, class: "link" %>
-      <%= link_to t('.back_recommended_spot'), recommended_spots_path, data: { turbo: false }, class: "link" %>
+      <%= link_to t('.back_tourist_spot'), tourist_spots_path, data: { turbo: false }, class: "link link-accent" %>
+      <%= link_to t('.back_recommended_spot'), recommended_spots_path, data: { turbo: false }, class: "link link-accent" %>
     </div>
   </div>
 </div>
-
-<style>
-.table-sortable {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.table-sortable li {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 5px;
-    cursor: grab;
-}
-
-.mr-8 {
-  margin-right: 0.5rem;
-}
-
-.image-thumbnail {
-  width: 200px;
-  height: 300x;
-  object-fit: cover;
-  object-position: center;
-  margin-right: 10px;
-}
-</style>
-
-<script type="module">
-  document.addEventListener("turbo:load", function() {
-    $('#sortable-list').sortable({
-      axis: 'y',
-      items: 'li',
-      update: function(e, ui) {
-        var sortedIds = $(this).sortable('toArray');
-        
-        // ドラッグアンドドロップされた要素のIDを取得
-        var totalSpotItemId = ui.item.data('id');
-        
-        // Ajaxリクエストを送信
-        $.ajax({
-          url: '/total_spot_items/' + totalSpotItemId + '/sort',
-          type: 'PATCH',
-          data: { sorted_ids: sortedIds },
-          dataType: 'script',
-          headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-          },
-        });
-      }
-    });
-  });
-</script>
-

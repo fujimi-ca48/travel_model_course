@@ -1,36 +1,43 @@
-body {
-    background-image: url('body.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+.list-group {
+    border: 1px solid #ccc;
+    background-color: white;
+    list-style: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
-.footer {
-    background-image: url('back.png');
-    background-size: cover;
+.list-group-item {
+    padding: 8px;
+    cursor: pointer;
 }
 
-.header {
-    background-image: url('back.png');
-    background-size: cover;
+.list-group-item:hover {
+    background-color: #f0f0f0;
 }
 
-.bg-custom {
-    background-color:#F3EEE8; 
+#search-form {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
 }
 
-.bg-custom-1 {
-    background-color:#333944
+#search-form .px-4 {
+    background-color: white;
+    color: #545454;
 }
 
-.pagination a {
-    color: #333944;
-    font-size: 25px;
+#search-form .btn {
+    margin-left: 8px;
 }
 
-  .pagination .current {
-    background-color: #1fb2a6;
-    color: #FFFFFF;
-    font-size: 25px;
+.spot-image {
+    max-height: 300px;
+    width: 100%;
+}
+
+#map { height: 300px; 
+    width: 40%;
 }
 
 .table-sortable {
@@ -43,5 +50,45 @@ body {
     border: 1px solid #ccc;
     padding: 10px;
     margin: 5px;
-    cursor: grab; /* カーソルを掴むアイコンに変更 */
+    cursor: grab;
 }
+
+.mr-8 {
+    margin-right: 0.5rem;
+}
+
+.image-thumbnail {
+    width: 200px;
+    height: 300x;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 10px;
+}
+
+.white-background {
+    background-color: white;
+}
+
+.white-background select {
+    background-color: #e8e8e8;
+    color: #545454;
+}
+
+.ui-autocomplete {
+    position: absolute;
+    z-index: 1000;
+    cursor: default;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  .ui-menu-item {
+    padding: 0.25rem 1rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .ui-menu-item:last-child {
+    border-bottom: none;
+  }

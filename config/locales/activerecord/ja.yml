@@ -1,4 +1,4 @@
-ja:
+if @total_spot_item.update(total_spot_item_params)ja:
   activerecord:
     models:
       user: 'ユーザー'
@@ -25,6 +25,9 @@ ja:
       model_course:
         name: 'モデルコース名'
         all_time: '1日の所要時間'
+      total_spot_item:
+        duration: '観光時間'
+        transportation: '移動手段'
   enums:
     user:
       role:

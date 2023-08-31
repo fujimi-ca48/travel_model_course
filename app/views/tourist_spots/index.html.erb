@@ -1,8 +1,30 @@
+<%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     <div class="mb-10 md:mb-16" style="margin-top: 20px;">
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
     </div>
+
+    <div class="flex justify-center">
+    <%= form_tag('/tourist_spots', method: :get, id: 'search-form', class: "flex items-center mr-4") do %>
+      <div data-controller="autocomplete" data-autocomplete-url-value="/tourist_spots/search" role="combobox">
+        <%= text_field_tag :query, params[:query], placeholder: "検索キーワードを入力", class: "px-4 py-2 border rounded-md", data: { autocomplete_target: "input" } %>
+        <input type="hidden" name="selected_value" data-autocomplete-target="hidden"/>
+        <ul class="list-group" data-autocomplete-target="results"></ul>
+      </div>
+      <%= submit_tag "検索", class: "btn btn-accent ml-2" %>
+    <% end %>
+    
+    <div class="flex items-center mx-2 text-gray-600">
+      または
+    </div>
+    
+    <%= form_with model: @form, url: tourist_spots_path, method: :get, id: 'search-form', class: "flex items-center" do |f| %>
+      <%= f.select :prefecture_name, @prefectures, { include_blank: "都道府県を選択" }, { class: "px-4 py-2 border rounded-md" } %>
+      <%= f.submit "検索", class: "btn btn-accent ml-2" %>
+    <% end %>
+  </div>
 
     <%= link_to t('.see_my_list'), total_spot_items_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
     <%= link_to t('.see_my_recommended'), recommended_spots_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
@@ -17,18 +39,21 @@
 
           <div class="flex flex-1 flex-col p-4 sm:p-6">
             <h2 class="mb-2 text-lg font-semibold text-gray-800">
-              <a class="link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer"><%= tourist_spot.name %></a>
+            <%= link_to tourist_spot_path(tourist_spot), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
+              <%= tourist_spot.name %>
+            <% end %>
             </h2>
 
             <p class="mb-4 text-gray-500"><%= truncate(tourist_spot.text, length: 30, omission: '…') %></p>
 
-            <% prefecture = tourist_spot.address.match(/([北東名][都道府県]|.{2,3}[都道府県])/)&.captures&.first %>
-            <% if prefecture %>
-              <p class="mb-8 text-indigo-500 mt-3"><%= prefecture %></p>
-            <% end %>
-
             <div class="mt-auto flex items-end justify-between">
-              <div class="flex items-center gap-2"></div>
+              <div class="flex items-center gap-2">
+                <% prefecture = tourist_spot.address.match(/([北東名][都道府県]|.{2,3}[都道府県])/)&.captures&.first %>
+                <% if prefecture %>
+                  <p class="mb-2 text-indigo-500"><%= prefecture %></p>
+                <% end %>
+              </div>
+
                 <%= form_with model: @total_spot_item, data: { turbo: false } do |f| %>
                   <%= f.hidden_field :tourist_spot_id, value: tourist_spot.id %>
                   <%= f.submit t('.add_to_list'), class: "btn btn-accent btn-sm text-white" %>

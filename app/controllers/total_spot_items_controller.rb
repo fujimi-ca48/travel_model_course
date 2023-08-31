@@ -39,7 +39,7 @@ class TotalSpotItemsController < ApplicationController
 
   def update
     @total_spot_item = current_user.total_spot_items.find(params[:id].to_i)
-    params[:total_spot_item][:transportation] = TotalSpotItem.transportations[params[:total_spot_item][:transportation]]
+    params[:total_spot_item][:transportation] = TotalSpotItem.transportations[params[:total_spot_item][:transportation]].to_i
 
     if @total_spot_item.update(total_spot_item_params)
       flash[:success] = t('.update.success')
@@ -66,6 +66,7 @@ class TotalSpotItemsController < ApplicationController
   
   def total_spot_item_params
     params.require(:total_spot_item).permit(:recommended_spot_id, :tourist_spot_id, :duration, :transportation)
+          .tap { |params| params[:transportation] = params[:transportation].to_i }
   end
   
   def total_spot_item_update_params
