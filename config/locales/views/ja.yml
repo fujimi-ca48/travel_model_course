@@ -26,6 +26,7 @@ ja:
     show: '詳細'
     edit: '編集'
     delete: '削除'
+    update: '更新'
   message:
     require_login: "ログインしてください"
     delete_confirm: '削除してもよろしいですか？'
@@ -51,6 +52,10 @@ ja:
       title: 'My穴場スポット'
       to_model_course: 'モデルコースを作成する'
       add_to_model_course: 'モデルコースに追加する'
+      add_to_list: 'Myリストに追加'
+      see_my_list: 'Myリストを見る'
+      see_tourist_spot: '観光地一覧から選ぶ'
+      new_recommended_spot: 'My穴場スポットを作成'
     create:
       success: '穴場スポットを作成しました'
       fail: '穴場スポットを作成できませんでした'
@@ -83,9 +88,13 @@ ja:
       see_my_recommended: '穴場スポットから選ぶ'
   total_spot_items:
     index:
-     title: 'Myリスト一覧'
-     back_tourist_spot: '観光地一覧へ戻る'
-     back_recommended_spot: 'My穴場スポット一覧へ戻る' 
+      title: 'Myリスト一覧'
+      back_tourist_spot: '観光地一覧へ戻る'
+      back_recommended_spot: 'My穴場スポット一覧へ戻る' 
+      to_model_course: 'モデルコースを作成する'
+    update:
+      success: '更新しました'
+      fail: '更新できませんでした'
   admin:
     user_sessions:
       new:

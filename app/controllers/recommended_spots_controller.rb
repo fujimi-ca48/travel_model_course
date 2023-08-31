@@ -16,9 +16,9 @@ class RecommendedSpotsController < ApplicationController
   def create
     @recommended_spot = current_user.recommended_spots.build(recommended_spot_params)
     if @recommended_spot.save
-      redirect_to new_recommended_spot_path, success: t('success')
+      redirect_to recommended_spots_path, success: t('.success')
     else
-      flash.now[:danger] = t('fail')
+      flash.now[:danger] = t('.fail')
       render :new, status: :unprocessable_entity
     end
   end

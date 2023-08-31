@@ -16,6 +16,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_125011) do
     t.string "name", null: false
     t.integer "all_time", null: false
     t.string "spot_item_data", null: false
+    t.integer "vehicle", default: 0, null: false
+    t.string "prefecture", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_model_courses_on_user_id"
@@ -39,7 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_125011) do
     t.integer "recommended_spot_id"
     t.integer "tourist_spot_id"
     t.integer "duration", null: false
-    t.integer "transportation", null: false
+    t.integer "transportation", default: 0, null: false
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

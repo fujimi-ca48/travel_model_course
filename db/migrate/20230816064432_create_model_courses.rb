@@ -5,6 +5,8 @@ class CreateModelCourses < ActiveRecord::Migration[7.0]
       t.string :name, null: false
       t.integer :all_time, null: false
       t.string :spot_item_data, null: false
+      t.integer :vehicle, default: 0, null: false
+      t.string :prefecture, null: false
 
       t.timestamps
     end
