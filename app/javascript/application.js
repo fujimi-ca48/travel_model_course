@@ -4,7 +4,6 @@ import "./controllers"
 import "jquery";
 import "jquery-ui"; 
 import "./total_spot_items.js"
-import "./autocomplete.js"
 import { Application } from 'stimulus';
 import { Autocomplete } from 'stimulus-autocomplete';
 const application = Application.start();
