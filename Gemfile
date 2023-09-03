@@ -26,6 +26,7 @@ gem 'ransack'
 gem 'jquery-ui-rails'
 gem 'acts_as_list'
 gem 'enum_help'
+gem 'ransack'
 gem 'pry-byebug', group: :development
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false

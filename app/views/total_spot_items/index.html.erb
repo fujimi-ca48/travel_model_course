@@ -31,7 +31,8 @@
             <div class="flex items-center mb-4">
               <div class="mr-8">
                 <%= f.label :transportation, class: "mb-1 inline-block text-sm text-gray-800 sm:text-base" %>
-                <%= f.select :transportation, options_for_select(TotalSpotItem.transportations.map { |k, v| [t("enums.total_spot_item.transportation.#{k}"), k] }, f.object.transportation.to_s) %>
+                <%= f.select :transportation, options_for_select(TotalSpotItem.transportations.map { |k, v| [t("enums.total_spot_item.transportation.#{k}"), k] }, f.object.transportation) %>
+  
               </div>
               <div class="mr-8">
                 <%= f.label :duration, class: "mb-1 inline-block text-sm text-gray-800 sm:text-base" %>
