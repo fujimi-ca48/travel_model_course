@@ -1,0 +1,27 @@
+<div class="min-h-screen flex flex-col justify-center items-center">
+  <div class="sticky top-0 bg-slate-800 text-white py-2">
+  </div>
+  <div class="mx-auto w-full max-w-md text-center space-y-8">
+    <h1 class="text-center text-4xl font-shin text-default text-gray-700"><%= t('.title') %></h1>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <%= form_with model: @user, url: password_reset_path(@token), local: true, class: "mb-4" do |f| %>
+      <%= render "shared/error_messages", model: @user %>
+      <div class="mb-4">
+        <div class="flex justify-start">
+          <%= f.label :password, t('activerecord.attributes.user.password'), class: "input-label pr-4 text-default text-gray-700" %>
+        </div> 
+          <%= f.password_field :password, class: "input input-bordered input-accent w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
+      </div>
+      <div class="mb-4">
+        <div class="flex justify-start">
+          <%= f.label :password_confirmation, t('activerecord.attributes.user.password_confirmation'), class: "input-label pr-4 text-default text-gray-700" %>
+        </div> 
+          <%= f.password_field :password_confirmation, class: "input input-bordered input-accent w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
+      </div>
+
+      <div class="mb-4">
+        <%= f.submit (t 'defaults.update'), class: "btn btn-accent w-full text-white" %>
+      </div>
+    <% end %>
+  </div>
+</div>

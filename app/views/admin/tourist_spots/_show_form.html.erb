@@ -3,16 +3,14 @@
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="full-screen py-6 sm:py-8 lg:py-12 flex flex-col justify-center items-center">
     <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-      <div class="flex flex-col items-center gap-4">
+      <div class="text-center">
         <% if @tourist_spot.spot_image.present? %>
-          <%= image_tag @tourist_spot.spot_image.url, class: "spot-image object-cover rounded mb-4" %>
+          <%= image_tag @tourist_spot.spot_image.url, class: "spot-image object-cover rounded mb-4 mx-auto", style: "width: 100%; max-width: 500px;" %>
         <% else %>
-          <%= image_tag "sample.jpg", class: "spot-image object-cover rounded mb-10" %>
+          <%= image_tag "sample.jpg", class: "spot-image object-cover rounded mb-10 mx-auto", style: "width: 100%; max-width: 500px;" %>
         <% end %>
-        <div class="text-center">
-          <h2 class="text-xl font-bold text-gray-500 md:text-3xl mb-10"><%= @tourist_spot.name %></h2>
-        </div>
-        <p class="text-sm text-gray-500 md:text-xl text-left mx-auto mb-10" style="width: 30%;"><%= @tourist_spot.text %></p>
+        <h2 class="text-xl font-bold text-gray-500 md:text-3xl mb-4"><%= @tourist_spot.name %></h2>
+        <p class="text-sm text-gray-500 md:text-xl text-left mx-auto mb-10" style="max-width: 400px;"><%= @tourist_spot.text %></p>
       </div>
     </div>
 

@@ -1,51 +1,48 @@
 <%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
- <%= javascript_include_tag 'total_spot_items' %>
+<%= javascript_include_tag 'total_spot_items' %>
 
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-    <div class="mb-10 md:mb-16" style="margin-top: 20px;">
+    <div class="mb-6 md:mb-8" style="margin-top: 20px;">
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
     </div>
     <ul class="table-sortable" id="sortable-list">
       <% @total_spot_items.each do |total_spot_item| %>
-        <li class="flex bg-white" id="total_spot_item_<%= total_spot_item.id %>" data-id="<%= total_spot_item.id %>">
+        <li class="flex flex-col sm:flex-row bg-white mb-6 md:mb-8" id="total_spot_item_<%= total_spot_item.id %>" data-id="<%= total_spot_item.id %>">
           <% if total_spot_item.recommended_spot&.img.present? %>
-            <%= image_tag total_spot_item.recommended_spot.img.url, class: "image-thumbnail" %>
+            <%= image_tag total_spot_item.recommended_spot.img.url, class: "image-thumbnail mx-auto sm:mr-4 md:mr-6", style: "max-width: 100%; height: auto;" %>
           <% elsif total_spot_item.tourist_spot&.spot_image.present? %>
-            <%= image_tag total_spot_item.tourist_spot.spot_image.url, class: "image-thumbnail" %>
+            <%= image_tag total_spot_item.tourist_spot.spot_image.url, class: "image-thumbnail mx-auto sm:mr-4 md:mr-6", style: "max-width: 100%; height: auto;" %>
           <% else %>
-            <%= image_tag "sample.jpg", class: "image-thumbnail" %>
+            <%= image_tag "sample.jpg", class: "image-thumbnail mx-auto sm:mr-4 md:mr-6", style: "max-width: 100%; height: auto;" %>
           <% end %>
-          <div class="flex flex-1 flex-col p-4 sm:p-6">
+          <div class="flex-1 p-4 sm:p-6">
             <h2 class="mb-2 text-lg font-semibold text-gray-800"></h2>
             <div class="mb-4 text-gray-800 font-semibold text-lg">
               <%= total_spot_item.recommended_spot&.name || total_spot_item.tourist_spot&.name %>
             </div>
-            <div class="mb-4 text-gray-800">
-              <%= truncate(total_spot_item.recommended_spot&.text || total_spot_item.tourist_spot&.text, length: 70, omission: '...') %>
+            <div class="mb-4 text-gray-800 overflow-hidden" style="max-height: 150px;">
+            <%= truncate(total_spot_item.recommended_spot&.text || total_spot_item.tourist_spot&.text, length: 70, omission: '...') %>
             </div>
           </div>
-         
-          <div class="mr-8" style="margin-top: 10px;">
-          <%= form_with model: total_spot_item, url: total_spot_item_path(total_spot_item), method: :patch, local: true, class: "white-background" do |f| %>
-            <div class="flex items-center mb-4">
-              <div class="mr-8">
-                <%= f.label :transportation, class: "mb-1 inline-block text-sm text-gray-800 sm:text-base" %>
-                <%= f.select :transportation, options_for_select(TotalSpotItem.transportations.map { |k, v| [t("enums.total_spot_item.transportation.#{k}"), k] }, f.object.transportation) %>
-  
+          <div class="flex items-top">
+            <%= form_with model: total_spot_item, url: total_spot_item_path(total_spot_item), method: :patch, local: true, class: "white-background" do |f| %>
+              <div class="flex flex-col md:flex-row md:items-center">
+                <div class="mr-4">
+                  <%= f.label :transportation, class: "mb-1 inline-block text-sm text-gray-800 md:text-base" %>
+                  <%= f.select :transportation, options_for_select(TotalSpotItem.transportations.map { |k, v| [t("enums.total_spot_item.transportation.#{k}"), k] }, f.object.transportation) %>
+                </div>
+                <div class="mr-4">
+                  <%= f.label :duration, class: "mb-1 inline-block text-sm text-gray-800 md:text-base" %>
+                  <%= f.select :duration, (1..10).to_a %>
+                </div>
+                <div class="mr-4">
+                  <%= f.submit t('defaults.update'), class: "btn btn-sm btn btn-accent" %>
+                </div>
               </div>
-              <div class="mr-8">
-                <%= f.label :duration, class: "mb-1 inline-block text-sm text-gray-800 sm:text-base" %>
-                <%= f.select :duration, (1..10).to_a %>
-              </div>
-              <div class="mr-8">
-                <%= f.submit t('defaults.update'), class: "btn btn-sm btn btn-accent" %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-
-          <%= link_to t('defaults.delete'), total_spot_item_path(total_spot_item), data: { turbo_method: :delete, confirm: t('defaults.message.delete_confirm')}, class: "mt-2 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow inline-block text-center ml-auto", style: "max-width: fit-content; padding: 0.25em 1em" %>
+            <% end %>
+          </div>
+          <%= link_to t('defaults.delete'), total_spot_item_path(total_spot_item), data: { turbo_method: :delete, confirm: t('defaults.message.delete_confirm')}, class: "px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow inline-block text-center", style: "max-width: fit-content; padding: 0.25em 1em" %>
         </li>
       <% end %>
     </ul>

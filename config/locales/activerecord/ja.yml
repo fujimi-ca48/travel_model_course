@@ -1,4 +1,4 @@
-if @total_spot_item.update(total_spot_item_params)ja:
+ja:
   activerecord:
     models:
       user: 'ユーザー'

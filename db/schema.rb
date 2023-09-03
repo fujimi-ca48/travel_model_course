@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_19_125011) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_03_012041) do
   create_table "model_courses", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name", null: false
@@ -69,7 +69,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_125011) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 0, null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
+    t.integer "access_count_to_reset_password_page", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
   add_foreign_key "model_courses", "users"
