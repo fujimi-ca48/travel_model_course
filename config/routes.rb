@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+  get 'password_resets/create'
+  get 'password_resets/edit'
+  get 'password_resets/update'
   namespace :admin do
     root to: 'dashboards#index'
     get 'login', to: 'user_sessions#new'
@@ -28,4 +32,6 @@ Rails.application.routes.draw do
       patch :sort
     end
   end
+  resources :password_resets, only: %i[new create edit update]
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end
