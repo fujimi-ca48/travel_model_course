@@ -13,6 +13,7 @@ ja:
         password: 'パスワード'
         password_confirmation: 'パスワード確認'
         role: '権限'
+        avatar: 'アバター'
       tourist_spot:
         name: 'スポット名'
         text: '見どころ'
@@ -38,6 +39,12 @@ ja:
         admin: '管理者'
     total_spot_item:
       transportation:
+        walking: '徒歩'
+        car: '車'
+        train: '電車'
+        airplane: '飛行機'
+    model_course:
+      vehicle:
         walking: '徒歩'
         car: '車'
         train: '電車'

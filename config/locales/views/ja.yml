@@ -99,6 +99,24 @@ ja:
     update:
       success_password_change: 'パスワードを変更しました'
       fail_password_change": 'パスワードを変更できませんでした'
+  model_courses:
+    index:
+      title: 'モデルコース一覧'
+    create:
+      success: 'モデルコースを作成しました'
+      fail: 'モデルコースを作成できませんでした'
+    new:
+      title: 'モデルコース作成'
+      back_my_list: 'Myリストに戻る'
+      create_model_course: '作成'
+  profiles:
+    show:
+      title: 'プロフィール'
+    edit:
+      title: 'プロフィール編集'
+    update:
+      success: 'プロフィールを更新しました'
+      fail: 'プロフィールを更新できませんでした'
   admin:
     user_sessions:
       new:

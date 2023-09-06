@@ -16,8 +16,6 @@ class TotalSpotItem < ApplicationRecord
 
   enum transportation: { walking: 0, car: 1, train: 2, airplane: 3 }
 
-  private
-
   def exclusive_associations
     if recommended_spot_id.present? && tourist_spot_id.present?
       errors.add(:base, I18n.t('activerecord.errors.models.total_spot_item.exclusive_associations'))
