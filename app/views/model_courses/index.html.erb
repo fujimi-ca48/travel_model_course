@@ -1,7 +1,24 @@
+<%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     <div class="mb-10 md:mb-16" style="margin-top: 20px;">
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
+    </div>
+
+    <div class="flex justify-center">  
+      <%= search_form_for @q, url: model_courses_path, method: :get, id: 'search-form', class: "flex items-center" do |f| %>
+        <%= f.select :prefecture_eq, ModelCourse.prefectures, { include_blank: "都道府県を選択" }, { class: "px-4 py-2 border rounded-md" } %>
+        <%= f.select :vehicle_eq, options_for_select(ModelCourse.vehicles_i18n.map { |key, value| [value, key] }, params[:q]&.dig(:vehicle_eq)), { include_blank: "移動手段を選択" }, { class: "px-4 py-2 border rounded-md" } %>
+        <%= f.submit "検索", class: "btn btn-accent ml-2" %>
+      <% end %>
+    </div>
+    <div class="mt-8"></div>
+    
+    <div class="flex justify-center">  
+      <% if @no_results %>
+        <p class="text-gray-500">検索結果がありません</p>
+      <% end %>
     </div>
 
     <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">

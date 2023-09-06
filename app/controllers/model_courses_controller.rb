@@ -3,9 +3,18 @@ class ModelCoursesController < ApplicationController
   before_action :require_login
 
   def index
-    @q = ModelCourse.ransack(params[:q])
+    q_params = params.fetch(:q, {}).permit(:prefecture_eq, :vehicle_eq)
+  
+    if q_params[:vehicle_eq].present?
+      q_params[:vehicle_eq] = ModelCourse.vehicles[q_params[:vehicle_eq]]
+    end
+  
+    @q = ModelCourse.ransack(q_params)
     @model_courses = @q.result(distinct: true).page(params[:page]).per(12)
+  
+    @no_results = @model_courses.empty?
   end
+
 
   def new
     @model_course = ModelCourse.new
