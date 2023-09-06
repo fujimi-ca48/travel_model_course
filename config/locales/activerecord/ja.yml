@@ -1,10 +1,11 @@
-if @total_spot_item.update(total_spot_item_params)ja:
+ja:
   activerecord:
     models:
       user: 'ユーザー'
       tourist_spot: '観光地'
       model_course: 'モデルコース'
       recommended_spot: '穴場スポット'
+      total_spot_item: 'Myリスト一覧'
     attributes:
       user:
         name: 'ユーザー名'
@@ -25,6 +26,8 @@ if @total_spot_item.update(total_spot_item_params)ja:
       model_course:
         name: 'モデルコース名'
         all_time: '1日の所要時間'
+        vehicle: '乗り物'
+        prefecture: '都道府県'
       total_spot_item:
         duration: '観光時間'
         transportation: '移動手段'
