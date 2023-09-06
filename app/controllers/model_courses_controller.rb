@@ -15,6 +15,7 @@ class ModelCoursesController < ApplicationController
     @no_results = @model_courses.empty?
   end
 
+
   def new
     @model_course = ModelCourse.new
   end
@@ -40,7 +41,6 @@ class ModelCoursesController < ApplicationController
 
     @model_course.vehicle = most_common_transportation_key if most_common_transportation_key
 
-  
     address_counts = selected_total_spot_items.map do |item|
       address = item.recommended_spot&.address || item.tourist_spot&.address
       address&.match(/([北東名][都道府県]|.{2,3}[都道府県])/)&.captures&.first

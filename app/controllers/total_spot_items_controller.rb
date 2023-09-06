@@ -19,7 +19,9 @@ class TotalSpotItemsController < ApplicationController
         redirect_to tourist_spots_path
       elsif total_spot_item_params[:recommended_spot_id]
         recommended_spot_name = RecommendedSpot.find_by(id: total_spot_item_params[:recommended_spot_id])&.name
+        
         flash[:danger] = t('.duplicate_recommended_spot', recommended_spot_name: recommended_spot_name)
+
         redirect_to recommended_spots_path
       end
     else

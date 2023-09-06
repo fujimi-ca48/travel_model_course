@@ -6,6 +6,7 @@
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
     </div>
 
+
     <div class="flex justify-center">
       <%= search_form_for @q, url: model_courses_path, method: :get, id: 'search-form', class: "flex items-center" do |f| %>
         <%= f.select :prefecture_eq, ModelCourse.prefectures, { include_blank: "都道府県を選択" }, { class: "px-4 py-2 border rounded-md" } %>
@@ -13,12 +14,15 @@
         <%= f.submit "検索", class: "btn btn-accent ml-2" %>
       <% end %>
     </div>
-  
+
+    <div class="mt-8"></div>
+
     <div class="flex justify-center">  
       <% if @no_results %>
         <p class="text-gray-500">検索結果がありません</p>
       <% end %>
     </div>
+
 
     <div class="mt-8"></div>
 
@@ -46,9 +50,9 @@
             <div class="mt-auto flex items-end justify-between">
               <div class="flex items-center gap-2">
               <!-- 都道府県情報を表示 -->
-              <% if recommended_spot && recommended_spot.address.present? %>
-                <span class="text-indigo-500"><%= recommended_spot.address %></span>
-              <% end %>
+                <% if model_course.prefecture.present? %>
+                  <span class="text-indigo-500"><%= model_course.prefecture %></span>
+                <% end %>
 
               </div>
             </div>
@@ -59,7 +63,7 @@
 
     <div class="mt-8"></div>
     <div class="flex justify-center mt-4">
-    <%= paginate @model_courses %>
+      <%= paginate @model_courses %>
   </div>
   </div>
 </div>
