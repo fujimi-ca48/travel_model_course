@@ -27,4 +27,15 @@ class ModelCourse < ApplicationRecord
       errors.add(:spot_item_data, "should have at least one item with recommended_spot_id")
     end
   end
+
+  def self.prefectures
+    select(:prefecture)
+      .where.not(prefecture: nil)
+      .pluck(:prefecture)
+      .uniq
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["prefecture", "vehicle"]
+  end
 end
