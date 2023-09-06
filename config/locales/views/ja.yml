@@ -27,6 +27,7 @@ ja:
     edit: '編集'
     delete: '削除'
     update: '更新'
+    password_reset: 'パスワードリセット'
   message:
     require_login: "ログインしてください"
     delete_confirm: '削除してもよろしいですか？'
@@ -67,19 +68,6 @@ ja:
       fail_update_spot: '更新できませんでした'
     destroy:
       success_delete_spot: '削除しました'
-    add_to_model_course:
-      success: '%{recommended_spot_name} をおすすめスポットに追加しました'
-      fail: '%{recommended_spot_name} はすでに選ばれています'
-  selected_tourist_spots:
-    index:
-      title: '選んだ観光スポット一覧'
-      to_index: '観光地一覧へ戻る'
-      make_model_course: 'モデルコースを作成する'
-    destroy:
-      success: '%{tourist_spot_name} を選んだ観光地から削除しました'
-    create:
-      success_add: '%{tourist_spot_name} を選んだ観光地に追加しました'
-      already_selected: '%{tourist_spot_name} はすでに選ばれています'
   tourist_spots:
     index:
       title: '観光地一覧'
@@ -95,6 +83,22 @@ ja:
     update:
       success: '更新しました'
       fail: '更新できませんでした'
+    create:
+      duplicate_tourist_spot: '%{tourist_spot_name} はすでに選ばれています'
+      duplicate_recommended_spot: '%{recommended_spot_name} はすでに選ばれています'
+      success: 'リストに追加しました'
+  password_resets:
+    new:
+      title: 'パスワードリセット申請'
+      to_login_page: 'ログインページへ'
+      submit: '送信'
+    create:
+      success: '送信しました'
+    edit:
+      title: 'パスワードリセット設定'
+    update:
+      success_password_change: 'パスワードを変更しました'
+      fail_password_change": 'パスワードを変更できませんでした'
   admin:
     user_sessions:
       new:
