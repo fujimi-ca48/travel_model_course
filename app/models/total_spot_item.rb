@@ -13,6 +13,7 @@ class TotalSpotItem < ApplicationRecord
   enum transportation: { walking: 0, car: 1, train: 2, airplane: 3 }
 
   attribute :duration, :integer, default: 1
+  attribute :transportation, :integer
   
   private
 
