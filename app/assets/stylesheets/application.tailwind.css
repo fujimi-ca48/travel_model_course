@@ -45,13 +45,13 @@ body {
     padding: 0;
     max-height: 200px;
     overflow-y: auto;
-  }
-  
-  .list-group-item {
+}
+
+.list-group-item {
     padding: 8px;
     cursor: pointer;
-  }
-  
-  .list-group-item:hover {
+}
+
+.list-group-item:hover {
     background-color: #f0f0f0;
-  }
+}

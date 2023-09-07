@@ -28,4 +28,5 @@ Rails.application.routes.draw do
       patch :sort
     end
   end
+  resource :profile, onley: %i[show edit update]
 end

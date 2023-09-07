@@ -81,14 +81,14 @@
     max-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
-  }
-  
-  .ui-menu-item {
+}
+
+.ui-menu-item {
     padding: 0.25rem 1rem;
     background-color: #ffffff;
     border-bottom: 1px solid #e0e0e0;
-  }
-  
-  .ui-menu-item:last-child {
+}
+
+.ui-menu-item:last-child {
     border-bottom: none;
-  }
+}

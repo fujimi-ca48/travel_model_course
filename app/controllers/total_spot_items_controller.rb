@@ -40,19 +40,20 @@ class TotalSpotItemsController < ApplicationController
     @total_spot_item = current_user.total_spot_items.find(params[:id].to_i)
     params[:total_spot_item][:transportation] = TotalSpotItem.transportations[params[:total_spot_item][:transportation]]
 
+    puts "transportation before update: #{@total_spot_item.transportation}"
     if @total_spot_item.update(total_spot_item_params)
       flash[:success] = t('.update.success')
     else
       flash[:danger] = t('.update.fail')
     end
-  
+    puts "transportation before update: #{@total_spot_item.transportation}"
     redirect_to total_spot_items_path
   end
   
   def destroy
     @total_spot_item = current_user.total_spot_items.find(params[:id])
     @total_spot_item.destroy
-    redirect_to request.referer, success: t('.delete.success')
+    redirect_to request.referer, success: t('.delete_success')
   end
 
   def sort
