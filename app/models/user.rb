@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  mount_uploader :avatar, AvatarUploader
   authenticates_with_sorcery!
   has_many :recommended_spots, dependent: :destroy
   has_many :model_courses, dependent: :destroy
@@ -23,5 +24,9 @@ class User < ApplicationRecord
         transportation: item.transportation
       }
     end
+  end
+
+  def total_spot_items_count
+    total_spot_items.count
   end
 end

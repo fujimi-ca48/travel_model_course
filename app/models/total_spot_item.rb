@@ -10,11 +10,12 @@ class TotalSpotItem < ApplicationRecord
   validates :duration, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   validates :transportation, presence: true, numericality: { only_integer: true }
   validate :exclusive_associations
-  enum transportation: { walking: 0, car: 1, train: 2, airplane: 3 }
 
   attribute :duration, :integer, default: 1
-  attribute :transportation, :integer
-  
+  attribute :transportation, :integer, default: 0
+
+  enum transportation: { walking: 0, car: 1, train: 2, airplane: 3 }
+
   private
 
   def exclusive_associations

@@ -80,6 +80,8 @@ ja:
       back_tourist_spot: '観光地一覧へ戻る'
       back_recommended_spot: 'My穴場スポット一覧へ戻る' 
       to_model_course: 'モデルコースを作成する'
+    destroy:
+      delete_success: '削除しました'
     update:
       success: '更新しました'
       fail: '更新できませんでした'

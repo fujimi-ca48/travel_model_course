@@ -6,7 +6,7 @@ class RecommendedSpotsController < ApplicationController
   def index
     @q = current_user.recommended_spots.ransack(params[:q])
     @recommended_spots = @q.result(distinct: true).page(params[:page]).per(12)
-    @total_spot_item = TotalSpotItem.new 
+    @total_spot_item = TotalSpotItem.new
   end
 
   def new
