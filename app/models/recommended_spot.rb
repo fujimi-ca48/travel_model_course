@@ -3,6 +3,9 @@ class RecommendedSpot < ApplicationRecord
   belongs_to :user
   has_many :total_spot_items, dependent: :destroy
 
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
+
   validates :user, presence: true
   validates :name, presence: true
   validates :address, presence: true

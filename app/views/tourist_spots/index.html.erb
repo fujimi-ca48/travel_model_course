@@ -1,3 +1,5 @@
+<%= javascript_include_tag "count" %>
+<%= stylesheet_link_tag 'count', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
 
 <div class="py-6 sm:py-8 lg:py-12">
@@ -26,8 +28,13 @@
     <% end %>
   </div>
     
-    <%= link_to t('.see_my_list'), total_spot_items_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
+  <%= turbo_frame_tag "total-spot-items-frame" do %>
+    <div class="relative" style="display: inline-block;">
+      <%= link_to t('.see_my_list'), total_spot_items_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
+      <span id="total-spot-items-count-badge" class="bg-red-500 text-white rounded-full px-1 py-1 text-xs absolute top-0 right-0 -mt-2 -mr-2" style="display: none;"></span>
+    </div>
     <%= link_to t('.see_my_recommended'), recommended_spots_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
+  <% end %>
 
     <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
       <% @tourist_spots.each do |tourist_spot| %>
@@ -44,7 +51,9 @@
             <% end %>
             </h2>
 
-            <p class="mb-4 text-gray-500"><%= truncate(tourist_spot.text, length: 30, omission: '…') %></p>
+            <p class="mb-4 text-gray-500" style="word-wrap: break-word;">
+              <%= truncate(tourist_spot.text, length: 75, omission: '…') %>
+            </p>
 
             <div class="mt-auto flex items-end justify-between">
               <div class="flex items-center gap-2">

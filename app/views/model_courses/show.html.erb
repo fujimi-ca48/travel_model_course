@@ -1,15 +1,122 @@
-<% @spot_items.each do |spot_item| %>
-    <% if spot_item["recommended_spot_id"] %>
-      <% recommended_spot = RecommendedSpot.find(spot_item["recommended_spot_id"]) %>
-      <p>Recommended Spot Name: <%= recommended_spot.name %></p>
-      <%= recommended_spot.text %>
-     <!-- <%= image_tag(recommended_spot.img.url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") if recommended_spot.img.present? %> -->
-     <!-- <%= image_tag("sample.jpg", class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") unless recommended_spot.img.present? %> -->
-    <% elsif spot_item["tourist_spot_id"] %>
-      <% tourist_spot = TouristSpot.find(spot_item["tourist_spot_id"]) %>
-      <p>Tourist Spot Name: <%= tourist_spot.name %></p>
-      <p>Tourist Spot Name: <%= tourist_spot.text %></p>
+<%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div class="py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-2xl px-4 md:px-8 text-center">
+    <div class="mb-10 md:mb-16" style="margin-top: 20px;"></div>
+      <%= link_to t('defaults.edit'), edit_model_course_path(@model_course), class: 'px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600' %>
+      <%= link_to t('defaults.delete'), model_course_path(@model_course), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: 'px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600' %>
+    <div class="mt-8"></div>
+
+    <% spot_items = JSON.parse(@model_course.spot_item_data) %>
+    <% unless spot_items.empty? %>
+      <% recommended_spot_item = spot_items.find { |item| item["recommended_spot_id"].present? } %>
+      <% if recommended_spot_item %>
+        <% recommended_spot = RecommendedSpot.find_by(id: recommended_spot_item["recommended_spot_id"]) %>
+        <% if recommended_spot && recommended_spot.img.present? %>
+          <%= image_tag recommended_spot.img.url, class: "spot-image object-cover rounded mb-4 mx-auto custom-image" %> <!-- mx-autoを追加 -->
+        <% else %>
+          <%= image_tag asset_path("sample.jpg"), class: "spot-image object-cover rounded mb-10 mx-auto custom-image" %> <!-- mx-autoを追加 -->
+        <% end %>
+      <% end %>
     <% end %>
-    <p>Duration: <%= spot_item["duration"] %></p>
-    <p>Transportation: <%= spot_item["transportation"] %></p>
-  <% end %>
+
+    <div class="mt-8"></div>
+    <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= @model_course.name %></h2>
+    <div class="mt-4">
+      <p class="text-lg text-gray-800 text-center text-left">1日の所要時間: <%= @model_course.all_time %> 時間</p>
+    </div>
+    <div class="mt-4">
+      <p class="text-lg text-gray-800 text-center text-left">メインの移動手段: <%= I18n.t("vehicle.#{@model_course.vehicle}") %></p>
+    </div>
+    <div class="mt-4">
+      <p class="text-lg text-gray-800 text-center text-left">都道府県: <%= @model_course.prefecture %></p>
+    </div>
+    <div class="mt-8"></div>
+    <div class="flex flex-col gap-2">
+      <span class="text-gray-800">投稿ユーザー：<%= @model_course.user.name %></span>
+    <div class="mt-8"></div>
+      <div style="display: flex; justify-content: center;">
+        <hr style="border-top: 1px solid #545454; width: 50%;">
+      </div>
+    </div>
+      
+    <div class="mt-8"></div>
+    <p class="text-gray-800" style="margin-right: 38%; margin-left: 0;">＜モデルコースの順路＞</p>
+    <% spot_items = JSON.parse(@model_course.spot_item_data) %>
+    <ul>
+    
+      <% spot_items.each_with_index do |spot_item, index| %>
+        <p class="text-gray-800" style="margin-right: 45%; margin-left: 0;"><%= "スポット #{index + 1}" %></p>
+        <p class="text-gray-800" style="margin-left: 30%;"><%= "観光時間: #{spot_item['duration']} 時間" %>&ensp;
+        <%= "移動手段: #{I18n.t("transportation.#{spot_item['transportation']}")}" %><p>
+
+        <li class="flex bg-white" id="spot_item_<%= index %>" data-id="<%= index %>" style="width: 50%; margin: 0 auto;">
+          <% if spot_item['recommended_spot_id'].present? %>
+            <% recommended_spot = RecommendedSpot.find_by(id: spot_item['recommended_spot_id']) %>
+            <% if recommended_spot && recommended_spot.img.present? %>
+              <%= image_tag recommended_spot.img.url, class: "image-thumbnail" %>
+            <% else %>
+              <%= image_tag asset_path("sample.jpg"), class: "image-thumbnail" %>
+            <% end %>
+          <% elsif spot_item['tourist_spot_id'].present? %>
+            <% tourist_spot = TouristSpot.find_by(id: spot_item['tourist_spot_id']) %>
+            <% if tourist_spot && tourist_spot.spot_image.present? %>
+              <%= image_tag tourist_spot.spot_image.url, class: "image-thumbnail" %>
+            <% else %>
+              <%= image_tag asset_path("sample.jpg"), class: "image-thumbnail" %>
+            <% end %>
+          <% else %>
+            <%= image_tag asset_path("sample.jpg"), class: "image-thumbnail" %>
+          <% end %>
+          <div class="pl-2">
+          <% if spot_item['recommended_spot_id'].present? %>
+            <% recommended_spot = RecommendedSpot.find_by(id: spot_item['recommended_spot_id']) %>
+            <% if recommended_spot.present? %>
+              <div class="mt-8"></div>
+              <%= link_to recommended_spot_path(recommended_spot), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
+                <p class="text-left"><%= truncate(recommended_spot.name, length: 10) %></p>
+              <% end %>
+                <p class="text-gray-500 text-left"><%= truncate(recommended_spot.text, length: 200) %></p>
+            <% end %>
+          <% elsif spot_item['tourist_spot_id'].present? %>
+            <div class="mt-8"></div>
+            <% tourist_spot = TouristSpot.find_by(id: spot_item['tourist_spot_id']) %>
+            <% if tourist_spot.present? %>
+              <div class="mt-8"></div>
+              <%= link_to tourist_spot_path(tourist_spot), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
+                <p class="text-left"><%= truncate(tourist_spot.name, length: 10) %></p>
+              <% end %>
+                <p class="text-gray-500 text-left"><%= truncate(tourist_spot.text, length: 200) %></p>
+            <% end %>
+          <% end %>
+        </div>
+        </li>
+        <% if index < spot_items.length - 1 %>
+          <hr>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+  <div class="mt-8"></div>
+    <div class="text-center">
+      <%= link_to t('defaults.return'), model_courses_path, class: 'btn btn-accent text-white' %>
+    </div>
+  </div>
+ </div>
+<div>
+
+<style>
+.custom-image {
+    max-width: 50%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+.image-thumbnail {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 10px;
+}
+</style>
