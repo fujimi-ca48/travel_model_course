@@ -5,6 +5,14 @@
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     <div class="mb-10 md:mb-16" style="margin-top: 20px;">
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
+      <div class="text-center">
+      <div class="bg-white rounded p-4 py-6 mx-auto max-w-lg">
+        <p class="mb-4 text-left text-gray-800"> Step1: My穴場スポットを1つ以上リストに含めてください </p>
+        <p class="mb-4 text-left text-gray-800"> Step2: ドラックアンドドロップで順路を指定できます </p>
+        <p class="mb-4 text-left text-gray-800"> Step3: スポットごとの観光時間&移動手段を選択し更新します </p>
+        <p class="mb-4 text-left" style="color: red; font-size: 14px;"> ※順路・観光時間・移動手段は後から変更できません </p>
+      </div>
+    </div>
     </div>
     <ul class="table-sortable" id="sortable-list">
       <% @total_spot_items.each do |total_spot_item| %>
@@ -43,14 +51,13 @@
             </div>
           <% end %>
         </div>
-
-          <%= link_to t('defaults.delete'), total_spot_item_path(total_spot_item), data: { turbo_method: :delete, confirm: t('defaults.message.delete_confirm')}, class: "mt-2 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow inline-block text-center ml-auto", style: "max-width: fit-content; padding: 0.25em 1em" %>
+          <%= link_to t('defaults.delete'), total_spot_item_path(total_spot_item), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: "mt-2 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow inline-block text-center ml-auto", style: "max-width: fit-content; padding: 0.25em 1em" %>
         </li>
       <% end %>
     </ul>
 
     <div class="mt-4 text-center">
-      <%= link_to t('.to_model_course'), new_model_course_path, class: "btn btn-accent mt-4", remote: true %>
+    <%= link_to t('.to_model_course'), new_model_course_path,  data: { turbo_method: :get, "turbo-confirm": (t 'defaults.no_update?')}, class: "btn btn-accent mt-4" %>
     </div>
     <div class="mt-4 text-center">
       <%= link_to t('.back_tourist_spot'), tourist_spots_path, data: { turbo: false }, class: "link link-accent" %>

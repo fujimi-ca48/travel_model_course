@@ -1,0 +1,31 @@
+<div class="min-h-screen flex flex-col justify-center items-center">
+  <div class="py-6 sm:py-8 lg:py-12 flex justify-center items-center">
+    <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+      <div class="mb-10 md:mb-16" style="margin-top: 20px;">
+        <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
+      </div>
+      <%= form_with model: @model_course, data: { turbo: false } do |f| %>
+        <%= render 'shared/error_messages', model: f.object %>
+        <div class="mb-4">
+          <div class="flex justify-start">
+            <%= f.label :name, class: "input-label pr-4 text-default text-gray-700" %>
+          </div>
+          <%= f.text_field :name, class: "input input-bordered input-accent w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :all_time, class: "input-label pr-4 text-default text-gray-700" %>
+          <%= f.text_field :all_time, class: "input input-bordered input-accent w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
+        </div>
+        
+        <div class="mb-4">
+          <%= f.submit t('defaults.update'), class: "btn btn-accent text-white w-full" %>
+        </div>
+      <% end %>
+
+      <div class="mb-4 text-center">
+        <%= link_to t('.back_model_course'), model_courses_path, data: { turbo: false }, class: "link link-accent" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,16 +29,16 @@ class RecommendedSpotsController < ApplicationController
   
   def update
     if @recommended_spot.update(recommended_spot_params)
-      redirect_to recommended_spots_path, t('success_update_spot')
+      redirect_to recommended_spots_path, success: t('.success_update_spot')
     else
-      flash.now[:danger] = t('fail_update_spot')
+      flash.now[:danger] = t('.fail_update_spot')
       render :edit, status: :unprocessable_entity
     end
   end
   
   def destroy
     @recommended_spot.destroy!
-    redirect_to recommended_spots_path, success: t('success_delete_spot')
+    redirect_to recommended_spots_path, success: t('.success_delete_spot')
   end
 
   private

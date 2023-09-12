@@ -1,4 +1,14 @@
 ja:
+  transportation:
+    walking: '徒歩'
+    car: '車'
+    train: '電車'
+    airplane: '飛行機'
+  vehicle:
+    walking: '徒歩'
+    car: '車'
+    train: '電車'
+    airplane: '飛行機'
   users:
     new:
       title: 'ユーザー登録'
@@ -28,9 +38,11 @@ ja:
     delete: '削除'
     update: '更新'
     password_reset: 'パスワードリセット'
+    destroy?: '削除してもよろしいですか？'
+    return: '戻る'
+    no_update?: '後から変更できません。よろしいですか？'
   message:
     require_login: "ログインしてください"
-    delete_confirm: '削除してもよろしいですか？'
     no_authority: '権限がありません'
   errors:
     unavailable_session: "セッションが利用できません"
@@ -68,6 +80,8 @@ ja:
       fail_update_spot: '更新できませんでした'
     destroy:
       success_delete_spot: '削除しました'
+    edit: 
+      title: 'My穴場スポット編集'
   tourist_spots:
     index:
       title: '観光地一覧'
@@ -111,6 +125,14 @@ ja:
       title: 'モデルコース作成'
       back_my_list: 'Myリストに戻る'
       create_model_course: '作成'
+    destroy:
+      success_delete_model_course: '削除しました'
+    update:
+      success_update_model_course: '更新しました'
+      fail_update_model_course: '更新できませんでした'
+    edit:
+      back_model_course: '戻る'
+      title: 'モデルコース編集'
   profiles:
     show:
       title: 'プロフィール'

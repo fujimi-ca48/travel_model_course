@@ -4,11 +4,15 @@
   <div class="full-screen py-6 sm:py-8 lg:py-12 flex flex-col justify-center items-center">
     <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
       <div class="flex flex-col items-center gap-4">
-        <% if @tourist_spot.spot_image.present? %>
-          <%= image_tag @tourist_spot.spot_image.url, class: "spot-image object-cover rounded mb-4" %>
-        <% else %>
-          <%= image_tag "sample.jpg", class: "spot-image object-cover rounded mb-10" %>
-        <% end %>
+
+        <div class="spot-image-wrapper">
+          <% if @tourist_spot.spot_image.present? %>
+            <%= image_tag @tourist_spot.spot_image.url, class: "spot-image object-cover rounded mb-4" %>
+          <% else %>
+            <%= image_tag "sample.jpg", class: "spot-image object-cover rounded mb-10" %>
+          <% end %>
+        </div>
+
         <div class="text-center">
           <h2 class="text-xl font-bold text-gray-500 md:text-3xl mb-10"><%= @tourist_spot.name %></h2>
         </div>

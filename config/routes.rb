@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+  get 'password_resets/create'
+  get 'password_resets/edit'
+  get 'password_resets/update'
   namespace :admin do
     root to: 'dashboards#index'
     get 'login', to: 'user_sessions#new'
@@ -21,12 +25,18 @@ Rails.application.routes.draw do
       get :search
     end
   end
-  resources :model_courses, only: %i[new create show index]
-  resources :recommended_spots, only: %i[index new create destroy]
+  resources :model_courses, only: %i[new create show index edit update destroy]
+  resources :recommended_spots, only: %i[index new create destroy show edit update]
   resources :total_spot_items, only: %i[index new create update destroy] do
     member do
       patch :sort
     end
+
+    collection do
+      get :get_total_spot_items_count
+    end
   end
   resource :profile, onley: %i[show edit update]
+  resources :password_resets, only: %i[new create edit update]
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

@@ -1,13 +1,21 @@
+<%= javascript_include_tag "count" %>
+<%= stylesheet_link_tag 'count', media: 'all', 'data-turbolinks-track': 'reload' %>
+
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     <div class="mb-10 md:mb-16">
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
     </div>
-
-    <%= link_to t('.see_my_list'), total_spot_items_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
-    <%= link_to t('.see_tourist_spot'), tourist_spots_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
-    <%= link_to t('.new_recommended_spot'), new_recommended_spot_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
-
+  
+    <%= turbo_frame_tag "total-spot-items-frame" do %>
+      <div class="relative" style="display: inline-block;">
+        <%= link_to t('.see_my_list'), total_spot_items_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
+        <span id="total-spot-items-count-badge" class="bg-red-500 text-white rounded-full px-1 py-1 text-xs absolute top-0 right-0 -mt-2 -mr-2" style="display: none;"></span>
+      </div>
+      <%= link_to t('.see_tourist_spot'), tourist_spots_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
+      <%= link_to t('.new_recommended_spot'), new_recommended_spot_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
+    <% end %>
+  
     <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
       <% @recommended_spots.each do |recommended_spot| %>
         <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
@@ -17,12 +25,22 @@
           </a>
 
           <div class="flex flex-1 flex-col p-4 sm:p-6">
-            <h2 class="mb-2 text-lg font-semibold text-gray-800">
-              <a class="link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer"><%= recommended_spot.name %></a>
-            </h2>
+            <div class="flex items-center justify-between mb-2">
+              <h2 class="text-lg font-semibold text-gray-800">
+                <%= link_to recommended_spot_path(recommended_spot), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
+                  <%= truncate(recommended_spot.name, length: 10, omission: '...') %>
+                <% end %>
+              </h2>
 
-            <p class="mb-4 text-gray-500"><%= truncate(recommended_spot.text, length: 30, omission: '…') %></p>
+              <div class="flex items-center gap-2">
+                <%= link_to t('defaults.delete'), recommended_spot_path(recommended_spot), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: 'px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600 ml-auto' %>
+                <%= link_to t('defaults.edit'), edit_recommended_spot_path(recommended_spot), class: 'px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600' %>
+              </div>
+            </div>
 
+            <p class="mb-4 text-gray-500" style="word-wrap: break-word;">
+              <%= truncate(recommended_spot.text, length: 75, omission: '…') %>
+            </p>
 
             <div class="mt-auto flex items-end justify-between">
               <div class="flex items-center gap-2">

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import './custom.css';
+@import './count.css';
 
 body {
     background-image: url('body.png');

@@ -62,6 +62,11 @@ class TotalSpotItemsController < ApplicationController
     head :ok
   end
 
+  def get_total_spot_items_count
+    count = current_user.total_spot_items.count
+    render json: { count: count }
+  end
+
   private
   
   def total_spot_item_params
