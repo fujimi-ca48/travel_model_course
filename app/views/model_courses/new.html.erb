@@ -12,7 +12,6 @@
         </div>
       </div>
       <div class="mt-8"></div>
-
       <%= form_with model: @model_course, url: model_courses_path, data: { turbo: false } do |f| %>
         <%= render 'shared/error_messages', model: f.object %>
         <div class="mb-4">
