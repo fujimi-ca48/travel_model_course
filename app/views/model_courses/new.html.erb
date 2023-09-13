@@ -4,6 +4,15 @@
       <div class="mb-10 md:mb-16" style="margin-top: 20px;">
         <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
       </div>
+
+      <div class="text-center">
+        <div class="bg-white rounded p-4 py-6 mx-auto max-w-lg">
+          <p class="mb-4 text-left text-gray-800"> Step4: 他のユーザーがわかりやすいようにモデルコース名はどんなモデルコース名かわかる様に出来るだけ詳しく記載しましょう!長文タイトルOK!</p>
+          <p class="mb-4 text-left text-gray-800"> 例：上野駅から出発！水タバコでリラックスしながらリモートワーク！息抜きに上野動物円にも…</p>
+        </div>
+      </div>
+      <div class="mt-8"></div>
+
       <%= form_with model: @model_course, url: model_courses_path, data: { turbo: false } do |f| %>
         <%= render 'shared/error_messages', model: f.object %>
         <div class="mb-4">
