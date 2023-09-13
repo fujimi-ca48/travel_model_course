@@ -1,11 +1,11 @@
 class RecommendedSpotsController < ApplicationController
-  before_action :set_spot, only: %i[show edit update destroy]
+  before_action :set_spot, only: %i[edit update destroy]
   before_action :require_login
   before_action :require_ownership, only: %i[edit update destroy]
 
   def index
     @q = current_user.recommended_spots.ransack(params[:q])
-    @recommended_spots = @q.result(distinct: true).page(params[:page]).per(12)
+    @recommended_spots = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(12)
     @total_spot_item = TotalSpotItem.new
   end
 
@@ -25,7 +25,9 @@ class RecommendedSpotsController < ApplicationController
 
   def edit;end
   
-  def show;end
+  def show
+    @recommended_spot = RecommendedSpot.find(params[:id])
+  end
   
   def update
     if @recommended_spot.update(recommended_spot_params)

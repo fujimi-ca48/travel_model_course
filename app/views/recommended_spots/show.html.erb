@@ -5,15 +5,17 @@
     <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
       <div class="flex flex-col items-center gap-4">
         <div class="flex items-center gap-4">
-          <%= link_to t('defaults.edit'), edit_recommended_spot_path(@recommended_spot), class: 'px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600' %>
-          <%= link_to t('defaults.delete'), recommended_spot_path(@recommended_spot), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: 'px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600' %>
+        <% if current_user == @recommended_spot.user %>
+        <%= link_to t('defaults.edit'), edit_recommended_spot_path(@recommended_spot), class: 'px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600' %>
+        <%= link_to t('defaults.delete'), recommended_spot_path(@recommended_spot), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: 'px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600' %>
+      <% end %>
         </div>
 
         <div class="spot-image-wrapper">
           <% if @recommended_spot.img.present? %>
-            <%= image_tag @recommended_spot.img.url, class: "spot-image object-cover rounded mb-4" %>
+            <%= image_tag @recommended_spot.img.url, class: "spot-image object-cover rounded mb-4 max-height-500px" %>
           <% else %>
-            <%= image_tag "sample.jpg", class: "spot-image object-cover rounded mb-10" %>
+            <%= image_tag "sample.jpg", class: "spot-image object-cover rounded mb-10 max-height-500px" %>
           <% end %>
         </div>
 
@@ -23,7 +25,9 @@
         <p class="text-sm text-gray-500 md:text-xl text-left mx-auto mb-10" style="width: 30%;"><%= @recommended_spot.text %></p>
       </div>
     </div>
-
+    <hr style="border-top: 1px solid #545454; width: 50%;">
+    <div class="mt-8"></div>
+    <p class="text-gray-500" style="margin-right: 16%; margin-left: 0;">住所:<%= @recommended_spot.address %></p>
     <div class="w-full mx-auto max-w-screen-2xl px-4 md:px-8">
       <div class="flex justify-center">
         <div id="map" class="w-70% h-300px"></div>

@@ -28,7 +28,7 @@
             <div class="flex items-center justify-between mb-2">
               <h2 class="text-lg font-semibold text-gray-800">
                 <%= link_to recommended_spot_path(recommended_spot), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
-                  <%= truncate(recommended_spot.name, length: 10, omission: '...') %>
+                  <%= truncate(recommended_spot.name, length: 7, omission: '...') %>
                 <% end %>
               </h2>
 

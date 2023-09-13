@@ -5,7 +5,7 @@ class Admin::TouristSpotsController < Admin::BaseController
   
   def index
     @q = TouristSpot.ransack(params[:q])
-    @tourist_spots = @q.result(distinct: true).page(params[:page]).per(5)
+    @tourist_spots = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(20)
   end
   
   def new

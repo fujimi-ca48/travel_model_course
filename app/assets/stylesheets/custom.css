@@ -31,6 +31,11 @@
     margin-left: 8px;
 }
 
+.spot-image {
+    max-height: 300px;
+    width: auto;
+}
+
 #map { height: 300px; 
     width: 40%;
 }
@@ -86,4 +91,18 @@
 
 .ui-menu-item:last-child {
     border-bottom: none;
+}
+
+.custom-image {
+    max-width: 50%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+.image-thumbnail {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 10px;
 }

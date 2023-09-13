@@ -8,7 +8,7 @@ class TouristSpotsController < ApplicationController
         @tourist_spots = TouristSpot.all
       end
   
-      @tourist_spots = @tourist_spots.page(params[:page]).per(12)
+      @tourist_spots = @tourist_spots.order(created_at: :desc).page(params[:page]).per(12)
       @prefectures = TouristSpot.prefectures
       @total_spot_item = TotalSpotItem.new
     end

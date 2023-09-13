@@ -1,8 +1,9 @@
 <header class="header bg-custom-1">
   <div class="container mx-auto flex flex-wrap flex-col md:flex-row items-center py-2">
     <%= link_to image_tag('logo.png'), root_path, class: "py-2" %>
-    <div class="ml-auto flex items-center"> <!-- 右寄せにするためのクラス追加 -->
-      <div class="dropdown dropdown-hover ml-1"> <!-- アバターの横に配置 -->
+    <div class="ml-auto flex items-center">
+      <div class="dropdown dropdown-hover ml-1">
+      <% if logged_in? || session[:user_id].present? %>
         <label tabindex="0" class="btn btn-outline btn-accent mx-1">一覧</label>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 bg-white">
           <%= link_to "観光地一覧", tourist_spots_path, class: "btn btn-outline btn-accent bg-white mx-1" %>
@@ -11,11 +12,10 @@
         </ul>
       </div>
       </div>
-      <% if logged_in? || session[:user_id].present? %>
-        <div class="dropdown dropdown-hover dropdown-end ml-1 mr-4"> <!-- 右側に配置 -->
+        <div class="dropdown dropdown-hover dropdown-end ml-1 mr-4">
           <div class="btn" style="background-color: transparent; border: none;">
             <div class="avatar">
-              <div class="w-16 h-16 rounded-full overflow-hidden"> <!-- スタイルを追加 -->
+              <div class="w-16 h-16 rounded-full overflow-hidden">
                 <%= image_tag current_user.avatar.url, class: "w-full h-full object-cover" %>
               </div>
             </div>
@@ -26,8 +26,8 @@
           </ul>
         </div>
       <% else %>
-        <%= link_to t('defaults.login'), login_path, class: "btn btn-outline btn-accent bg-white mx-1" %>
-        <%= link_to t('defaults.user_new'), new_user_path, class: "btn btn-outline btn-accent bg-white mx-1" %>
+        <%= link_to t('defaults.login'), login_path, class: "btn btn-outline btn-accent mx-1" %>
+        <%= link_to t('defaults.user_new'), new_user_path, class: "btn btn-outline btn-accent mx-1" %>
       <% end %>
     </div>
   </div>

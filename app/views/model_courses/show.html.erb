@@ -3,8 +3,10 @@
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8 text-center">
     <div class="mb-10 md:mb-16" style="margin-top: 20px;"></div>
+    <% if current_user == @model_course.user %>
       <%= link_to t('defaults.edit'), edit_model_course_path(@model_course), class: 'px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600' %>
       <%= link_to t('defaults.delete'), model_course_path(@model_course), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: 'px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600' %>
+    <% end %>
     <div class="mt-8"></div>
 
     <% spot_items = JSON.parse(@model_course.spot_item_data) %>
@@ -105,18 +107,4 @@
  </div>
 <div>
 
-<style>
-.custom-image {
-    max-width: 50%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-.image-thumbnail {
-    width: 300px;
-    height: 200px;
-    object-fit: cover;
-    object-position: center;
-    margin-right: 10px;
-}
-</style>
+
