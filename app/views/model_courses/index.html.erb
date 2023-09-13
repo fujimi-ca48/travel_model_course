@@ -44,19 +44,22 @@
             <div class="flex items-center justify-between mb-2">
               <h2 class="mb-2 text-lg font-semibold text-gray-800">
                 <%= link_to model_course_path(model_course), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
-                  <%= truncate(model_course.name, length: 10, omission: '...') %>
+                  <%= truncate(model_course.name, length: 30, omission: '...') %>
                 <% end %>
               </h2>
+            </div>
 
-            <div class="flex items-center gap-2">
-              <% if current_user == model_course.user %>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600">投稿者: <%= model_course.user.name %></span>
+            
+            <% if current_user == model_course.user %>
+              <div class="flex items-center gap-2">
                 <%= link_to t('defaults.edit'), edit_model_course_path(model_course), class: 'px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600' %>
                 <%= link_to t('defaults.delete'), model_course_path(model_course), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: 'px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600' %>
-              <% end %>
-            </div>
-          </div>
+              </div>
+            <% end %>
+           </div>
 
-            <span class="text-gray-600">投稿者: <%= model_course.user.name %></span>
             <div class="mt-8"></div>
             <div class="mt-auto flex items-end justify-between">
               <div class="flex items-center gap-2">
