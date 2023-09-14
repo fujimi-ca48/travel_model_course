@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+
 <% content_for(:title, t('.title')) %>
 <div class="min-h-screen flex flex-col justify-center items-center">
   <div class="py-6 sm:py-8 lg:py-12 flex justify-center items-center">
@@ -30,12 +32,13 @@
         </div>
 
         <div class="mb-4">
-          <div class="flex justify-start">
-            <%= f.label :img, class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
-          </div>
-          <%= f.file_field :img, id: 'img' %>
+        <div class="flex justify-start">
+          <%= f.label :img, class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
         </div>
-
+          <%= f.file_field :img, class: 'image-input' %>
+        <div class="image-preview" id="edit-image"></div>
+      </div>
+      
         <%= f.submit t('defaults.create'), class: "btn btn-accent text-white w-full" %>
       <% end %>
     </div>
