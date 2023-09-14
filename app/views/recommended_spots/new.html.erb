@@ -35,8 +35,8 @@
           <div class="flex justify-start">
             <%= f.label :img, class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>
           </div>
-          <%= f.file_field :img, id: 'img' %>
-          <div id="new-image"></div>
+            <%= f.file_field :img, class: 'image-input' %>
+          <div class="image-preview" id="new-image"></div>
         </div>
 
         <%= f.submit t('defaults.create'), class: "btn btn-accent text-white w-full" %>
