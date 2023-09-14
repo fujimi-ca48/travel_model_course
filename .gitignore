@@ -39,6 +39,7 @@
 
 /node_modules
 /.env
+/public/uploads
 
 config/settings.local.yml
 config/settings/*.local.yml

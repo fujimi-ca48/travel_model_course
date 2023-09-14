@@ -1,3 +1,4 @@
+<% content_for(:title, t('.title')) %>
 <div class="min-h-screen flex flex-col justify-center items-center">
   <div class="sticky top-0 bg-slate-800 text-white py-2">
   </div>
@@ -7,22 +8,27 @@
     <%= form_with url: login_path, local: true, class: "mb-4" do |f| %>
       <div class="mb-4">
         <div class="flex justify-start">
-        <%= f.label :email, t('activerecord.attributes.user.email'), class: "input-label pr-4 text-default text-gray-700" %>
+          <%= f.label :email, t('activerecord.attributes.user.email'), class: "input-label pr-4 text-default text-gray-700" %>
         </div>
         <%= f.email_field :email, class: "input input-bordered input-accent w-full max-w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
       </div>
       <div class="mb-4">
         <div class="flex justify-start">
-        <%= f.label :password, t('activerecord.attributes.user.password'), class: "input-label pr-4 text-default text-gray-700" %>
+          <%= f.label :password, t('activerecord.attributes.user.password'), class: "input-label pr-4 text-default text-gray-700" %>
         </div>
         <%= f.password_field :password, class: "input input-bordered input-accent w-full max-w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
       </div>
       <div class="mb-4">
         <%= f.submit (t "defaults.login"), class: "btn btn-accent w-full text-white" %>
       </div>
-      <% end %>
+    <% end %>
+    <div>
       <%= link_to (t '.forgot_your_password'), new_password_reset_path, class: "text-xl link link-primary"%>
-      <div class="flex justify-center mt-4">
+    </div>
+    <div>
+      <%= link_to (t '.new_user'), new_user_path, class: "text-xl link link-primary"%>
+    </div>
+    <div class="flex justify-center mt-4">
       <div id="g_id_onload"
         data-client_id="253764374707-qb38dbcujbto05dl95k9fkk7jmpa86ng.apps.googleusercontent.com"
         data-login_uri="https://travel-model-course-e157d66b38f2.herokuapp.com/google_login_api/callback"
