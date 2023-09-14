@@ -27,6 +27,9 @@ ja:
       fail: 'ログインに失敗しました'
     destroy:
       success: 'ログアウトしました'
+  top_pages:
+    top:
+      see_tourist_spot: '見てみる'
   defaults:
     login: 'ログイン'
     logout: 'ログアウト'
