@@ -1,8 +1,10 @@
+<% content_for(:title, t('.title')) %>
 <div class="bg-white full-screen py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl"><%= t('.title') %></h2>
 
     <%= form_with model: @tourist_spot, url: admin_tourist_spots_path, method: :post, local: true, class: "mx-auto max-w-lg rounded-lg border h-full flex flex-col justify-center" do |f| %>
+      <%= render 'shared/error_messages', model: f.object %>
       <div class="flex flex-col gap-4 p-4 md:p-8">
         <div>
           <%= f.label :name, class: "mb-2 inline-block text-sm text-gray-800 sm:text-base" %>

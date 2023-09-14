@@ -22,11 +22,15 @@ ja:
       to_register_page: 'ユーザー登録ページへ'
       forgot_your_password: 'パスワードを忘れた方はこちら'
       title: 'ログイン'
+      new_user: '新規登録へ'
     create:
       success: 'ログインしました'
       fail: 'ログインに失敗しました'
     destroy:
       success: 'ログアウトしました'
+  top_pages:
+    top:
+      see_tourist_spot: '見てみる'
   defaults:
     login: 'ログイン'
     logout: 'ログアウト'
@@ -41,6 +45,7 @@ ja:
     destroy?: '削除してもよろしいですか？'
     return: '戻る'
     no_update?: '後から変更できません。よろしいですか？'
+    inappropriate_img: 'この画像は投稿できません'
   message:
     require_login: "ログインしてください"
     no_authority: '権限がありません'
@@ -82,6 +87,8 @@ ja:
       success_delete_spot: '削除しました'
     edit: 
       title: 'My穴場スポット編集'
+    show:
+      title: 'My穴場スポット詳細'
   tourist_spots:
     index:
       title: '観光地一覧'
@@ -133,6 +140,8 @@ ja:
     edit:
       back_model_course: '戻る'
       title: 'モデルコース編集'
+    show:
+      title: 'モデルコース詳細'
   profiles:
     show:
       title: 'プロフィール'
@@ -152,6 +161,8 @@ ja:
       destroy:
         success:  'ログアウトしました'
     tourist_spots:
+      show_form:
+        title: '観光地詳細'
       new:
         title: '観光地登録'
       create:

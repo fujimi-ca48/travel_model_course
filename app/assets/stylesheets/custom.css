@@ -106,3 +106,20 @@
     object-position: center;
     margin-right: 10px;
 }
+
+.rounded-full {
+    border-radius: 50%;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.object-cover {
+    object-fit: cover;
+}
+
+.new-img{
+    width: 400px;
+    object-fit: cover;
+}

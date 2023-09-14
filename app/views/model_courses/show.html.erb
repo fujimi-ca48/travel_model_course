@@ -1,5 +1,6 @@
 <%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
 
+<% content_for(:title, t('.title')) %>
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8 text-center">
     <div class="mb-10 md:mb-16" style="margin-top: 20px;"></div>
@@ -78,7 +79,7 @@
               <%= link_to recommended_spot_path(recommended_spot), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
                 <p class="text-left"><%= truncate(recommended_spot.name, length: 10) %></p>
               <% end %>
-                <p class="text-gray-500 text-left"><%= truncate(recommended_spot.text, length: 200) %></p>
+                <p class="text-gray-500 text-left"><%= truncate(recommended_spot.text, length: 160) %></p>
             <% end %>
           <% elsif spot_item['tourist_spot_id'].present? %>
             <div class="mt-8"></div>
@@ -88,7 +89,7 @@
               <%= link_to tourist_spot_path(tourist_spot), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
                 <p class="text-left"><%= truncate(tourist_spot.name, length: 10) %></p>
               <% end %>
-                <p class="text-gray-500 text-left"><%= truncate(tourist_spot.text, length: 200) %></p>
+                <p class="text-gray-500 text-left"><%= truncate(tourist_spot.text, length: 160) %></p>
             <% end %>
           <% end %>
         </div>
@@ -105,6 +106,4 @@
     </div>
   </div>
  </div>
-<div>
-
-
+</div>

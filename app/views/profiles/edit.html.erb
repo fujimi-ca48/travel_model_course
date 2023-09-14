@@ -1,28 +1,45 @@
+<%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<% content_for(:title, t('.title')) %>
 <div class="main_image">
   <div class="text-center">
     <div class="text-4xl md:grid justify-items-stretch">
       <div class="font-bold md:w-2/3 xl:w-1/3 justify-self-center pt-20 pb-10 text-gray-800"><%= t('.title') %></div>
+    </div>
   </div>
+
   <div class="mt-8"></div>
   <div class="pb-20 md:text-2xl flex justify-center text-center">
     <%= form_with model: @user, url: profile_path, local: true do |f| %>
       <%= render 'shared/error_messages', model: f.object %>
       <div class="form-group mb-10">
-        <div><%= f.label :name, class: 'text-gray-800' %></div>
+        <div>
+          <%= f.label :name, class: 'text-gray-800' %>
+        </div>
         <%= f.text_field :name, class: "input input-bordered input-accent w-full max-w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
       </div>
       <div class="form-group mb-10">
-        <div><%= f.label :email, class: 'text-gray-800' %></div>
+        <div>
+          <%= f.label :email, class: 'text-gray-800' %>
+        </div>
         <%= f.email_field :email, class: "input input-bordered input-accent w-full max-w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
       </div>
       <div class="form-group mb-20">
-        <div><%= f.label :avatar, class: 'text-gray-800' %></div>
-        <div class="flex items-center justify-center"><%= f.file_field :avatar, class: 'form-control file-input file-input-bordered file-input-info w-full max-w-xs items-center justify-center', accept: 'image/*' %></div>
-        <div><%= f.hidden_field :avatar_cache %></div>
+        <div>
+          <%= f.label :avatar, class: 'text-gray-800' %>
+        </div>
+        <div class="flex items-center justify-center">
+          <%= f.file_field :avatar, class: "mb-2 inline-block text-sm text-gray-800 sm:text-base", accept: 'image/*' %>
+        </div>
+        <div>
+          <%= f.hidden_field :avatar_cache %>
+        </div>
+        <div class="mt-8"></div>
+        <div>
+          <%= f.submit class: 'btn btn-accent font-bold text-white' %>
+        </div>
         <div class="mt-8"></div>
       </div>
-      <%= f.submit class: 'btn btn-accent font-bold text-white' %>
-      <div class="mt-8"></div>
     <% end %>
   </div>
 </div>

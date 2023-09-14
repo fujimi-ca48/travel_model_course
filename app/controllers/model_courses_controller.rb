@@ -11,7 +11,7 @@ class ModelCoursesController < ApplicationController
     end
   
     @q = ModelCourse.ransack(q_params)
-    @model_courses = @q.result(distinct: true).page(params[:page]).per(12)
+    @model_courses = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page]).per(12)
   
     @no_results = @model_courses.empty?
   end

@@ -2,7 +2,7 @@ class TotalSpotItemsController < ApplicationController
   before_action :require_login
 
   def index
-    @total_spot_items = current_user.total_spot_items.all.order(:position)
+    @total_spot_items = current_user.total_spot_items.all.order(:position).includes(:user, :recommended_spot, :tourist_spot)
     @model_course = ModelCourse.new
   end
 

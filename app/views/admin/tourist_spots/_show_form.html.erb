@@ -1,17 +1,18 @@
 <%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
 
+<% content_for(:title, t('.title')) %>
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="full-screen py-6 sm:py-8 lg:py-12 flex flex-col justify-center items-center">
     <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
       <div class="flex flex-col items-center gap-4">
 
-      <div class="spot-image-wrapper">
-        <% if @tourist_spot.spot_image.present? %>
-          <%= image_tag @tourist_spot.spot_image.url, class: "spot-image object-cover rounded mb-4 max-height-500px" %>
-        <% else %>
-          <%= image_tag "sample.jpg", class: "spot-image object-cover rounded mb-10 max-height-500px" %>
-        <% end %>
-      </div>
+        <div class="spot-image-wrapper">
+          <% if @tourist_spot.spot_image.present? %>
+            <%= image_tag @tourist_spot.spot_image.url, class: "spot-image object-cover rounded mb-4 max-height-500px" %>
+          <% else %>
+            <%= image_tag "sample.jpg", class: "spot-image object-cover rounded mb-10 max-height-500px" %>
+          <% end %>
+        </div>
 
         <div class="text-center">
           <h2 class="text-xl font-bold text-gray-500 md:text-3xl mb-10"><%= @tourist_spot.name %></h2>
@@ -21,7 +22,7 @@
     </div>
     <hr style="border-top: 1px solid #545454; width: 50%;">
     <div class="mt-8"></div>
-    <p class="text-gray-500" style="margin-right: 16%; margin-left: 0;">住所:<%= @tourist_spot.address %></p>
+    <p class="text-gray-500">住所:<%= @tourist_spot.address %></p>
     <div class="w-full mx-auto max-w-screen-2xl px-4 md:px-8">
       <div class="flex justify-center">
         <div id="map" class="w-70% h-300px"></div>
@@ -30,30 +31,29 @@
   </div>
 </div>
 
-  <script type="text/javascript">
-     function initMap() {
-       var test = {lat: <%= @tourist_spot.latitude %>, lng: <%= @tourist_spot.longitude %>};
-       var map = new google.maps.Map(document.getElementById('map'), {
-                 zoom: 15, 
-                 center: test
-                 });
-       var transitLayer = new google.maps.TransitLayer();
-       transitLayer.setMap(map);
-       var contentString = '住所：<%= @tourist_spot.address %>';
-       var infowindow = new google.maps.InfoWindow({
-        content: contentString
-       });
-       var marker = new google.maps.Marker({
-                    position:test,
-                    map: map,
-                    title: contentString
-                    });
-       marker.addListener('click', function() {
-       infowindow.open(map, marker);
-      });
-     }
-   </script>
-   <script async defer
-             src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
-   </script>
-</div>
+<script type="text/javascript">
+  function initMap() {
+    var test = { lat: <%= @tourist_spot.latitude %>, lng: <%= @tourist_spot.longitude %> };
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: test
+    });
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+    var contentString = '住所：<%= @tourist_spot.address %>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+      position: test,
+      map: map,
+      title: contentString
+    });
+    marker.addListener('click', function () {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
+</script>

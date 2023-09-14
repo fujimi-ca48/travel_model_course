@@ -5,7 +5,7 @@ class RecommendedSpotsController < ApplicationController
 
   def index
     @q = current_user.recommended_spots.ransack(params[:q])
-    @recommended_spots = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(12)
+    @recommended_spots = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page]).per(12)
     @total_spot_item = TotalSpotItem.new
   end
 
@@ -15,8 +15,20 @@ class RecommendedSpotsController < ApplicationController
 
   def create
     @recommended_spot = current_user.recommended_spots.build(recommended_spot_params)
-    if @recommended_spot.save
-      redirect_to recommended_spots_path, success: t('.success')
+    if recommended_spot_params[:img].present?
+      result = Vision.image_analysis(recommended_spot_params[:img])
+      if result
+        if @recommended_spot.save
+          redirect_to recommended_spots_path, success: t('.success')
+        else
+          flash.now[:danger] = t('.fail')
+          render :new, status: :unprocessable_entity
+        end
+      else
+        flash.now['danger'] = t('defaults.inappropriate_img')
+        render :new, status: :unprocessable_entity
+      end
+    elsif @recommended_spot.save
     else
       flash.now[:danger] = t('.fail')
       render :new, status: :unprocessable_entity
@@ -30,11 +42,24 @@ class RecommendedSpotsController < ApplicationController
   end
   
   def update
-    if @recommended_spot.update(recommended_spot_params)
+    if recommended_spot_params[:img].present?
+      result = Vision.image_analysis(recommended_spot_params[:img])
+      if result 
+        if @recommended_spot.update(recommended_spot_params)
+          redirect_to recommended_spots_path, success: t('.success_update_spot')
+        else
+          flash.now[:danger] = t('.fail_update_spot')
+          render :edit, status: :unprocessable_entity
+        end
+      else
+        flash.now['danger'] = t('defaults.inappropriate_img')
+        render :new, status: :unprocessable_entity
+      end
+    elsif @recommended_spot.update(recommended_spot_params)
       redirect_to recommended_spots_path, success: t('.success_update_spot')
     else
       flash.now[:danger] = t('.fail_update_spot')
-      render :edit, status: :unprocessable_entity
+      ender :edit, status: :unprocessable_entity
     end
   end
   
