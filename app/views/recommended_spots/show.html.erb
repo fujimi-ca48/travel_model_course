@@ -1,14 +1,15 @@
 <%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
 
+<% content_for(:title, t('.title')) %>
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="full-screen py-6 sm:py-8 lg:py-12 flex flex-col justify-center items-center">
     <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
       <div class="flex flex-col items-center gap-4">
         <div class="flex items-center gap-4">
-        <% if current_user == @recommended_spot.user %>
-        <%= link_to t('defaults.edit'), edit_recommended_spot_path(@recommended_spot), class: 'px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600' %>
-        <%= link_to t('defaults.delete'), recommended_spot_path(@recommended_spot), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: 'px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600' %>
-      <% end %>
+          <% if current_user == @recommended_spot.user %>
+            <%= link_to t('defaults.edit'), edit_recommended_spot_path(@recommended_spot), class: 'px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600' %>
+            <%= link_to t('defaults.delete'), recommended_spot_path(@recommended_spot), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: 'px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600' %>
+          <% end %>
         </div>
 
         <div class="spot-image-wrapper">
@@ -27,7 +28,7 @@
     </div>
     <hr style="border-top: 1px solid #545454; width: 50%;">
     <div class="mt-8"></div>
-    <p class="text-gray-500" style="margin-right: 16%; margin-left: 0;">住所:<%= @recommended_spot.address %></p>
+    <p class="text-gray-500">住所:<%= @recommended_spot.address %></p>
     <div class="w-full mx-auto max-w-screen-2xl px-4 md:px-8">
       <div class="flex justify-center">
         <div id="map" class="w-70% h-300px"></div>
@@ -40,26 +41,25 @@
 function initMap() {
   var test = {lat: <%= @recommended_spot.latitude %>, lng: <%= @recommended_spot.longitude %>};
   var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15, 
-            center: test
-            });
+    zoom: 15,
+    center: test
+  });
   var transitLayer = new google.maps.TransitLayer();
   transitLayer.setMap(map);
   var contentString = '住所：<%= @recommended_spot.address %>';
   var infowindow = new google.maps.InfoWindow({
-   content: contentString
+    content: contentString
   });
   var marker = new google.maps.Marker({
-               position:test,
-               map: map,
-               title: contentString
-               });
+    position:test,
+    map: map,
+    title: contentString
+  });
   marker.addListener('click', function() {
-  infowindow.open(map, marker);
- });
+    infowindow.open(map, marker);
+  });
 }
 </script>
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
+  src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
 </script>
-</div>

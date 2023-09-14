@@ -16,7 +16,9 @@
           <div class="btn" style="background-color: transparent; border: none;">
             <div class="avatar">
               <div class="w-16 h-16 rounded-full overflow-hidden">
-                <%= image_tag current_user.avatar.url, class: "w-full h-full object-cover" %>
+                <% if current_user.present? %>
+                  <%= image_tag current_user.avatar.url, class: "w-full h-full object-cover" %>
+                <% end %>
               </div>
             </div>
           </div>
@@ -34,17 +36,3 @@
 </header>
 
 <div class="border-t border-neutral"></div>
-
-<style>
-.rounded-full {
-    border-radius: 50%;
-}
-
-.overflow-hidden {
-    overflow: hidden;
-}
-
-.object-cover {
-    object-fit: cover;
-}
-</style>

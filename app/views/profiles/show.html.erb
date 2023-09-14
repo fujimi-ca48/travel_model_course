@@ -1,3 +1,6 @@
+<%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<% content_for(:title, t('.title')) %>
 <div class="main_image">
   <div class="text-center">
     <div class="text-4xl md:grid justify-items-stretch">
@@ -28,17 +31,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .rounded-full {
-    border-radius: 50%;
-  }
-  
-  .overflow-hidden {
-    overflow: hidden;
-  }
-
-  .object-cover {
-    object-fit: cover;
-  }
-</style>

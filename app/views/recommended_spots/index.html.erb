@@ -1,12 +1,12 @@
-<%= javascript_include_tag "count" %>
 <%= stylesheet_link_tag 'count', media: 'all', 'data-turbolinks-track': 'reload' %>
 
+<% content_for(:title, t('.title')) %>
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     <div class="mb-10 md:mb-16">
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
     </div>
-  
+
     <%= turbo_frame_tag "total-spot-items-frame" do %>
       <div class="relative" style="display: inline-block;">
         <%= link_to t('.see_my_list'), total_spot_items_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
@@ -15,7 +15,7 @@
       <%= link_to t('.see_tourist_spot'), tourist_spots_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
       <%= link_to t('.new_recommended_spot'), new_recommended_spot_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
     <% end %>
-  
+
     <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
       <% @recommended_spots.each do |recommended_spot| %>
         <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
@@ -59,7 +59,7 @@
         </div>
       <% end %>
     </div>
-    
+
     <div class="flex justify-center mt-4">
       <%= paginate @recommended_spots %>
     </div>

@@ -5,10 +5,8 @@ document.addEventListener("turbo:load", function() {
       update: function(e, ui) {
         var sortedIds = $(this).sortable('toArray');
         
-        // ドラッグアンドドロップされた要素のIDを取得
         var totalSpotItemId = ui.item.data('id');
         
-        // Ajaxリクエストを送信
         $.ajax({
           url: '/total_spot_items/' + totalSpotItemId + '/sort',
           type: 'PATCH',
