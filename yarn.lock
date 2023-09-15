@@ -519,6 +519,11 @@ jquery-ui@^1.13.2:
   dependencies:
     jquery ">=1.8.0 <4.0.0"
 
+jquery.ui.widget@^1.10.3:
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/jquery.ui.widget/-/jquery.ui.widget-1.10.3.tgz#2ceecfc64995412643eeb9508d2197ea93c02fb3"
+  integrity sha512-OAtUFJiAEyqO1p4vqm8aPzB0F0c9lrJAP4kAm2dgNm184wq/8KpHoNSrty24v5JXOXl7c3kD4CmOk3ErC+w61Q==
+
 "jquery@>=1.8.0 <4.0.0", jquery@^3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
