@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   get 'google_login_api/callback'
   root 'top_pages#top'
+  get 'privacy_policy', to: 'top_pages#privacy_policy'
+  get 'terms_of_service', to: 'top_pages#terms_of_service'
   resources :users, only: %i[new create]
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'

@@ -31,6 +31,10 @@ ja:
   top_pages:
     top:
       see_tourist_spot: '見てみる'
+    privacy_policy:
+      title: 'プライバシーポリシー'
+    terms_of_service:
+      title: '利用規約'
   defaults:
     login: 'ログイン'
     logout: 'ログアウト'

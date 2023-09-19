@@ -15,24 +15,21 @@ class RecommendedSpotsController < ApplicationController
 
   def create
     @recommended_spot = current_user.recommended_spots.build(recommended_spot_params)
-    if recommended_spot_params[:img].present?
-      result = Vision.image_analysis(recommended_spot_params[:img])
-      if result
-        if @recommended_spot.save
-          redirect_to recommended_spots_path, success: t('.success')
-        else
-          flash.now[:danger] = t('.fail')
-          render :new, status: :unprocessable_entity
-        end
-      else
-        flash.now['danger'] = t('defaults.inappropriate_img')
-        render :new, status: :unprocessable_entity
+    image_file = recommended_spot_params[:img]
+    
+    if image_file.present?
+      result = Vision.image_analysis(image_file)
+  
+      if !result
+        handle_inappropriate_image
+        return
       end
-    elsif @recommended_spot.save
+    end
+  
+    if @recommended_spot.save
       redirect_to recommended_spots_path, success: t('.success')
     else
-      flash.now[:danger] = t('.fail')
-      render :new, status: :unprocessable_entity
+      handle_save_failure
     end
   end
 
@@ -45,24 +42,20 @@ class RecommendedSpotsController < ApplicationController
   def update
     if recommended_spot_params[:img].present?
       result = Vision.image_analysis(recommended_spot_params[:img])
-      if result
-        if @recommended_spot.update(recommended_spot_params)
-          redirect_to recommended_spots_path, success: t('.success_update_spot')
-        else
-          flash.now[:danger] = t('.fail_update_spot')
-          render :edit, status: :unprocessable_entity
-        end
-      else
-        flash.now['danger'] = t('defaults.inappropriate_img')
-        render :new, status: :unprocessable_entity
+  
+      if !result
+        handle_inappropriate_image
+        return
       end
-    elsif @recommended_spot.update(recommended_spot_params)
+    end
+  
+    if @recommended_spot.update(recommended_spot_params)
       redirect_to recommended_spots_path, success: t('.success_update_spot')
     else
-      flash.now[:danger] = t('.fail_update_spot')
-      ender :edit, status: :unprocessable_entity
+      handle_save_failure
     end
   end
+  
 
   def destroy
     @recommended_spot.destroy!
@@ -81,5 +74,15 @@ class RecommendedSpotsController < ApplicationController
 
   def require_ownership
     redirect_to recommended_spots_path, danger: t('not_authorized') unless @recommended_spot.user == current_user
+  end
+
+  def handle_save_failure
+    flash.now[:danger] = t('.fail')
+    render :new, status: :unprocessable_entity
+  end
+  
+  def handle_inappropriate_image
+    flash.now[:danger] = t('defaults.inappropriate_img')
+    render :new, status: :unprocessable_entity
   end
 end

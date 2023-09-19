@@ -44,7 +44,7 @@
 
               <%= form_with model: TotalSpotItem.new, url: total_spot_items_path, data: { turbo: false } do |f| %>
                 <%= f.hidden_field :recommended_spot_id, value: recommended_spot.id %>
-                <%= f.submit t('.add_to_list'), class: "btn btn-accent btn-sm text-white" %>
+                <%= f.submit t('.add_to_list'), class: "btn btn-accent btn-sm text-white", onclick: "location.reload();" %>
               <% end %>
             </div>
           </div>
