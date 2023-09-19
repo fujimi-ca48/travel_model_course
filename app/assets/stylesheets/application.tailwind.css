@@ -25,8 +25,27 @@ body {
     left: 0;
     display: flex;
     align-items: center;
-    height: 80px;
     z-index: 1000;
+    height: 80px;
+}
+
+@media (max-width: 1000px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .header .dropdown {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+    }
+
+    body {
+        padding-top: 180px;
+        border-top: none;
+    }
 }
 
 .bg-custom {
@@ -71,5 +90,5 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* 他の要素の上に表示されるようにz-indexを設定 */
+    z-index: 1000;
 }

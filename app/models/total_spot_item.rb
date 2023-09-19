@@ -12,9 +12,27 @@ class TotalSpotItem < ApplicationRecord
   validate :exclusive_associations
 
   attribute :duration, :integer, default: 1
-  attribute :transportation, :integer, default: 0
-
+  attribute :transportation, :integer, default: 1
   enum transportation: { walking: 0, car: 1, train: 2, airplane: 3 }
+
+  def self.find_existing_item(user, params)
+    user.total_spot_items.find_by(
+      tourist_spot_id: params[:tourist_spot_id],
+      recommended_spot_id: params[:recommended_spot_id]
+    )
+  end
+
+  def self.handle_duplicate_flash_and_redirect(params, flash, redirect_path)
+    if params[:tourist_spot_id]
+      spot = TouristSpot.find_by(id: params[:tourist_spot_id])
+      name = spot&.name
+      flash[:danger] = I18n.t('.duplicate_tourist_spot', tourist_spot_name: name)
+    elsif params[:recommended_spot_id]
+      spot = RecommendedSpot.find_by(id: params[:recommended_spot_id])
+      name = spot&.name
+      flash[:danger] = I18n.t('.duplicate_recommended_spot', recommended_spot_name: name)
+    end
+  end
 
   private
 

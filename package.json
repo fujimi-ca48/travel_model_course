@@ -4,6 +4,8 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^7.3.0",
+    "@rails/actioncable": "^7.0.8",
+    "actioncable": "^5.2.8-1",
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.5.1",
     "esbuild": "^0.19.1",

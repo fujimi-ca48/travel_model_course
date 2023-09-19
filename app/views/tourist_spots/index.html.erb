@@ -26,51 +26,50 @@
         <%= f.submit "検索", class: "btn btn-accent ml-2" %>
       <% end %>
     </div>
-  </div>
 
     <%= link_to t('.see_my_recommended'), recommended_spots_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
 
-  <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
-    <% @tourist_spots.each do |tourist_spot| %>
-      <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
-        <a href="#" class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64">
-          <%= image_tag(tourist_spot.spot_image.url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") if tourist_spot.spot_image.present? %>
-          <%= image_tag("sample.jpg", class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") unless tourist_spot.spot_image.present? %>
-        </a>
+    <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
+      <% @tourist_spots.each do |tourist_spot| %>
+        <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+          <a href="#" class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64">
+            <%= image_tag(tourist_spot.spot_image.url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") if tourist_spot.spot_image.present? %>
+            <%= image_tag("sample.jpg", class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") unless tourist_spot.spot_image.present? %>
+          </a>
 
-        <div class="flex flex-1 flex-col p-4 sm:p-6">
-          <h2 class="mb-2 text-lg font-semibold text-gray-800">
-            <%= link_to tourist_spot_path(tourist_spot), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
-              <%= truncate(tourist_spot.name, length: 7, omission: '...') %>
-            <% end %>
-          </h2>
-
-          <p class="mb-4 text-gray-500" style="word-wrap: break-word;">
-            <%= truncate(tourist_spot.text, length: 75, omission: '…') %>
-          </p>
-
-          <div class="mt-auto flex items-end justify-between">
-            <div class="flex items-center gap-2">
-              <% prefecture = tourist_spot.address.match(/([北東名][都道府県]|.{2,3}[都道府県])/)&.captures&.first %>
-              <% if prefecture %>
-                <p class="mb-2 text-indigo-500"><%= prefecture %></p>
-              <% end %>
+          <div class="flex flex-1 flex-col p-4 sm:p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h2 class="text-lg font-semibold text-gray-800">
+                <%= link_to tourist_spot_path(tourist_spot), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
+                  <%= truncate(tourist_spot.name, length: 7, omission: '...') %>
+                <% end %>
+              </h2>
             </div>
 
-            <%= form_with model: @total_spot_item, data: { turbo: false } do |f| %>
-              <%= f.hidden_field :tourist_spot_id, value: tourist_spot.id %>
-              <%= f.submit t('.add_to_list'), class: "btn btn-accent btn-sm text-white" %>
-            <% end %>
+            <p class="mb-4 text-gray-500" style="word-wrap: break-word;">
+              <%= truncate(tourist_spot.text, length: 75, omission: '…') %>
+            </p>
+
+            <div class="mt-auto flex items-end justify-between">
+              <div class="flex items-center gap-2">
+                <% prefecture = tourist_spot.address.match(/([北東名][都道府県]|.{2,3}[都道府県])/)&.captures&.first %>
+                <% if prefecture %>
+                  <p class="mb-2 text-indigo-500"><%= prefecture %></p>
+                <% end %>
+              </div>
+
+              <%= form_with model: @total_spot_item, url: total_spot_items_path, data: { turbo: false } do |f| %>
+                <%= f.hidden_field :tourist_spot_id, value: tourist_spot.id %>
+                <%= f.submit t('.add_to_list'), class: "btn btn-accent btn-sm text-white", onclick: "location.reload();" %>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
 
-  <div class="mt-8"></div>
-
-  <div class="flex justify-center mt-4">
-    <%= paginate @tourist_spots %>
+    <div class="flex justify-center mt-4">
+      <%= paginate @tourist_spots %>
     </div>
   </div>
 </div>
