@@ -1,18 +1,16 @@
 class ModelCoursesController < ApplicationController
-  require "json"
+  require 'json'
   before_action :require_login
   before_action :set_model_course, only: %i[show edit update destroy]
 
   def index
     q_params = params.fetch(:q, {}).permit(:prefecture_eq, :vehicle_eq)
-  
-    if q_params[:vehicle_eq].present?
-      q_params[:vehicle_eq] = ModelCourse.vehicles[q_params[:vehicle_eq]]
-    end
-  
+
+    q_params[:vehicle_eq] = ModelCourse.vehicles[q_params[:vehicle_eq]] if q_params[:vehicle_eq].present?
+
     @q = ModelCourse.ransack(q_params)
     @model_courses = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page]).per(12)
-  
+
     @no_results = @model_courses.empty?
   end
 
@@ -31,16 +29,17 @@ class ModelCoursesController < ApplicationController
         position: item.position
       }
     end
-  
+
     @model_course = current_user.model_courses.build(model_course_params)
     @model_course.spot_item_data = spot_item_data.to_json
 
-    transportation_counts = selected_total_spot_items.group_by { |item| TotalSpotItem.transportations.key(item.transportation) }.transform_values(&:count)
+    transportation_counts = selected_total_spot_items.group_by do |item|
+      TotalSpotItem.transportations.key(item.transportation)
+    end.transform_values(&:count)
     most_common_transportation_key = transportation_counts.max_by { |_, count| count }&.first
 
     @model_course.vehicle = most_common_transportation_key if most_common_transportation_key
 
- 
     address_counts = selected_total_spot_items.map do |item|
       address = item.recommended_spot&.address || item.tourist_spot&.address
       address&.match(/([北東名][都道府県]|.{2,3}[都道府県])/)&.captures&.first
@@ -48,7 +47,7 @@ class ModelCoursesController < ApplicationController
     address_counts.compact!
     most_common_prefecture = address_counts.max_by { |address| address_counts.count(address) }
     @model_course.prefecture = most_common_prefecture if most_common_prefecture
-  
+
     if @model_course.save
       selected_total_spot_items.each(&:destroy)
       redirect_to model_courses_path, success: t('.success')
@@ -62,7 +61,7 @@ class ModelCoursesController < ApplicationController
     @spot_items = JSON.parse(@model_course.spot_item_data)
   end
 
-  def edit;end
+  def edit; end
 
   def update
     if @model_course.update(model_course_params)

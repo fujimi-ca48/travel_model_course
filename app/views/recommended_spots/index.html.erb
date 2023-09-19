@@ -1,5 +1,3 @@
-<%= stylesheet_link_tag 'count', media: 'all', 'data-turbolinks-track': 'reload' %>
-
 <% content_for(:title, t('.title')) %>
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
@@ -7,14 +5,8 @@
       <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
     </div>
 
-    <%= turbo_frame_tag "total-spot-items-frame" do %>
-      <div class="relative" style="display: inline-block;">
-        <%= link_to t('.see_my_list'), total_spot_items_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
-        <span id="total-spot-items-count-badge" class="bg-red-500 text-white rounded-full px-1 py-1 text-xs absolute top-0 right-0 -mt-2 -mr-2" style="display: none;"></span>
-      </div>
       <%= link_to t('.see_tourist_spot'), tourist_spots_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
       <%= link_to t('.new_recommended_spot'), new_recommended_spot_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
-    <% end %>
 
     <div class="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
       <% @recommended_spots.each do |recommended_spot| %>

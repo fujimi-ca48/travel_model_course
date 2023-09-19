@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :require_login
 
   def require_login
-    unless logged_in?
-      redirect_to login_url, danger: t("message.require_login")
-    end
+    return if logged_in?
+
+    redirect_to login_url, danger: t('message.require_login')
   end
 end

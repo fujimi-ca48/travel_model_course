@@ -51,9 +51,9 @@
         <div class="text-center lg:text-left lg:w-1/2 lg:pr-10 lg:py-6 mt-6 lg:mt-0">
           <h2 class="text-sm tracking-widest"></h2>
           <h1 class="text-2xl lg:text-4xl mt-5 mb-10 text-gray-800">Step3</h1>
-          <p class="leading-relaxed text-lg lg:text-2xl text-gray-800">Myリストにスポットを入れたらドラックアンドドロップで順路を決定</p>
-          <p class="leading-relaxed text-lg lg:text-2xl text-gray-800">スポットごとの移動手段と観光時間を設定して次の画面で</p>
-          <p class="leading-relaxed text-lg lg:text-2xl text-gray-800">モデルコース名を入れたら投稿完了！</p>
+          <p class="leading-relaxed text-lg lg:text-2xl text-gray-800">Myリストにスポットを入れたらスポットごとの移動手段と観光時間を設定して</p>
+          <p class="leading-relaxed text-lg lg:text-2xl text-gray-800">ドラックアンドドロップで順路を決定</p>
+          <p class="leading-relaxed text-lg lg:text-2xl text-gray-800">次の画面でモデルコース名を入れたら投稿完了！</p>
         </div>
         <div class="text-center lg:text-right lg:w-1/2 lg:py-6 mt-6 lg:mt-0">
           <%= image_tag "top3.png", alt: "ecommerce", class: "object-cover inline-block rounded", width: "600", height: "800" %>
@@ -64,7 +64,9 @@
   <div style="margin-top: 8rem;"></div>
   <div class="text-center">
     <%= link_to t('.see_tourist_spot'), tourist_spots_path,  class: "btn btn-accent mt-4 mx-auto" %>&ensp;
-    <%= link_to t('defaults.user_new'), new_user_path, class: "btn btn-accent mt-4 mx-auto" %>
+    <% unless logged_in? || session[:user_id].present? %>
+      <%= link_to t('defaults.user_new'), new_user_path, class: "btn btn-accent mt-4 mx-auto" %>
+    <% end %>
   </div>
   <div style="margin-top: 8rem;"></div>
 </div>
