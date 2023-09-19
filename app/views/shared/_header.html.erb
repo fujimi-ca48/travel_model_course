@@ -1,15 +1,20 @@
+<%= stylesheet_link_tag 'count', media: 'all', 'data-turbolinks-track': 'reload' %>
+
 <header class="header bg-custom-1">
   <div class="container mx-auto flex flex-wrap flex-col md:flex-row items-center py-2">
     <%= link_to image_tag('logo.png'), root_path, class: "py-2" %>
     <div class="ml-auto flex items-center">
       <div class="dropdown dropdown-hover ml-1">
       <% if logged_in? || session[:user_id].present? %>
-        <label tabindex="0" class="btn btn-outline btn-accent mx-1">一覧</label>
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 bg-white">
-          <%= link_to "観光地一覧", tourist_spots_path, class: "btn btn-outline btn-accent bg-white mx-1" %>
-          <%= link_to "My穴場スポット", recommended_spots_path, class: "btn btn-outline btn-accent bg-white mx-1" %>
-          <%= link_to "モデルコース一覧", model_courses_path, class: "btn btn-outline btn-accent bg-white mx-1" %>
-        </ul>
+      <%= turbo_frame_tag "total-spot-items-frame" do %>
+        <div class="relative" style="display: inline-block;">
+        <%= link_to 'Myリスト', total_spot_items_path, data: { turbo: false }, class: "btn btn-accent mt-4" %>
+          <span id="total-spot-items-count-badge" class="bg-red-500 text-white rounded-full px-1 py-1 text-xs absolute top-0 right-0 -mt-2 -mr-2" style="display: none;"></span>
+        </div>
+      <% end %>
+      <%= link_to "観光地一覧", tourist_spots_path, class: , class: "btn btn-accent mt-4" %>
+      <%= link_to "My穴場スポット", recommended_spots_path, class: , class: "btn btn-accent mt-4" %>
+      <%= link_to "モデルコース", model_courses_path, class: , class: "btn btn-accent mt-4" %>
       </div>
       </div>
         <div class="dropdown dropdown-hover dropdown-end ml-1 mr-4">
@@ -28,8 +33,8 @@
           </ul>
         </div>
       <% else %>
-        <%= link_to t('defaults.login'), login_path, class: "btn btn-outline btn-accent mx-1" %>
-        <%= link_to t('defaults.user_new'), new_user_path, class: "btn btn-outline btn-accent mx-1" %>
+        <%= link_to t('defaults.login'), login_path, class: "btn btn-accent mt-4" %>
+        <%= link_to t('defaults.user_new'), new_user_path, class: "btn btn-accent mt-4" %>
       <% end %>
     </div>
   </div>

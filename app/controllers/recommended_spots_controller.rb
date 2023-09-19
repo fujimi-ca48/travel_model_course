@@ -29,22 +29,23 @@ class RecommendedSpotsController < ApplicationController
         render :new, status: :unprocessable_entity
       end
     elsif @recommended_spot.save
+      redirect_to recommended_spots_path, success: t('.success')
     else
       flash.now[:danger] = t('.fail')
       render :new, status: :unprocessable_entity
     end
   end
 
-  def edit;end
-  
+  def edit; end
+
   def show
     @recommended_spot = RecommendedSpot.find(params[:id])
   end
-  
+
   def update
     if recommended_spot_params[:img].present?
       result = Vision.image_analysis(recommended_spot_params[:img])
-      if result 
+      if result
         if @recommended_spot.update(recommended_spot_params)
           redirect_to recommended_spots_path, success: t('.success_update_spot')
         else
@@ -62,14 +63,14 @@ class RecommendedSpotsController < ApplicationController
       ender :edit, status: :unprocessable_entity
     end
   end
-  
+
   def destroy
     @recommended_spot.destroy!
     redirect_to recommended_spots_path, success: t('.success_delete_spot')
   end
 
   private
-    
+
   def recommended_spot_params
     params.require(:recommended_spot).permit(:name, :text, :address, :img, :latitude, :longitude)
   end
@@ -77,7 +78,7 @@ class RecommendedSpotsController < ApplicationController
   def set_spot
     @recommended_spot = current_user.recommended_spots.find(params[:id])
   end
-  
+
   def require_ownership
     redirect_to recommended_spots_path, danger: t('not_authorized') unless @recommended_spot.user == current_user
   end

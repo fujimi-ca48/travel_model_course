@@ -8,6 +8,7 @@ body {
     background-image: url('body.png');
     background-size: cover;
     background-repeat: no-repeat;
+    padding-top: 80px;
 }
 
 .footer {
@@ -18,6 +19,14 @@ body {
 .header {
     background-image: url('back.png');
     background-size: cover;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    height: 80px;
+    z-index: 1000;
 }
 
 .bg-custom {
@@ -55,4 +64,12 @@ body {
 
 .list-group-item:hover {
     background-color: #f0f0f0;
+}
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* 他の要素の上に表示されるようにz-indexを設定 */
 }

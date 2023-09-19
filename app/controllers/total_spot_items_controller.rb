@@ -2,24 +2,25 @@ class TotalSpotItemsController < ApplicationController
   before_action :require_login
 
   def index
-    @total_spot_items = current_user.total_spot_items.all.order(:position).includes(:user, :recommended_spot, :tourist_spot)
+    @total_spot_items = current_user.total_spot_items.all.order(:position).includes(:user, :recommended_spot,
+                                                                                    :tourist_spot)
     @model_course = ModelCourse.new
   end
 
   def create
     existing_item = current_user.total_spot_items.find_by(
-        tourist_spot_id: total_spot_item_params[:tourist_spot_id],
-        recommended_spot_id: total_spot_item_params[:recommended_spot_id]
+      tourist_spot_id: total_spot_item_params[:tourist_spot_id],
+      recommended_spot_id: total_spot_item_params[:recommended_spot_id]
     )
-        
+
     if existing_item
       if total_spot_item_params[:tourist_spot_id]
         tourist_spot_name = TouristSpot.find_by(id: total_spot_item_params[:tourist_spot_id])&.name
-        flash[:danger] = t('.duplicate_tourist_spot', tourist_spot_name: tourist_spot_name)
+        flash[:danger] = t('.duplicate_tourist_spot', tourist_spot_name:)
         redirect_to tourist_spots_path
       elsif total_spot_item_params[:recommended_spot_id]
         recommended_spot_name = RecommendedSpot.find_by(id: total_spot_item_params[:recommended_spot_id])&.name
-        flash[:danger] = t('.duplicate_recommended_spot', recommended_spot_name: recommended_spot_name)
+        flash[:danger] = t('.duplicate_recommended_spot', recommended_spot_name:)
         redirect_to recommended_spots_path
       end
     else
@@ -49,7 +50,7 @@ class TotalSpotItemsController < ApplicationController
     puts "transportation before update: #{@total_spot_item.transportation}"
     redirect_to total_spot_items_path
   end
-  
+
   def destroy
     @total_spot_item = current_user.total_spot_items.find(params[:id])
     @total_spot_item.destroy
@@ -64,17 +65,17 @@ class TotalSpotItemsController < ApplicationController
 
   def get_total_spot_items_count
     count = current_user.total_spot_items.count
-    render json: { count: count }
+    render json: { count: }
   end
 
   private
-  
+
   def total_spot_item_params
     params.require(:total_spot_item).permit(:recommended_spot_id, :tourist_spot_id, :duration, :transportation)
           .tap { |params| params[:transportation] = params[:transportation].to_i }
   end
-  
+
   def total_spot_item_update_params
-    params.require(:total_spot_items).permit(total_spot_items: [:duration, :transportation])
+    params.require(:total_spot_items).permit(total_spot_items: %i[duration transportation])
   end
 end

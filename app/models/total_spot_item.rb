@@ -1,6 +1,6 @@
 class TotalSpotItem < ApplicationRecord
   acts_as_list
-  
+
   belongs_to :user
   belongs_to :recommended_spot, optional: true
   belongs_to :tourist_spot, optional: true

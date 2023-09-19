@@ -4,7 +4,7 @@ class Admin::UsersController < Admin::BaseController
   def new
     @user = User.new
   end
-    
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -15,9 +15,9 @@ class Admin::UsersController < Admin::BaseController
       render :new, status: :unprocessable_entity
     end
   end
-    
-   private
-    
+
+  private
+
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
   end
