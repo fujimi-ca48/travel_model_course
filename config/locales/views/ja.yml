@@ -75,7 +75,6 @@ ja:
       to_model_course: 'モデルコースを作成する'
       add_to_model_course: 'モデルコースに追加する'
       add_to_list: 'Myリストに追加'
-      see_my_list: 'Myリストを見る'
       see_tourist_spot: '観光地一覧から選ぶ'
       new_recommended_spot: 'My穴場スポットを作成'
     create:
@@ -97,7 +96,6 @@ ja:
     index:
       title: '観光地一覧'
       add_to_list: 'Myリストに追加'
-      see_my_list: 'Myリストを見る'
       see_my_recommended: '穴場スポットから選ぶ'
   total_spot_items:
     index:
@@ -154,6 +152,16 @@ ja:
     update:
       success: 'プロフィールを更新しました'
       fail: 'プロフィールを更新できませんでした'
+  shared:
+    footer:
+      inquiry: 'お問い合わせ'
+      terms_of_service: '利用規約'
+      privacy_policy: 'プライバシーポリシー'
+    header:
+      my_list: 'Myリスト'
+      tourist_spot: '観光地一覧'
+      recommended_spot: 'My穴場スポット'
+      model_course: 'モデルコース'
   admin:
     user_sessions:
       new:
@@ -165,8 +173,12 @@ ja:
       destroy:
         success:  'ログアウトしました'
     tourist_spots:
+      index:
+        title: '観光地一覧'
       show_form:
         title: '観光地詳細'
+      edit:
+        title: '観光地編集'
       new:
         title: '観光地登録'
       create:
@@ -178,8 +190,22 @@ ja:
       destroy:
         success_delete_spot: '観光スポットを削除しました'
     users:
+      index:
+        title: 'ユーザー一覧'
       create:
         success: 'ユーザーを登録しました'
         fail: 'ユーザー登録できませんでした'
       new:
         to_login: '管理者用ログイン画面へ'
+      update:
+        success: '更新しました'
+        fail: '更新できませんでした'
+      edit:
+        title: 'ユーザー情報編集'
+      show:
+        title: 'ユーザー情報'
+      destroy:
+        success: '削除しました'
+    dashboards:
+      index:
+        title: 'ダッシュボード'

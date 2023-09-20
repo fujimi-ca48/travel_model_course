@@ -10,13 +10,19 @@ class TotalSpotItemsController < ApplicationController
 
   def create
     existing_item = TotalSpotItem.find_existing_item(current_user, total_spot_item_params)
-
+  
     if existing_item
-      TotalSpotItem.handle_duplicate_flash_and_redirect(total_spot_item_params, flash, tourist_spots_path)
+      flash[:danger] = if total_spot_item_params[:tourist_spot_id]
+        t('.duplicate_tourist_spot', tourist_spot_name: existing_item.tourist_spot.name)
+      else total_spot_item_params[:recommended_spot_id]
+        t('.duplicate_recommended_spot', recommended_spot_name: existing_item.recommended_spot.name)
+      end
+  
+      redirect_to request.referer
     else
       flash[:success] = t('.success')
       redirect_to request.referer
-
+  
       @total_spot_item = current_user.total_spot_items.build(total_spot_item_params)
       @total_spot_item.insert_at(current_user.total_spot_items.count + 1)
       @total_spot_item.save

@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
   def require_login
     return if logged_in?
 
-    redirect_to login_url, danger: t('message.require_login')
+    unless request.path_info == login_path
+      flash.now[:danger] = t('message.require_login')
+      redirect_to login_url
+    end
   end
 end

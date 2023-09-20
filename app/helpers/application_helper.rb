@@ -5,6 +5,16 @@ module ApplicationHelper
     page_title.empty? ? base_title : page_title + ' | ' + base_title
   end
 
+  def page_title(page_title = '', admin = false)
+    base_title = if admin
+                  '管理者画面 Travel Model Course'
+                 else
+                  'Travel Model Course'
+                 end
+
+    page_title.empty? ? base_title : page_title + ' | ' + base_title
+  end
+
   def default_meta_tags
     {
       title: 'Travel Model Course',
