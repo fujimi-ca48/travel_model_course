@@ -27,7 +27,11 @@ Rails.application.routes.draw do
       get :search
     end
   end
-  resources :model_courses, only: %i[new create show index edit update destroy]
+  resources :model_courses, only: %i[new create show index edit update destroy] do
+    collection do
+      get :my_model_courses
+    end
+  end
   resources :recommended_spots, only: %i[index new create destroy show edit update]
   resources :total_spot_items, only: %i[index new create update destroy] do
     member do

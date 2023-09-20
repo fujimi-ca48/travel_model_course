@@ -51,6 +51,10 @@ class ModelCoursesController < ApplicationController
     redirect_to model_courses_path, success: t('.success_delete_model_course')
   end
 
+  def my_model_courses
+    @model_courses = current_user.model_courses.order(created_at: :desc).page(params[:page]).per(12)
+  end
+
   private
 
   def set_model_course

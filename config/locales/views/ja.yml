@@ -144,6 +144,9 @@ ja:
       title: 'モデルコース編集'
     show:
       title: 'モデルコース詳細'
+    my_model_courses:
+      title: '自分の投稿一覧'
+      no_result: 'まだ投稿がありません'
   profiles:
     show:
       title: 'プロフィール'
@@ -162,6 +165,7 @@ ja:
       tourist_spot: '観光地一覧'
       recommended_spot: 'My穴場スポット'
       model_course: 'モデルコース'
+      my_model_course: '自分の投稿'
   admin:
     user_sessions:
       new:
