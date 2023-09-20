@@ -1,0 +1,29 @@
+<% content_for(:title, t('.title')) %>
+<div class="min-h-screen py-6 sm:py-8 lg:py-12">
+  <% @users.each do |user| %>
+    <div class="flex flex-col items-center justify-between gap-4 rounded-lg bg-gray-100 p-4 sm:flex-row md:p-8">
+      <div class="flex gap-4 items-center">
+        <% if user.avatar.present? %>
+          <%= image_tag user.avatar.url, class: "w-16 h-16 object-cover rounded" %>
+        <% else %>
+          <%= image_tag "sample.jpg", class: "w-16 h-16 object-cover rounded" %>
+        <% end %>
+        <div>
+          <h2 class="text-xl font-bold text-indigo-500 md:text-2xl"><%= user.name %></h2>
+          <p class="text-gray-600"><%= user.email %></p>
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <p><%= l user.created_at, format: :long %></p>
+        <%= link_to t('defaults.show'), admin_user_path(user), class: 'px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600' %>
+        <%= link_to t('defaults.edit'), edit_admin_user_path(user), class: 'px-4 py-2 text-sm font-semibold text-white bg-green-500 rounded hover:bg-green-600' %>
+        <%= link_to t('defaults.delete'), admin_user_path(user), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: 'px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600' %>
+      </div>
+    </div>
+    <div class="border-t border-gray-300"></div> 
+  <% end %>
+  <div class="text-center mt-4">
+    <%= paginate @users %>
+  </div>
+</div>

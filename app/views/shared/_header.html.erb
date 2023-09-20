@@ -8,16 +8,16 @@
       <% if logged_in? || session[:user_id].present? %>
       <%= turbo_frame_tag "total-spot-items-frame" do %>
         <div class="relative" style="display: inline-block;">
-        <%= link_to 'Myリスト', total_spot_items_path, data: { turbo: false, action: 'click->showCommentBubble' }, class: "btn btn-accent mt-4" %>
+        <%= link_to t('.my_list'), total_spot_items_path, data: { turbo: false, action: 'click->showCommentBubble' }, class: "btn btn-accent mt-4" %>
         <div id="comment-bubble" style="display: none;">
-  スポットをリストに追加しました
-</div>
+           スポットをリストに追加しました
+        </div>
           <span id="total-spot-items-count-badge" class="bg-red-500 text-white rounded-full px-1 py-1 text-xs absolute top-0 right-0 -mt-2 -mr-2" style="display: none;"></span>
         </div>
       <% end %>
-      <%= link_to "観光地一覧", tourist_spots_path, class: "btn btn-accent mt-4" %>
-<%= link_to "My穴場スポット", recommended_spots_path, class: "btn btn-accent mt-4" %>
-<%= link_to "モデルコース", model_courses_path, class: "btn btn-accent mt-4" %>
+        <%= link_to t('.tourist_spot'), tourist_spots_path, class: "btn btn-accent mt-4" %>
+        <%= link_to t('.recommended_spot'), recommended_spots_path, class: "btn btn-accent mt-4" %>
+        <%= link_to t('.model_course'), model_courses_path, class: "btn btn-accent mt-4" %>
       </div>
     </div>
         <div class="dropdown dropdown-hover dropdown-end ml-1 mr-4">
