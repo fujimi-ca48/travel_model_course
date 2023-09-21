@@ -30,6 +30,7 @@ class TotalSpotItemsController < ApplicationController
   end
 
   def update
+    @total_spot_item = current_user.total_spot_items.find(params[:id].to_i)
     params[:total_spot_item][:transportation] = TotalSpotItem.transportations[params[:total_spot_item][:transportation]]
     if @total_spot_item.update(total_spot_item_params)
       flash[:success] = t('.update.success')

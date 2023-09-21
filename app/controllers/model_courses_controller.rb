@@ -1,16 +1,18 @@
 class ModelCoursesController < ApplicationController
-  require 'json'
+  require "json"
   before_action :require_login
   before_action :set_model_course, only: %i[show edit update destroy]
 
   def index
     q_params = params.fetch(:q, {}).permit(:prefecture_eq, :vehicle_eq)
-
-    q_params[:vehicle_eq] = ModelCourse.vehicles[q_params[:vehicle_eq]] if q_params[:vehicle_eq].present?
-
+  
+    if q_params[:vehicle_eq].present?
+      q_params[:vehicle_eq] = ModelCourse.vehicles[q_params[:vehicle_eq]]
+    end
+  
     @q = ModelCourse.ransack(q_params)
-    @model_courses = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page]).per(12)
-
+    @model_courses = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(12)
+  
     @no_results = @model_courses.empty?
   end
 
@@ -19,9 +21,9 @@ class ModelCoursesController < ApplicationController
   end
 
   def create
-    total_spot_items = current_user.total_spot_items.to_a
-
-    @model_course = ModelCourse.create_with_data_and_save(current_user, model_course_params, total_spot_items)
+    selected_total_spot_items = current_user.total_spot_items.to_a
+  
+    @model_course = ModelCourse.create_with_spot_items(current_user, model_course_params, selected_total_spot_items)
   
     if @model_course.persisted?
       redirect_to model_courses_path, success: t('.success')
@@ -35,7 +37,7 @@ class ModelCoursesController < ApplicationController
     @spot_items = JSON.parse(@model_course.spot_item_data)
   end
 
-  def edit; end
+  def edit;end
 
   def update
     if @model_course.update(model_course_params)
@@ -52,7 +54,16 @@ class ModelCoursesController < ApplicationController
   end
 
   def my_model_courses
-    @model_courses = current_user.model_courses.order(created_at: :desc).page(params[:page]).per(12)
+    @model_courses = current_user.model_courses.includes(:user).order(created_at: :desc).page(params[:page]).per(12)
+  end
+
+  def bookmarks
+    @model_course = current_user.bookmark_model_courses.includes(:user).order(created_at: :desc)
+  end
+
+  def my_bookmarks
+    @model_courses = current_user.bookmarks.includes(:model_course, :user).order(created_at: :desc).map(&:model_course)
+    @model_courses = Kaminari.paginate_array(@model_courses).page(params[:page]).per(12)
   end
 
   private

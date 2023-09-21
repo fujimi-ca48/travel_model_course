@@ -3,6 +3,8 @@
 @tailwind utilities;
 @import './custom.css';
 @import './count.css';
+@import './bookmark.css';
+
 
 body {
     background-image: url('body.png');

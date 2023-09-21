@@ -53,6 +53,8 @@ ja:
   message:
     require_login: "ログインしてください"
     no_authority: '権限がありません'
+    bookmark: 'ブックマークしました'
+    not_bookmark: 'ブックマークを削除しました'
   errors:
     unavailable_session: "セッションが利用できません"
   google_login_api:
@@ -147,6 +149,9 @@ ja:
     my_model_courses:
       title: '自分の投稿一覧'
       no_result: 'まだ投稿がありません'
+    my_bookmarks:
+      title: 'お気に入り一覧'
+      no_result: 'まだ投稿がありません'
   profiles:
     show:
       title: 'プロフィール'
@@ -166,6 +171,7 @@ ja:
       recommended_spot: 'My穴場スポット'
       model_course: 'モデルコース'
       my_model_course: '自分の投稿'
+      my_bookmarks: 'お気に入り'
   admin:
     user_sessions:
       new:
