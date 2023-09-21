@@ -1,0 +1,29 @@
+<% if model_course.bookmark_by?(current_user) %>
+  <%= link_to model_course_bookmarks_path(model_course), data: { turbo_method: :delete}, remote: true, id: "js-bookmark-button-for-model-course-#{model_course.id}", class: "bookmark-button"  do %>
+    <!-- お気に入りボタンの表示（お気に入り中の場合） -->
+    <input type="checkbox" <%= 'checked="checked"' if model_course.bookmark_by?(current_user) %> id="js-bookmark-button-for-model-course-<%= model_course.id %>" name="favorite-checkbox" value="bookmark-button">
+    <label for="favorite-<%= model_course.id %>">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+      <div class="action">
+        <span class="option-1" style="display: none;">お気に入りに追加</span>
+        <span class="option-2">お気に入り中</span>
+      </div>
+    </label>
+  <% end %>
+<% else %>
+<%= link_to model_course_bookmarks_path(model_course), data: { turbo_method: :post}, remote: true, id: "js-bookmark-button-for-model-course-#{model_course.id}", class: "bookmark-button"  do %>
+    <!-- お気に入りボタンの表示（お気に入りしていない場合） -->
+    <input type="checkbox" id="favorite-<%= model_course.id %>" name="favorite-checkbox" value="bookmark-button">
+    <label for="favorite-<%= model_course.id %>">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+      <div class="action">
+        <span class="option-1">お気に入りに追加</span>
+        <span class="option-2" style="display: none;">お気に入り中</span>
+      </div>
+    </label>
+  <% end %>
+<% end %>

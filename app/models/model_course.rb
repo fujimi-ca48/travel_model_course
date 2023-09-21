@@ -1,6 +1,8 @@
 class ModelCourse < ApplicationRecord
   belongs_to :user
   has_many :total_spot_items, class_name: 'TotalSpotItem'
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_model_courses, through: :bookmarks, source: :model_course
 
   validates :user, presence: true
   validates :name, presence: true
@@ -14,6 +16,10 @@ class ModelCourse < ApplicationRecord
   attr_accessor :selected_duration
   attr_accessor :selected_transportation
   attr_accessor :position
+
+  def bookmark_by?(user)
+    bookmarks.where(user_id: user.id).exists?
+  end
   
   def spot_item_data_array
     JSON.parse(spot_item_data).map(&:with_indifferent_access)
@@ -39,7 +45,8 @@ class ModelCourse < ApplicationRecord
     ["prefecture", "vehicle"]
   end
 
-  def self.create_with_data_and_save(user, model_course_params, total_spot_items)
+
+  def self.create_with_spot_items(user, model_course_params, total_spot_items)
     spot_item_data = total_spot_items.map do |item|
       {
         recommended_spot_id: item.recommended_spot_id,
@@ -53,12 +60,11 @@ class ModelCourse < ApplicationRecord
     model_course = user.model_courses.build(model_course_params)
     model_course.spot_item_data = spot_item_data.to_json
 
-    transportation_counts = total_spot_items.group_by do |item|
-      TotalSpotItem.transportations.key(item.transportation)
-    end.transform_values(&:count)
-    most_common_transportation_key = transportation_counts.max_by { |_, count| count }&.first
+    transportations = total_spot_items.map(&:transportation)
 
-    model_course.vehicle = most_common_transportation_key if most_common_transportation_key
+    most_common_transportation = transportations.max_by { |transportation| transportations.count(transportation) }
+    
+    model_course.vehicle = TotalSpotItem.transportations[most_common_transportation]
 
     address_counts = total_spot_items.map do |item|
       address = item.recommended_spot&.address || item.tourist_spot&.address

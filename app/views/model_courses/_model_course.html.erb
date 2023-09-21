@@ -1,48 +1,96 @@
+<%= stylesheet_link_tag 'bookmark', media: 'all', 'data-turbolinks-track': 'reload' %>
+
 <% @model_courses.each do |model_course| %>
-    <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
-      <% spot_items = JSON.parse(model_course.spot_item_data) %>
-      <% recommended_spot_ids = spot_items.map { |spot_item| spot_item['recommended_spot_id'] }.compact %>
-      <% if recommended_spot_ids.any? %>
-        <% min_recommended_spot_id = recommended_spot_ids.min %>
-        <% recommended_spot = RecommendedSpot.find_by(id: min_recommended_spot_id) %>
-        <% if recommended_spot && recommended_spot.img.present? %>
-          <% image_url = recommended_spot.img.url %>
-        <% else %>
-          <% image_url = asset_path("sample.jpg") %>
-        <% end %>
-        <a href="#" class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64">
-          <%= image_tag(image_url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") %>
-        </a>
+  <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
+    <% spot_items = JSON.parse(model_course.spot_item_data) %>
+    <% recommended_spot_ids = spot_items.map { |spot_item| spot_item['recommended_spot_id'] }.compact %>
+    <% if recommended_spot_ids.any? %>
+      <% min_recommended_spot_id = recommended_spot_ids.min %>
+      <% recommended_spot = RecommendedSpot.find_by(id: min_recommended_spot_id) %>
+      <% if recommended_spot && recommended_spot.img.present? %>
+        <% image_url = recommended_spot.img.url %>
+      <% else %>
+        <% image_url = asset_path("sample.jpg") %>
       <% end %>
-  
-      <div class="flex flex-1 flex-col p-4 sm:p-6">
-        <div class="flex items-center justify-between mb-2">
-          <h2 class="mb-2 text-lg font-semibold text-gray-800">
-            <%= link_to model_course_path(model_course), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
-              <%= truncate(model_course.name, length: 30, omission: '...') %>
-            <% end %>
-          </h2>
-        </div>
-  
-        <div class="flex justify-between items-center">
-          <span class="text-gray-600">投稿者: <%= model_course.user.name %></span>
-  
-          <% if current_user == model_course.user %>
-            <div class="flex items-center gap-2">
-              <%= link_to t('defaults.edit'), edit_model_course_path(model_course), class: 'px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600' %>
-              <%= link_to t('defaults.delete'), model_course_path(model_course), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: 'px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600' %>
-            </div>
+      <a href="#" class="group relative block h-48 overflow-hidden bg-gray-100 md:h-64">
+        <%= image_tag(image_url, class: "absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110") %>
+      </a>
+    <% end %>
+
+    <div class="flex flex-1 flex-col p-4 sm:p-6">
+      <div class="flex items-center justify-between mb-2">
+        <h2 class="mb-2 text-lg font-semibold text-gray-800">
+          <%= link_to model_course_path(model_course), class: "link link-accent transition duration-100 hover:text-accent active:text-indigo-600 cursor-pointer" do %>
+            <%= truncate(model_course.name, length: 30, omission: '...') %>
           <% end %>
-        </div>
-  
-        <div class="mt-8"></div>
-        <div class="mt-auto flex items-end justify-between">
+        </h2>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <span class="text-gray-600">投稿者: <%= model_course.user.name %></span>
+
+        <% if current_user == model_course.user %>
           <div class="flex items-center gap-2">
-            <% if model_course.prefecture.present? %>
-              <span class="text-indigo-500"><%= model_course.prefecture %></span>
-            <% end %>
+            <%= link_to t('defaults.edit'), edit_model_course_path(model_course), class: 'px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600' %>
+            <%= link_to t('defaults.delete'), model_course_path(model_course), data: { turbo_method: :delete, "turbo-confirm": (t 'defaults.destroy?') }, class: 'px-4 py-2 text-sm font-semibold text-white bg-red-500 rounded hover:bg-red-600' %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="mt-4">
+        <p class="text-gray-800 text-left">1日の所要時間: <%= model_course.all_time %> 時間</p>
+        <p class="text-gray-800 text-left">メインの移動手段: <%= I18n.t("vehicle.#{model_course.vehicle}") %></p>
+      </div>
+
+      <div class="mt-8"></div>
+      <div class="mt-auto flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <% if model_course.prefecture.present? %>
+            <% prefecture = model_course.prefecture.slice(0, 3) %>
+            <span class="text-indigo-500" style="white-space: nowrap;"><%= prefecture %></span>
+          <% end %>
+          <div class="heart-icon flex items-center gap-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <div class="like-count">10</div>
           </div>
         </div>
+        
+        <% unless current_user == model_course.user %>
+          <div id="js-bookmark-button-for-model-course-<%= model_course.id %>" data-turbo-frame="js-bookmark-button-for-model-course-<%= model_course.id %>">
+            <%= render "bookmarks/bookmark", model_course: model_course %>
+          </div>
+        <% end %>
       </div>
     </div>
-  <% end %>  
+  </div>
+<% end %>
+
+  <style>
+
+.like-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  color: white;
+  font-size: 14px;
+  width: auto;
+  padding: 1px 40px 1px 40px;
+}
+
+.heart-icon svg {
+  fill: red; /* ハートアイコンの色を赤に設定 */
+}
+
+.like-count {
+  background-color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+</style>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'bookmarks/create'
+  get 'bookmarks/destroy'
   get 'password_resets/new'
   get 'password_resets/create'
   get 'password_resets/edit'
@@ -27,9 +29,14 @@ Rails.application.routes.draw do
       get :search
     end
   end
-  resources :model_courses, only: %i[new create show index edit update destroy] do
+  resources :model_courses, only: %i[new create show index edit update destroy], shallow: true do
     collection do
       get :my_model_courses
+    end
+
+    resource :bookmarks, only: %i[create destroy]
+    collection do
+      get 'my_bookmarks'
     end
   end
   resources :recommended_spots, only: %i[index new create destroy show edit update]
