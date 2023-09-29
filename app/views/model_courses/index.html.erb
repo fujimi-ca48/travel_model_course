@@ -38,9 +38,12 @@
     <div class="modal-content">
     <p>モデルコースの投稿してくれてありがとう🎉✨</p>
     <p>投稿したモデルコースをTwitterでも共有しよう！</p>
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@YourTwitterUsername">
-    <meta name="twitter:image" content="<%= image_url(@tweet_image_url) %>">
+    <!-- set_meta_tagsの呼び出し -->
+    <% set_meta_tags og: { image: image_url(@tweet_image_url) }, twitter: { 
+      card: 'summary_large_image',
+      site: '@YourTwitterUsername',
+      image: image_url(@tweet_image_url)
+    } %>
     <%= link_to "https://twitter.com/share?url=#{ model_course_url(@latest_model_course) }&text=#{@latest_model_course.user.name}さんが「#{@latest_model_course.name}」を投稿しました！%0A&hashtags=TravelModelCourse", class: 'twitter-share-button', 'data-show-count' => 'false', target: '_blank' do %>
        Tweet
     <% end %>
