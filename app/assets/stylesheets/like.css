@@ -1,0 +1,30 @@
+.heart-icon svg {
+    fill: white;
+}
+
+.like-count {
+    background-color: transparent;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: gray;
+    position: relative;
+    z-index: 1;
+}
+
+.like-icon {
+    fill: white;
+    stroke: red;
+    stroke-width: 2;
+    transition: fill 0.3s ease;
+}
+
+input:checked + .like-label .like-icon {
+    fill: red;
+    stroke: red;
+}
+
+.like-label{
+    background-color: transparent; 
+    display: flex;
+}

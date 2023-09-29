@@ -1,0 +1,23 @@
+<% if model_course.like_by?(current_user) %>
+  <%= link_to model_course_likes_path(model_course), data: { turbo_method: :delete }, remote: true, id: "js-like-button-for-model-course-#{model_course.id}", class: "like-button liked" do %>
+    <!-- いいねボタンの表示（いいね中の場合） -->
+    <input type="checkbox" <%= 'checked="checked"' if model_course.like_by?(current_user) %> id="js-like-button-for-model-course-<%= model_course.id %>" name="like-checkbox" value="like-button">
+    <div for="like-<%= model_course.id %>" class="like-label liked">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="yellow" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart like-icon">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      <div class="like-count"><%= model_course.likes.count %></div>
+    </div>
+  <% end %>
+<% else %>
+  <%= link_to model_course_likes_path(model_course), data: { turbo_method: :post }, remote: true, id: "js-like-button-for-model-course-#{model_course.id}", class: "like-button" do %>
+    <!-- いいねボタンの表示（いいねしていない場合） -->
+    <input type="checkbox" id="like-<%= model_course.id %>" name="like-checkbox" value="like-button">
+    <div for="like-<%= model_course.id %>" class="like-label">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart like-icon">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      <div class="like-count"><%= model_course.likes.count %></div>
+    </div>
+  <% end %>
+<% end %>

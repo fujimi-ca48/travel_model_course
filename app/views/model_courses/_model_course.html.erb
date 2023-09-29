@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag 'bookmark', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'like', media: 'all', 'data-turbolinks-track': 'reload' %>
 
 <% @model_courses.each do |model_course| %>
   <div class="flex flex-col overflow-hidden rounded-lg border bg-white">
@@ -49,12 +50,11 @@
             <% prefecture = model_course.prefecture.slice(0, 3) %>
             <span class="text-indigo-500" style="white-space: nowrap;"><%= prefecture %></span>
           <% end %>
-          <div class="heart-icon flex items-center gap-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-            <div class="like-count">10</div>
-          </div>
+         <% unless current_user == model_course.user %>
+           <div id="js-like-button-for-model-course-<%= model_course.id %>" data-turbo-frame="js-like-button-for-model-course-<%= model_course.id %>">
+             <%= render "likes/like", model_course: model_course %>
+           </div>
+         <% end %>
         </div>
         
         <% unless current_user == model_course.user %>
@@ -66,31 +66,3 @@
     </div>
   </div>
 <% end %>
-
-  <style>
-
-.like-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  user-select: none;
-  border-radius: 10px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  color: white;
-  font-size: 14px;
-  width: auto;
-  padding: 1px 40px 1px 40px;
-}
-
-.heart-icon svg {
-  fill: red; /* ハートアイコンの色を赤に設定 */
-}
-
-.like-count {
-  background-color: white;
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 12px;
-}
-</style>

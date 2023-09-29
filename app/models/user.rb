@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :total_spot_items, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_model_courses, through: :bookmarks, source: :model_course
+  has_many :likes, dependent: :destroy 
+  has_many :like_model_courses, through: :likes, source: :model_course
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }

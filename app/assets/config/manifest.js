@@ -5,3 +5,4 @@
 //= link custom.css
 //= link count.css
 //= link bookmark.css
+//= link like.css

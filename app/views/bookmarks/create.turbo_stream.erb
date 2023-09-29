@@ -1,2 +1,1 @@
 <%= turbo_stream.replace "js-bookmark-button-for-model-course-#{params[:model_course_id]}", partial: "bookmarks/bookmark", locals: { model_course: @model_course } %>
-<% logger.debug("Turbo Stream executed") %>
