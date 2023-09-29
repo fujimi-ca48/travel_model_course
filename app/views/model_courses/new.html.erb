@@ -37,3 +37,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  // 新規モデルコース作成ボタンがクリックされたときの処理
+  document.getElementById('createModelCourseButton').addEventListener('click', function () {
+    // 新規モデルコース作成の処理を行う（Ajaxリクエストなど）
+
+    // 作成が成功したら一覧画面に遷移
+    window.location.href = '/model_courses?show_modal=true'; // 一覧画面のURLにクエリパラメーターを追加
+  });
+</script>
