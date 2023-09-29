@@ -14,6 +14,7 @@ class ModelCoursesController < ApplicationController
     @model_courses = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(12)
   
     @no_results = @model_courses.empty?
+    @latest_model_course = current_user.model_courses.last
   end
 
   def new
