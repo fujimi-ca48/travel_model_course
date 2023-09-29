@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'likes/create'
+  get 'likes/destroy'
   get 'bookmarks/create'
   get 'bookmarks/destroy'
   get 'password_resets/new'
@@ -38,6 +40,8 @@ Rails.application.routes.draw do
     collection do
       get 'my_bookmarks'
     end
+
+    resource :likes, only: %i[create destroy]
   end
   resources :recommended_spots, only: %i[index new create destroy show edit update]
   resources :total_spot_items, only: %i[index new create update destroy] do

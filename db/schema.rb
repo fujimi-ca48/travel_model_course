@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_20_074827) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_25_031631) do
   create_table "bookmarks", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "model_course_id", null: false
@@ -19,6 +19,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_074827) do
     t.index ["model_course_id"], name: "index_bookmarks_on_model_course_id"
     t.index ["user_id", "model_course_id"], name: "index_bookmarks_on_user_id_and_model_course_id", unique: true
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "model_course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_course_id"], name: "index_likes_on_model_course_id"
+    t.index ["user_id", "model_course_id"], name: "index_likes_on_user_id_and_model_course_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "model_courses", force: :cascade do |t|
@@ -90,6 +100,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_074827) do
 
   add_foreign_key "bookmarks", "model_courses"
   add_foreign_key "bookmarks", "users"
+  add_foreign_key "likes", "model_courses"
+  add_foreign_key "likes", "users"
   add_foreign_key "model_courses", "users"
   add_foreign_key "recommended_spots", "users"
   add_foreign_key "total_spot_items", "recommended_spots"

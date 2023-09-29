@@ -3,6 +3,8 @@ class ModelCourse < ApplicationRecord
   has_many :total_spot_items, class_name: 'TotalSpotItem'
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_model_courses, through: :bookmarks, source: :model_course
+  has_many :likes, dependent: :destroy
+  has_many :like_model_courses, through: :likes, source: :model_course
 
   validates :user, presence: true
   validates :name, presence: true
@@ -19,6 +21,10 @@ class ModelCourse < ApplicationRecord
 
   def bookmark_by?(user)
     bookmarks.where(user_id: user.id).exists?
+  end
+
+  def like_by?(user)
+    likes.where(user_id: user.id).exists?
   end
   
   def spot_item_data_array
