@@ -16,9 +16,10 @@
       <% if recommended_spot_item %>
         <% recommended_spot = RecommendedSpot.find_by(id: recommended_spot_item["recommended_spot_id"]) %>
         <% if recommended_spot && recommended_spot.img.present? %>
-          <%= image_tag recommended_spot.img.url, class: "spot-image object-cover rounded mb-4 mx-auto custom-image" %> <!-- mx-autoを追加 -->
+          <%= image_tag recommended_spot.img.url, class: "spot-image object-cover rounded mb-4 mx-auto custom-image" %>
+          <% @tweet_image_url = recommended_spot.img.url %>
         <% else %>
-          <%= image_tag asset_path("sample.jpg"), class: "spot-image object-cover rounded mb-10 mx-auto custom-image" %> <!-- mx-autoを追加 -->
+          <%= image_tag asset_path("sample.jpg"), class: "spot-image object-cover rounded mb-10 mx-auto custom-image" %>
         <% end %>
       <% end %>
     <% end %>

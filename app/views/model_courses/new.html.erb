@@ -1,42 +1,56 @@
-<% content_for(:title, t('.title')) %>
-<div class="min-h-screen flex flex-col justify-center items-center">
-  <div class="py-6 sm:py-8 lg:py-12 flex justify-center items-center">
-    <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-      <div class="mb-10 md:mb-16" style="margin-top: 20px;">
-        <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
-      </div>
-
-      <div class="text-center">
-        <div class="bg-white rounded p-4 py-6 mx-auto max-w-lg">
-          <p class="mb-4 text-left text-gray-800"> Step4: 他のユーザーがわかりやすいようにモデルコース名はどんなモデルコース名かわかる様に出来るだけ詳しく記載しましょう!長文タイトルOK!</p>
-          <p class="mb-4 text-left text-gray-800"> 例：上野駅から出発！水タバコでリラックスしながらリモートワーク！息抜きに上野動物円にも…</p>
+<body class="custom-body">
+  <% content_for(:title, t('.title')) %>
+  <div class="min-h-screen flex flex-col justify-center items-center">
+    <div class="py-6 sm:py-8 lg:py-12 flex justify-center items-center">
+      <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+        <div class="mb-10 md:mb-16" style="margin-top: 20px;">
+          <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"><%= t('.title') %></h2>
         </div>
-      </div>
-      <div class="mt-8"></div>
-      <%= form_with model: @model_course, url: model_courses_path, data: { turbo: false } do |f| %>
-        <%= render 'shared/error_messages', model: f.object %>
-        <div class="mb-4">
-          <div class="flex justify-start">
-            <%= f.label :name, class: "input-label pr-4 text-default text-gray-700" %>
+
+        <div class="text-center">
+          <div class="bg-white rounded p-4 py-6 mx-auto max-w-lg">
+            <p class="mb-4 text-left text-gray-800"> Step4: 他のユーザーがわかりやすいようにモデルコース名はどんなモデルコース名かわかる様に出来るだけ詳しく記載しましょう!長文タイトルOK!</p>
+            <p class="mb-4 text-left text-gray-800"> 例：上野駅から出発！水タバコでリラックスしながらリモートワーク！息抜きに上野動物円にも…</p>
           </div>
-          <%= f.text_field :name, class: "input input-bordered input-accent w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
         </div>
+        <div class="mt-8"></div>
 
-        <div class="mb-4">
-          <%= f.label :all_time, class: "input-label pr-4 text-default text-gray-700" %>
-          <%= f.text_field :all_time, class: "input input-bordered input-accent w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
-        </div>
-        
-        <div class="mb-4">
-          <%= f.submit t(".create_model_course"), class: "btn btn-accent text-white w-full" %>
-        </div>
-      <% end %>
-      <div class="mb-4 text-center">
-        <%= link_to t('.back_my_list'), total_spot_items_path, data: { turbo: false }, class: "link link-accent" %>
+        <%= form_with model: @model_course, url: model_courses_path, data: { turbo: false }, html: { class: "modalOpen" } do |f| %>
+          <%= render 'shared/error_messages', model: f.object %>
+          <div class="mb-4">
+            <div class="flex justify-start">
+              <%= f.label :name, class: "input-label pr-4 text-default text-gray-700" %>
+            </div>
+            <%= f.text_field :name, class: "input input-bordered input-accent w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
+          </div>
+
+          <div class="mb-4">
+            <%= f.label :all_time, class: "input-label pr-4 text-default text-gray-700" %>
+            <%= f.text_field :all_time, class: "input input-bordered input-accent w-full text-gray-700", style: "background-color: rgba(255, 255, 255, 0);" %>
+          </div>
+
+          <div class="mb-4">
+          <%= f.submit t(".create_model_course"), class: "btn btn-accent text-white w-full", id: "createModelCourseButton" %>
+          </div>
+       
+        <% end %>
       </div>
     </div>
   </div>
+</body>
+
+<div class="modal-open">モーダルを開く</div>
+
+<div class="modal-container">
+  <div class="modal-body">
+    <div class="modal-close">×</div>
+    <div class="modal-content">
+      <p>開きました。</p>
+    </div>
+  </div>
 </div>
+
+<style>
 
 <script>
   // 新規モデルコース作成ボタンがクリックされたときの処理
@@ -47,3 +61,4 @@
     window.location.href = '/model_courses?show_modal=true'; // 一覧画面のURLにクエリパラメーターを追加
   });
 </script>
+

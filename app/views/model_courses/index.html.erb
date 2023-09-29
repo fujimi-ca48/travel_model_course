@@ -32,99 +32,24 @@
   </div>
 </div>
 
-<% @model_courses.each do |model_course| %>
-  <div class="modal js-modal">
-    <div class="modal-container">
-      <!-- モーダルを閉じるボタン -->
-      <div class="modal-close js-modal-close">×</div>
-      <!-- モーダル内部のコンテンツ -->
-      <div class="modal-content">
-        <p>モデルコースの投稿してくれてありがとう🎉✨</p>
-        <p>投稿したモデルコースをTwitterでも共有しよう！</p>
-        <% set_meta_tags og: { image: image_url(@tweet_image_url) }, twitter: { image: image_url(@tweet_image_url) } %>
-        <%= link_to "https://twitter.com/share?url=#{ model_course_url(@latest_model_course) }&text=#{@latest_model_course.user.name}さんが「#{@latest_model_course.name}」を投稿しました！%0A&hashtags=TravelModelCourse", class: 'twitter-share-button', 'data-show-count' => 'false', target: '_blank' do %>
-           Tweet
-        <% end %>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-      </div>
+<div class="modal-container">
+  <div class="modal-body">
+    <div class="modal-close">×</div>
+    <div class="modal-content">
+    <p>モデルコースの投稿してくれてありがとう🎉✨</p>
+    <p>投稿したモデルコースをTwitterでも共有しよう！</p>
+    <% set_meta_tags og: { image: image_url(@tweet_image_url) }, twitter: { image: image_url(@tweet_image_url) } %>
+    <%= link_to "https://twitter.com/share?url=#{ model_course_url(@latest_model_course) }&text=#{@latest_model_course.user.name}さんが「#{@latest_model_course.name}」を投稿しました！%0A&hashtags=TravelModelCourse", class: 'twitter-share-button', 'data-show-count' => 'false', target: '_blank' do %>
+       Tweet
+    <% end %>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
   </div>
-<% end %>
-
-<script>
-  // モーダルを開く関数
-  function modalOpen() {
-    const modal = document.querySelector('.js-modal');
-    modal.classList.add('is-active');
-  }
-
-  // モーダルを閉じる関数
-  function modalClose() {
-    const modal = document.querySelector('.js-modal');
-    modal.classList.remove('is-active');
-  }
-
-  // バツ印がクリックされた時
-const buttonClose = document.querySelector('.js-modal-close');
-buttonClose.addEventListener('click', function () {
-  const modal = document.querySelector('.js-modal');
-  modal.style.display = 'none';
-  body.classList.remove('open');
-});
-
-
-// モーダルコンテンツ以外がクリックされた時
-const modal = document.querySelector('.js-modal');
-modal.addEventListener('click', function (event) {
-  if (event.target === modal) {
-    modal.style.display = 'none';
-    body.classList.remove('open');
-  }
-});
-
-
-  // URLからクエリパラメーターを取得する関数
-  function getQueryParams() {
-    const queryParams = new URLSearchParams(window.location.search);
-    return queryParams;
-  }
-
-  // 一覧画面が読み込まれた際にモーダルを表示
-  window.addEventListener('load', function () {
-    // クエリパラメーターから show_modal の値を取得
-    const queryParams = getQueryParams();
-    const showModal = queryParams.get('show_modal');
-
-    // show_modal が true の場合にモーダルを開く
-    if (showModal === 'true') {
-      modalOpen();
-    }
-  });
-
-  // ページが読み込まれたときにモーダルを表示
-  window.addEventListener('load', function () {
-    modalOpen();
-  });
-</script>
+</div>
 
 <style>
-.modal-open {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  font-size: 16px;
-  font-weight: bold;
-  width: 300px;
-  height: 60px;
-  color: #fff;
-  background: #000;
-  border: none;
-  cursor: pointer;
-  transform: translate(-50%, -50%); /* 中央に配置 */
-}
-
-/* モーダルと背景の指定 */
-.modal{
+/*モーダル本体の指定 + モーダル外側の背景の指定*/
+.modal-container{
   position: fixed;
   top: 0;
   left: 0;
@@ -139,33 +64,27 @@ modal.addEventListener('click', function (event) {
   transition: .3s;
   box-sizing: border-box;
 }
-
-
-/* モーダルの擬似要素の指定 */
-.modal:before{
+/*モーダル本体の擬似要素の指定*/
+.modal-container:before{
   content: "";
   display: inline-block;
   vertical-align: middle;
   height: 100%;
-  margin-left: -0.2em;
 }
-
-/* クラスが追加された時の指定 */
-.modal.is-active{
+/*モーダル本体に「active」クラス付与した時のスタイル*/
+.modal-container.active{
   opacity: 1;
   visibility: visible;
 }
-
-/* モーダル内側の指定 */
-.modal-container{
+/*モーダル枠の指定*/
+.modal-body{
   position: relative;
   display: inline-block;
   vertical-align: middle;
-  max-width: 600px;
+  max-width: 500px;
   width: 90%;
 }
-
-/* モーダルを閉じるボタンの指定 */
+/*モーダルを閉じるボタンの指定*/
 .modal-close{
   position: absolute;
   display: flex;
@@ -175,22 +94,58 @@ modal.addEventListener('click', function (event) {
   right: -20px;
   width: 40px;
   height: 40px;
+  font-size: 20px;
   color: #fff;
-  background: #000;
-  border-radius: 50%;
+  background:  #1fb2a6;
   cursor: pointer;
+  border-radius: 50%; /* 角を丸くする */
 }
-
-/* モーダルのコンテンツ部分の指定 */
+/*モーダル内のコンテンツの指定*/
 .modal-content{
   background: #fff;
   text-align: left;
-  line-height: 1.8;
-  padding: 20px;
-}
-
-/* モーダルのコンテンツ部分のテキストの指定 */
-.modal-content p{
-  margin: 1em 0;
+  padding: 30px;
 }
 </style>
+
+<script>
+$(function(){
+  // 変数に要素を入れる
+  var open = $('.modal-open'),
+    close = $('.modal-close'),
+    container = $('.modal-container');
+
+  //開くボタンをクリックしたらモーダルを表示する
+  open.on('click',function(){ 
+    container.addClass('active');
+    return false;
+  });
+
+  //閉じるボタンをクリックしたらモーダルを閉じる
+  close.on('click',function(){  
+    container.removeClass('active');
+  });
+
+  //モーダルの外側をクリックしたらモーダルを閉じる
+  $(document).on('click',function(e) {
+    if(!$(e.target).closest('.modal-body').length) {
+      container.removeClass('active');
+    }
+  });
+});
+
+$(function(){
+  // 新規作成画面から遷移した場合のみモーダルを表示する関数
+  function openModal() {
+    $('.modal-container').addClass('active');
+  }
+
+
+// ページのURLに show_modal パラメーターがある場合にモーダルを表示
+const queryParams = new URLSearchParams(window.location.search);
+if (queryParams.get('show_modal') === 'true') {
+  openModal();
+}
+});
+</script>
+
