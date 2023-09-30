@@ -5,6 +5,7 @@
 @import './count.css';
 @import './bookmark.css';
 @import './like.css';
+@import './modal.css';
 
 body {
     background-image: url('body.png');

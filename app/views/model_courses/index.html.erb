@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'modal', media: 'all', 'data-turbolinks-track': 'reload' %>
 
 <div class="py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
@@ -36,13 +37,16 @@
   <div class="modal-body">
     <div class="modal-close">×</div>
     <div class="modal-content">
-    <p>モデルコースの投稿してくれてありがとう🎉✨</p>
-    <p>投稿したモデルコースをTwitterでも共有しよう！</p>
-    <% content_for :twitter_card do %>
-      <meta name="twitter:card" content="summary_large_image">
-      <meta name="twitter:site" content="@YourTwitterUsername">
-      <meta name="twitter:image" content="<%= image_url(@tweet_image_url) %>">
+    <p class="text-gray-800">モデルコースを投稿してくれてありがとう🎉✨</p>
+    <p class="text-gray-800">投稿したモデルコースをTwitterでも共有しよう！</p>
+    <% if @latest_model_course.spot_item_data.present? %>
+      <% spot_item_data = JSON.parse(@latest_model_course.spot_item_data) %>
+        <% first_spot = spot_item_data.first %>
+        <% recommended_spot_id = first_spot["recommended_spot_id"] %>
+        <% recommended_spot = RecommendedSpot.find_by(id: recommended_spot_id) %>
+        <% recommended_spot_image_url = recommended_spot&.img&.url %>
     <% end %>
+    <% set_meta_tags  og: { image: image_url(recommended_spot_image_url ) }, twitter: { image: image_url(recommended_spot_image_url ) } %>
     <%= link_to "https://twitter.com/share?url=#{ model_course_url(@latest_model_course) }&text=#{@latest_model_course.user.name}さんが「#{@latest_model_course.name}」を投稿しました！%0A&hashtags=TravelModelCourse", class: 'twitter-share-button', 'data-show-count' => 'false', target: '_blank' do %>
        Tweet
     <% end %>
@@ -50,67 +54,6 @@
     </div>
   </div>
 </div>
-
-<style>
-/*モーダル本体の指定 + モーダル外側の背景の指定*/
-.modal-container{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  background: rgba(0,0,0,50%);
-  padding: 40px 20px;
-  overflow: auto;
-  opacity: 0;
-  visibility: hidden;
-  transition: .3s;
-  box-sizing: border-box;
-}
-/*モーダル本体の擬似要素の指定*/
-.modal-container:before{
-  content: "";
-  display: inline-block;
-  vertical-align: middle;
-  height: 100%;
-}
-/*モーダル本体に「active」クラス付与した時のスタイル*/
-.modal-container.active{
-  opacity: 1;
-  visibility: visible;
-}
-/*モーダル枠の指定*/
-.modal-body{
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  max-width: 500px;
-  width: 90%;
-}
-/*モーダルを閉じるボタンの指定*/
-.modal-close{
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: -20px;
-  right: -20px;
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
-  color: #fff;
-  background:  #1fb2a6;
-  cursor: pointer;
-  border-radius: 50%; /* 角を丸くする */
-}
-/*モーダル内のコンテンツの指定*/
-.modal-content{
-  background: #fff;
-  text-align: left;
-  padding: 30px;
-}
-</style>
 
 <script>
 $(function(){
