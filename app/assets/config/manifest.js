@@ -6,3 +6,4 @@
 //= link count.css
 //= link bookmark.css
 //= link like.css
+//= link modal.css
