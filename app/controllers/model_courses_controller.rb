@@ -2,6 +2,7 @@ class ModelCoursesController < ApplicationController
   require "json"
   before_action :require_login
   before_action :set_model_course, only: %i[show edit update destroy]
+  skip_before_action :require_login, only: [:show]
 
   def index
     q_params = params.fetch(:q, {}).permit(:prefecture_eq, :vehicle_eq)

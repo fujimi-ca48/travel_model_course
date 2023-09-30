@@ -39,14 +39,6 @@
     <div class="modal-content">
     <p class="text-gray-800">モデルコースを投稿してくれてありがとう🎉✨</p>
     <p class="text-gray-800">投稿したモデルコースをTwitterでも共有しよう！</p>
-    <% if @latest_model_course.spot_item_data.present? %>
-      <% spot_item_data = JSON.parse(@latest_model_course.spot_item_data) %>
-        <% first_spot = spot_item_data.first %>
-        <% recommended_spot_id = first_spot["recommended_spot_id"] %>
-        <% recommended_spot = RecommendedSpot.find_by(id: recommended_spot_id) %>
-        <% recommended_spot_image_url = recommended_spot&.img&.url %>
-    <% end %>
-    <% set_meta_tags  og: { image: image_url(recommended_spot_image_url ) }, twitter: { image: image_url(recommended_spot_image_url ) } %>
     <%= link_to "https://twitter.com/share?url=#{ model_course_url(@latest_model_course) }&text=#{@latest_model_course.user.name}さんが「#{@latest_model_course.name}」を投稿しました！%0A&hashtags=TravelModelCourse", class: 'twitter-share-button', 'data-show-count' => 'false', target: '_blank' do %>
        Tweet
     <% end %>
@@ -54,45 +46,3 @@
     </div>
   </div>
 </div>
-
-<script>
-$(function(){
-  // 変数に要素を入れる
-  var open = $('.modal-open'),
-    close = $('.modal-close'),
-    container = $('.modal-container');
-
-  //開くボタンをクリックしたらモーダルを表示する
-  open.on('click',function(){ 
-    container.addClass('active');
-    return false;
-  });
-
-  //閉じるボタンをクリックしたらモーダルを閉じる
-  close.on('click',function(){  
-    container.removeClass('active');
-  });
-
-  //モーダルの外側をクリックしたらモーダルを閉じる
-  $(document).on('click',function(e) {
-    if(!$(e.target).closest('.modal-body').length) {
-      container.removeClass('active');
-    }
-  });
-});
-
-$(function(){
-  // 新規作成画面から遷移した場合のみモーダルを表示する関数
-  function openModal() {
-    $('.modal-container').addClass('active');
-  }
-
-
-// ページのURLに show_modal パラメーターがある場合にモーダルを表示
-const queryParams = new URLSearchParams(window.location.search);
-if (queryParams.get('show_modal') === 'true') {
-  openModal();
-}
-});
-</script>
-

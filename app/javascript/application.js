@@ -6,6 +6,7 @@ import "jquery-ui";
 import "./total_spot_items.js"
 import "./count.js"
 import "./preview.js"
+import "./modal.js"
 import { Application } from 'stimulus';
 import { Autocomplete } from 'stimulus-autocomplete';
 const application = Application.start();
