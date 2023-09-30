@@ -37,6 +37,21 @@
     <div class="mt-8"></div>
     <div class="flex flex-col gap-2">
       <span class="text-gray-800">投稿ユーザー：<%= @model_course.user.name %></span>
+
+      <div class="mt-8"></div>
+      <div style="display: flex; justify-content: center;">
+        <% set_meta_tags og: { image: image_url(recommended_spot.img.url) }, twitter: { image: image_url(recommended_spot.img.url) } %>
+        <% if current_user == @model_course.user %>
+          <%= link_to "https://twitter.com/share?url=#{ model_course_url(@model_course) }&text=#{@model_course.user.name}さんがオススメのモデルコース「#{@model_course.name}」を投稿しました！%0A&hashtags=TravelModelCourse", class: 'twitter-share-button', 'data-show-count' => 'false', target: '_blank' do %>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          <% end %>
+        <% else %>
+          <%= link_to "https://twitter.com/share?url=#{ model_course_url(@model_course) }&text=#{current_user.name}さんが#{@model_course.user.name}さんのモデルコース「#{@model_course.name}」をおすすめしました！%0A&hashtags=TravelModelCourse", class: 'twitter-share-button', 'data-show-count' => 'false', target: '_blank' do %>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          <% end %>
+        <% end %>
+      </div>
+
     <div class="mt-8"></div>
       <div style="display: flex; justify-content: center;">
         <hr style="border-top: 1px solid #545454; width: 50%;">
