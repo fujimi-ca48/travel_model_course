@@ -23,7 +23,6 @@ module ApplicationHelper
       keywords: '旅行,観光,穴場スポット,モデルコース,リモートワーク,ランチ,ディナー,お出かけ',
       canonical: request.original_url,
       separator: '|',
-      noindex: !Rails.env.production?,
       og: {
         site_name: 'Travel Model Course',
         title: :title,

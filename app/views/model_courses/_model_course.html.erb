@@ -10,6 +10,7 @@
         <% recommended_spot = RecommendedSpot.find_by(id: min_recommended_spot_id) %>
         <% if recommended_spot && recommended_spot.img.present? %>
           <% image_url = recommended_spot.img.url %>
+          <% @tweet = image_url %>
         <% else %>
           <% image_url = asset_path("sample.jpg") %>
         <% end %>
