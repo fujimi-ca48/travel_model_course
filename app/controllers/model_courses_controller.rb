@@ -28,7 +28,7 @@ class ModelCoursesController < ApplicationController
     @model_course = ModelCourse.create_with_spot_items(current_user, model_course_params, selected_total_spot_items)
   
     if @model_course.persisted?
-      detail_url = model_course_url(@model_course) # 新規作成したモデルコースの詳細URLを取得
+      detail_url = model_course_url(@model_course)
       redirect_to model_courses_path(show_modal: true, detail_url: detail_url), success: t('.success')
     else
       flash.now[:danger] = t('.fail')
