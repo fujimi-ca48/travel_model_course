@@ -45,9 +45,7 @@ https://travel-model-course-e157d66b38f2.herokuapp.com/
 - Twitter共有機能
 - LINE通知機能
 - モーダルウィンドウ表示機能
-- 利用規約
-- プライバシーポリシー
-- お問い合わせ
+- テスト機能（RSpec）
 
 ### ER図
 
