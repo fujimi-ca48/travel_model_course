@@ -45,21 +45,25 @@
   <% end %>
 
   <div class="modal-container">
-    <div class="modal-body">
-      <div class="modal-close">×</div>
-      <div class="modal-content">
-        <p class="text-gray-800 text-2xl">モデルコースの投稿ありがとう🎉✨</p>
-        <div class="mt-8"></div>
-        <p class="text-gray-800">投稿したモデルコースをTwitterでも共有しよう!</p>
-        <div class="mt-8"></div>
+  <div class="modal-body">
+    <div class="modal-content">
+      <p class="text-gray-800 text-2xl">モデルコースの投稿ありがとう🎉✨</p>
+      <div class="mt-8"></div>
+      <p class="text-gray-800">みんながあなたのモデルコースを参考に出来るように</p>
+      <p class="text-gray-800">投稿したモデルコースをTwitterでも共有しよう🎁</p>
+      <div class="mt-8">
         <% if image_url.present? %>
           <% set_meta_tags og: { image: image_url }, twitter: { image: image_url } %>
         <% end %>
-        <%= link_to "https://twitter.com/share?url=#{ model_course_url(@latest_model_course) }&text=#{@latest_model_course.user.name}さんがオススメのモデルコース「#{@latest_model_course.name}」を投稿しました！%0A&hashtags=TravelModelCourse", class: 'twitter-share-button', 'data-show-count' => 'false', target: '_blank' do %>
-          Tweet
-        <% end %>
+        <div class="flex justify-between"> <!-- ここで justify-between を使用 -->
+          <%= link_to "https://twitter.com/share?url=#{ model_course_url(@latest_model_course) }&text=#{@latest_model_course.user.name}さんがオススメのモデルコース「#{@latest_model_course.name}」を投稿しました！%0A&hashtags=TravelModelCourse", class: 'twitter-share-button', 'data-show-count' => 'false', 'data-size' => 'large', target: '_blank' do %>
+            Tweet
+          <% end %>
+          <%= link_to '共有せずに戻る', model_courses_path %>
+        </div>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
     </div>
   </div>
+</div>
 <% end %>

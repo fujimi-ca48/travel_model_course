@@ -8,15 +8,6 @@ $(function(){
       return false;
     });
 
-    close.on('click',function(){  
-      container.removeClass('active');
-    });
-
-    $(document).on('click',function(e) {
-      if(!$(e.target).closest('.modal-body').length) {
-        container.removeClass('active');
-      }
-    });
   });
   
   $(function(){
